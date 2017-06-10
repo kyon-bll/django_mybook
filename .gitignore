@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 # emacs
 *~
 *\#
 
+=======
+>>>>>>> f9cc84e277732f06eca603987d041f1d6b2b7edb
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
