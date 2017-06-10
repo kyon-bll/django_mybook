@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://qiita.com/kaki_k/items/511611cadac1d0c69c54 -->
+<html xmlns:og="http://ogp.me/ns#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Python Django入門 (1) - Qiita</title><meta content="width=device-width,initial-scale=1" name="viewport"><meta content="
+
+
+はじめに
+
+
+なぜPythonを選ぶか
+
+かなり独断と偏見が入っていますが、
+
+
+シンプルな言語セット
+
+
+某言語のように、呪文のように短く書けることが命ではない。
+
+
+それでいて、書くコード量は少なく、すっきりしている。
+
+
+某言語のように、記号を多用しない。
+
+
+コードを書いている間Shiftキーを押しっぱなしにならない。
+
+
+
+
+学習コストが低い。
+
+
+言語セットとしての文法は、わりと平易で、直感で理解できる。
+難しい書き方は、後から覚えればよい。
+
+
+文法..." name="description"><meta content="summary" name="twitter:card"><meta content="@Qiita" name="twitter:site"><meta content="kaki_k" name="twitter:creator"><meta content="Python Django入門 (1) - Qiita" property="og:title"><meta content="article" property="og:type"><meta content="http://qiita.com/kaki_k/items/511611cadac1d0c69c54" property="og:url"><meta content="http://cdn.qiita.com/assets/qiita-fb-2887e7b4aad86fd8c25cea84846f2236.png" property="og:image"><meta content="
+![django-logo-negative.png](https://qiita-image-store.s3.amazonaws.com/0/48136/e3f38a61-bab7-8ad1-173b-a76b82ae8b78...." property="og:description"><meta content="Qiita" property="og:site_name"><meta content="564524038" property="fb:admins"><link rel="shortcut icon" type="image/x-icon" href="http://cdn.qiita.com/assets/favicons/public/production-4ff10c1e1e2b5fcb353ff9cafdd56c70.ico"><link rel="apple-touch-icon" type="image/png" href="http://cdn.qiita.com/assets/favicons/public/apple-touch-icon-f9a6afad761ec2306e10db2736187c8b.png"><link href="http://qiita.com/opensearch.xml" rel="search" title="Qiita" type="application/opensearchdescription+xml"><link rel="stylesheet" media="all" href="./Python Django入門 (1) - Qiita_files/public-c0679298dc61c14b0940b4ba03acab77.min.css"><meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="LYM5cTGa/HmYfXESDmhsv34JE4O9dgFqlO1MTq6bCzH8kMdMtuxHTOmgYXQA4sgnG2RE5M1SJtP7iRmsGHzQyQ=="><script type="text/javascript" async="" src="./Python Django入門 (1) - Qiita_files/pageviews"></script><script type="text/javascript" async="" src="./Python Django入門 (1) - Qiita_files/segment"></script><script async="" src="./Python Django入門 (1) - Qiita_files/tdim-0.11.2.js"></script><script async="" src="./Python Django入門 (1) - Qiita_files/uwt.js"></script><script src="./Python Django入門 (1) - Qiita_files/809797712462041" async=""></script><script src="./Python Django入門 (1) - Qiita_files/996402550503199" async=""></script><script src="./Python Django入門 (1) - Qiita_files/954575148009345" async=""></script><script src="./Python Django入門 (1) - Qiita_files/437265843064161" async=""></script><script src="./Python Django入門 (1) - Qiita_files/262978464137256" async=""></script><script src="./Python Django入門 (1) - Qiita_files/256605841418458" async=""></script><script src="./Python Django入門 (1) - Qiita_files/386990638325508" async=""></script><script async="" src="./Python Django入門 (1) - Qiita_files/fbevents.js"></script><script type="text/javascript" async="" src="./Python Django入門 (1) - Qiita_files/gtm.js"></script><script type="text/javascript" async="" src="./Python Django入門 (1) - Qiita_files/audience"></script><script async="" src="./Python Django入門 (1) - Qiita_files/itm.js"></script><script type="text/javascript" async="" src="./Python Django入門 (1) - Qiita_files/conversion_async.js"></script><script type="text/javascript" async="" src="./Python Django入門 (1) - Qiita_files/conversion_async.js"></script><script async="" src="./Python Django入門 (1) - Qiita_files/gtm(1).js"></script><script src="./Python Django入門 (1) - Qiita_files/osd.js"></script><script src="./Python Django入門 (1) - Qiita_files/ads"></script><script src="./Python Django入門 (1) - Qiita_files/ads(1)"></script><script src="./Python Django入門 (1) - Qiita_files/cb=gapi.loaded_1" async=""></script><script src="./Python Django入門 (1) - Qiita_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" charset="utf-8" async="" src="./Python Django入門 (1) - Qiita_files/button.b731e6c82269f70f6fc53634e044a4c6.js"></script><script src="./Python Django入門 (1) - Qiita_files/pubads_impl_121.js" async=""></script><script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({ skipStartupTypeset: true, showProcessingMessages: false, tex2jax: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']], processEscapes: true, processEnvironments: false, processRefs: false, skipTags: ['script','noscript','style','textarea','pre','code','a','h1','h2','h3','h4','h5','h6'] } })</script><script src="./Python Django入門 (1) - Qiita_files/MathJax.js"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_loader{background-color:#f6f7f9;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;bottom:0;left:0;right:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29487d;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f9;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(http://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block!important; overflow: hidden; width: 1px; height: 60ex; min-height: 0; max-height: none}
+.MathJax .MathJax_EmBox {display: block!important; overflow: hidden; width: 1px; height: 60em; min-height: 0; max-height: none}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Main; src: url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff?rev=2.6.0') format('woff'), url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf?rev=2.6.0') format('opentype')}
+@font-face {font-family: MathJax_Main-bold; src: url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/woff/MathJax_Main-Bold.woff?rev=2.6.0') format('woff'), url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/otf/MathJax_Main-Bold.otf?rev=2.6.0') format('opentype')}
+@font-face {font-family: MathJax_Main-italic; src: url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/woff/MathJax_Main-Italic.woff?rev=2.6.0') format('woff'), url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/otf/MathJax_Main-Italic.otf?rev=2.6.0') format('opentype')}
+@font-face {font-family: MathJax_Math-italic; src: url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff?rev=2.6.0') format('woff'), url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf?rev=2.6.0') format('opentype')}
+@font-face {font-family: MathJax_Caligraphic; src: url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Regular.woff?rev=2.6.0') format('woff'), url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf?rev=2.6.0') format('opentype')}
+@font-face {font-family: MathJax_Size1; src: url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/woff/MathJax_Size1-Regular.woff?rev=2.6.0') format('woff'), url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/otf/MathJax_Size1-Regular.otf?rev=2.6.0') format('opentype')}
+@font-face {font-family: MathJax_Size2; src: url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/woff/MathJax_Size2-Regular.woff?rev=2.6.0') format('woff'), url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/otf/MathJax_Size2-Regular.otf?rev=2.6.0') format('opentype')}
+@font-face {font-family: MathJax_Size3; src: url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/woff/MathJax_Size3-Regular.woff?rev=2.6.0') format('woff'), url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/otf/MathJax_Size3-Regular.otf?rev=2.6.0') format('opentype')}
+@font-face {font-family: MathJax_Size4; src: url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/woff/MathJax_Size4-Regular.woff?rev=2.6.0') format('woff'), url('https://cdn.qiita.com/MathJax/2.6.0/fonts/HTML-CSS/TeX/otf/MathJax_Size4-Regular.otf?rev=2.6.0') format('opentype')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><body class=" with-js"><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div id="MathJax_Message" style="display: none;"></div><noscript>&lt;iframe height="0" src="//www.googletagmanager.com/ns.html?id=GTM-TBQWPN" style="display:none;visibility:hidden" width="0"&gt;&lt;/iframe&gt;</noscript><script async="" src="./Python Django入門 (1) - Qiita_files/gtm(2).js"></script><script async="" src="./Python Django入門 (1) - Qiita_files/analytics.js"></script><script async="" src="./Python Django入門 (1) - Qiita_files/52738645.js" id="optimizely-jssdk"></script><script async="" src="./Python Django入門 (1) - Qiita_files/ga.js" id="google-analytics-jssdk"></script><script async="" src="./Python Django入門 (1) - Qiita_files/widgets.js" id="twitter-jssdk"></script><script async="" src="./Python Django入門 (1) - Qiita_files/all.js" id="facebook-jssdk"></script><script async="" src="./Python Django入門 (1) - Qiita_files/plusone.js" id="google-plusone-jssdk" gapi_processed="true"></script><script async="" src="./Python Django入門 (1) - Qiita_files/btn.js" id="pocket-btn-js"></script><script>
+  document.body.className = document.body.className.replace('without-js', '') + ' with-js';
+  window.Qiita = {"asset_host":"cdn.qiita.com","TLD":"com","controller_path":"public/items","controller_action":"public/items#show","controller":"items","action":"show","action_path":"public/items#show","env":"production","flash":{},"is_team_page":false,"request_parameters":{"controller":"public/items","action":"show","user_id":"kaki_k","type":"items","id":"511611cadac1d0c69c54"},"root_domain":"qiita.com","variant":null,"config":{"mixpanel":{"career":"dd35af27e959781713d63fd7ca898a8d","per_team":"c0a2116368b33b44b5029ebd2cc9b094","public":"be87616606b0e26a87689099aab2c4e5","team":"b7c0342acba2dbc8742484d98788efb3"},"default_locale":"ja","locale":"ja"},"team":null,"user":null,"GIT_BRANCH":null,"DEBUG":false};
+
+</script>
+<div class="headerContainer headerContainer-public" role="navigation"><script type="application/json" class="js-react-on-rails-component">{"component_name":"HeaderContainer","props":{"user":null,"team":null,"news":{"type":"Hot","content":"Markdownによる情報共有サービス、Qiita:Team","url":"https://teams.qiita.com?utm_source=qiita\u0026utm_medium=header_news"},"initial_unread_count":null,"siteid_image":"http://cdn.qiita.com/siteid-reverse.png","is_team_page":false,"on_team_setting":false,"show_post_menu":true,"show_search_menu":true,"is_fluid":false,"locale":"ja"},"trace":false,"dom_id":"HeaderContainer-react-component-ee82b09c-03c9-45ee-85c0-dfe454721f3a"}</script>
+    <div id="HeaderContainer-react-component-ee82b09c-03c9-45ee-85c0-dfe454721f3a"><header data-reactroot="" class="sharedHeader sharedHeader-public"><div class="sharedHeader_inner"><div class="sharedHeader_left"><span class="sharedHeader_logo open"><a class="sharedHeader_logo_main" href="http://qiita.com/"><span class="sharedHeader_logo_figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 26"><title>Qiita</title><path d="M24.6 12.2C24.6 6.2 20 0 12.2 0 6.2 0 0 4.6 0 12.4c0 6 4.6 12.2 12.4 12.2 2.5 0 5-.8 7.1-2.3l3.6 3.6 1.6-1.6-3.4-3.4c2.1-2.3 3.3-5.3 3.3-8.7zm-12.4-10c5.7 0 10.2 4.4 10.2 10.1 0 4.9-3.8 10.1-10.1 10.1s-10.1-5.1-10.1-10c0-6.4 5.1-10.2 10-10.2zM30.5 7.1h2.1v17h-2.1zM31.5 4.8c-1 0-1.8-.8-1.8-1.8s.8-1.8 1.8-1.8 1.8.8 1.8 1.8-.8 1.8-1.8 1.8zM40 4.8c-1 0-1.8-.8-1.8-1.8S39 1.2 40 1.2s1.8.8 1.8 1.8S41 4.8 40 4.8zM39 7.1h2.1v17H39zM53.7 24.4c-3.9 0-6.2-3-6.2-6v-16h2.1v4.7H57v2.1h-7.4v9.3c0 1.9 1.5 3.9 4.1 3.9.7 0 1.4-.2 2-.6l.2-.1 1 1.8-.2.1c-.9.5-2 .8-3 .8zM67.6 24.5c-5.7 0-9.1-4.5-9.1-8.9 0-5.7 4.5-9.1 8.9-9.1 2.3 0 4.1.8 5.4 2.3V7.1h2.1v17h-2.1v-1.9c-1.2 1.5-3 2.3-5.2 2.3zm-.2-15.9c-3.4 0-6.8 2.6-6.8 7 0 3.4 2.6 6.8 7 6.8 2 0 4-.9 5.3-2.5v-8.8c-1.4-1.6-3.3-2.5-5.5-2.5z"></path></svg></span></a></span><form class="navbar-form navbar-left searchForm" action="http://qiita.com/search" method="get"><div class="searchForm_queryWrapper"><input class="form-control searchForm_query" placeholder="キーワードを入力" autocomplete="off" name="q" value=""><div class="searchForm_wiseSearchButton"><i class="fa fa-caret-down"></i></div></div></form><div class="navbar-text headerNews hidden-xs hidden-sm"><div class="headerNews_label label label-warning">Hot</div><a class="navbar-link" target="_blank" href="https://teams.qiita.com/?utm_source=qiita&amp;utm_medium=header_news">Markdownによる情報共有サービス、Qiita:Team</a></div></div><div class="sharedHeader_right"><div class="sharedHeader_registerUser"><a class="btn btn-warning navbar-btn navbar-right" href="http://qiita.com/signup?redirect_to=%2Fkaki_k%2Fitems%2F511611cadac1d0c69c54">ユーザ登録</a></div><div class="sharedHeader_loginUser"><a data-label="LoginButtonAtNavbar" href="http://qiita.com/login?redirect_to=%2Fkaki_k%2Fitems%2F511611cadac1d0c69c54">ログイン</a></div></div></div></header></div>
+    
+</div><div id="main"><script type="application/ld+json">{  "@context": "http://schema.org",  "@type": "BreadcrumbList",  "itemListElement": [    {      "@type": "ListItem",      "position": 1,      "item": {        "@id": "/",        "name": "Qiita"      }    },    {      "@type": "ListItem",      "position": 2,      "item": {        "@id": "/items",        "name": "投稿"      }    },    {      "@type": "ListItem",      "position": 3,      "item": {        "@id": "/tags/Python",        "name": "Python"      }    }  ]}</script><article itemscope="" itemtype="http://schema.org/Article"><div class="ArticleMainHeader "><div class="container"></div><div class="container"><div class="row s-flex-align-center"><div class="col-sm-9"><h1 class="ArticleMainHeader__title" itemprop="headline">Python Django入門 (1)</h1><ul class="TagList"><li class="TagList__item" data-count="11015"><a class="u-link-unstyled TagList__label" href="http://qiita.com/tags/Python"><img alt="Python" class="TagList__icon" src="./Python Django入門 (1) - Qiita_files/medium.jpg"><span>Python</span></a></li><li class="TagList__item" data-count="720"><a class="u-link-unstyled TagList__label" href="http://qiita.com/tags/Django"><img alt="Django" class="TagList__icon" src="./Python Django入門 (1) - Qiita_files/medium(1).jpg"><span>Django</span></a></li></ul></div><div class="col-sm-3"><div class="itemsShowHeaderStock"><ul class="list-unstyled itemsShowHeaderStock_statusList"><li><div class="itemsShowHeaderStock_count stock"><span class="fa fa-thumbs-up"></span><span class="js-likecount">1108</span></div><div class="itemsShowHeaderStock_countText">いいね</div></li><li><div class="itemsShowHeaderStock_count" content="2 UserComments" itemprop="commentCount"><span class="fa fa-comment"></span>2</div><div class="itemsShowHeaderStock_countText">コメント</div></li></ul></div><div class="js-likebutton" data-props="{&quot;like_status&quot;:false,&quot;like_count&quot;:1108,&quot;uuid&quot;:&quot;511611cadac1d0c69c54&quot;,&quot;likable_type&quot;:&quot;Article&quot;,&quot;position&quot;:&quot;article-header&quot;}"><div data-reactroot="" class="LikeButton"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button></div></div><ul class="list-inline ArticleMainHeader__users"><li class="js-hovercard" data-hovercard-target-name="childmarco"><a itemprop="url" href="http://qiita.com/childmarco"><img alt="childmarco" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1473691366"></a></li><li class="js-hovercard" data-hovercard-target-name="shioRyo"><a itemprop="url" href="http://qiita.com/shioRyo"><img alt="shioRyo" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/28802865"></a></li><li class="js-hovercard" data-hovercard-target-name="zeals_corp"><a itemprop="url" href="http://qiita.com/zeals_corp"><img alt="zeals_corp" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/25512308c002a3751919b509824cf9b0"></a></li><li class="js-hovercard" data-hovercard-target-name="Uppusu"><a itemprop="url" href="http://qiita.com/Uppusu"><img alt="Uppusu" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1473716016"></a></li><li class="js-hovercard" data-hovercard-target-name="myoshi77"><a itemprop="url" href="http://qiita.com/myoshi77"><img alt="myoshi77" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/photo.jpg"></a></li><li class="js-hovercard" data-hovercard-target-name="FukuoAkiyama"><a itemprop="url" href="http://qiita.com/FukuoAkiyama"><img alt="FukuoAkiyama" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/photo(1).jpg"></a></li><li class="js-hovercard" data-hovercard-target-name="ta7uwtaka"><a itemprop="url" href="http://qiita.com/ta7uwtaka"><img alt="ta7uwtaka" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/photo(2).jpg"></a></li><li class="js-hovercard" data-hovercard-target-name="ysnhrk"><a itemprop="url" href="http://qiita.com/ysnhrk"><img alt="ysnhrk" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1473719785"></a></li><li class="js-hovercard" data-hovercard-target-name="JUN_NETWORKS"><a itemprop="url" href="http://qiita.com/JUN_NETWORKS"><img alt="JUN_NETWORKS" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1482252118"></a></li><li class="js-hovercard" data-hovercard-target-name="sinkuma"><a itemprop="url" href="http://qiita.com/sinkuma"><img alt="sinkuma" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1473684151"></a></li><li><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54/likers"><span class="fa fa-ellipsis-h"></span></a></li></ul></div></div></div></div><div class="ArticleAsideHeader"><div class="container"><div class="u-flex u-space-between"><div class="u-flex u-flex-wrap"><div class="u-flex u-align-center s-pdv-5 u-flex-wrap"><div class="ArticleAsideHeader__author"><a href="http://qiita.com/kaki_k"><img class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1473691243" alt="1473691243"></a> <a class="u-link-unstyled" href="http://qiita.com/kaki_k">kaki_k</a> </div><div class="ArticleAsideHeader__date"><meta content="2014-07-27T00:14:48+09:00" itemprop="datePublished"><span data-toggle="tooltip" title="" data-original-title="2014年07月27日に投稿"><time datetime="2016-02-18T09:03:51+09:00" itemprop="dateModified">2016年02月18日</time>に更新</span></div></div><div class="u-flex u-align-center s-pdv-5 mobile-hidden"><div class="ArticleAsideHeader__revision"> <a data-toggle="tooltip" title="" href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54/revisions" data-original-title="編集履歴"><span class="fa fa-history"></span></a><span class="ArticleAsideHeader__revisionCount">6</span></div></div><div class="u-flex u-align-center s-pdv-5 mobile-hidden"></div></div><div class="u-flex u-align-center s-flex-justiry-between s-pdv-5 u-shrink-0"><div class="ArticleAsideHeader__stock"><div class="js-stockbutton" data-position="top" data-props="{&quot;stock_status&quot;:false}"><div data-reactroot="" class="StockButton"><button><div class="StockButton__stock"><div class="fa-stack"><span class="fa fa-folder-open fa-stack-1x unstock"></span></div><!-- react-text: 6 -->&nbsp;<!-- /react-text --><span class="StockButton__label">ストック</span></div></button></div></div></div><div class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#"><span class="fa fa-ellipsis-h fa-lg"></span></a><ul class="dropdown-menu dropdown-menu-right"><li class="dropdown__item--mobile"><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54/revisions"><span class="fa fa-fw fa-history"></span> 編集履歴<span>(6)</span></a></li><li><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54.md"><span class="fa fa-fw fa-file-text-o"></span> Markdownで本文を見る</a></li><li><a data-target=".js-report-form" data-toggle="modal" href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#"><span class="fa fa-fw fa-flag"></span> 問題がある投稿を報告する</a></li></ul></div></div></div></div></div><div class="container"><div class="row" id="article-body-wrapper" style="position: relative;"><div class="col-sm-9"><section class="markdownContent markdownContent-headingEnabled js-task-list-container clearfix position-relative" id="item-511611cadac1d0c69c54" itemprop="articleBody"><div class="alert alert-warning"><i class="fa fa-clock-o"></i> この記事は最終更新日から1年以上が経過しています。</div><p><a href="./Python Django入門 (1) - Qiita_files/e3f38a61-bab7-8ad1-173b-a76b82ae8b78.png" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (1) - Qiita_files/e3f38a61-bab7-8ad1-173b-a76b82ae8b78.png" alt="django-logo-negative.png" title="django-logo-negative.png"></a></p>
+
+<h2>
+<span id="はじめに" class="fragment"></span><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"><i class="fa fa-link"></i></a>はじめに</h2>
+
+<h3>
+<span id="なぜpythonを選ぶか" class="fragment"></span><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E3%81%AA%E3%81%9Cpython%E3%82%92%E9%81%B8%E3%81%B6%E3%81%8B"><i class="fa fa-link"></i></a>なぜPythonを選ぶか</h3>
+
+<p>かなり独断と偏見が入っていますが、</p>
+
+<ul>
+<li>シンプルな言語セット
+
+<ul>
+<li>某言語のように、呪文のように短く書けることが命ではない。
+
+<ul>
+<li>それでいて、書くコード量は少なく、すっきりしている。</li>
+</ul>
+</li>
+<li>某言語のように、記号を多用しない。
+
+<ul>
+<li>コードを書いている間Shiftキーを押しっぱなしにならない。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>学習コストが低い。
+
+<ul>
+<li>言語セットとしての文法は、わりと平易で、直感で理解できる。</li>
+<li>難しい書き方は、後から覚えればよい。
+
+<ul>
+<li>文法書を読むのは、後からでいいでしょう。まずこの講座をやってみましょう。</li>
+</ul>
+</li>
+<li>Djangoフレームワークや、各種Pythonパッケージのソースを読んでも、
+
+<ul>
+<li>言語仕様を駆使した難しい書き回しは少ない。</li>
+<li>メンテナーでなくても意外と読める。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<h3>
+<span id="なぜdjangoを選ぶか" class="fragment"></span><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E3%81%AA%E3%81%9Cdjango%E3%82%92%E9%81%B8%E3%81%B6%E3%81%8B"><i class="fa fa-link"></i></a>なぜDjangoを選ぶか</h3>
+
+<ul>
+<li>
+<p>Pythonで作られたフルスタック・フレームワークであるということ。</p>
+
+<ul>
+<li>必要なものはすべて揃っている。</li>
+<li>テンプレートはあれを持ってきて、DBアクセスはあれを持ってきて、ということがない。</li>
+<li>もちろん、拡張するモジュールはあるが、基本はDjangoだけで完結する。</li>
+</ul>
+</li>
+<li>
+<p>ORM - Object Relational Mapping オブジェクト関係マッピング が優れている。</p>
+
+<ul>
+<li>DBアクセスのためにSQLを1行も書かないこともできる。 </li>
+</ul>
+</li>
+<li>
+<p>管理サイトが素晴らしい。</p>
+
+<ul>
+<li>Djangoにはscaffoldはないが、管理サイトが秀逸（詳しくは講座の中で解説します）</li>
+<li>管理サイトだけで、データ投入、データ検証ができる。</li>
+<li>特にプロトタイプを作る局面で、生産コストが下がる。</li>
+</ul>
+</li>
+<li>
+<p>学習コストが低い</p>
+
+<ul>
+<li>生の HTML、Javascript、CSSが基本だったりするが、最初に選ぶWebフレームワークとしてはシンプル。</li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<span id="この講座について" class="fragment"></span><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E3%81%93%E3%81%AE%E8%AC%9B%E5%BA%A7%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6"><i class="fa fa-link"></i></a>この講座について</h2>
+
+<p>この講座は、<a href="https://www.facebook.com/geeklab.nagano/" rel="nofollow noopener" target="_blank">GeekLab.NAGANO</a> 主催の「Django入門」講座用教材として書き起こしました。</p>
+
+<h3>
+<span id="講座の概略" class="fragment"></span><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E8%AC%9B%E5%BA%A7%E3%81%AE%E6%A6%82%E7%95%A5"><i class="fa fa-link"></i></a>講座の概略</h3>
+
+<p>「モバイル・ファースト」の時代ですが、スマートフォン・アプリケーションのバックエンド開発をDjangoで作れる人材を育てたいと願っています。</p>
+
+<p>講座の流れは、以下のようになります。</p>
+
+<ul>
+<li>Python、Djangoの開発環境構築</li>
+<li>Djangoで親子関係のあるDBモデルを定義する。</li>
+<li>DBモデルを管理サイトで保守する。</li>
+<li>DjangoのCRUDを書いてみる。</li>
+<li>Twitter Bootstrapを使う。</li>
+<li>スマホバックエンドを作る。(JSONを返すAPIを作る)</li>
+</ul>
+
+<h3>
+<span id="学習対象者" class="fragment"></span><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E5%AD%A6%E7%BF%92%E5%AF%BE%E8%B1%A1%E8%80%85"><i class="fa fa-link"></i></a>学習対象者</h3>
+
+<ul>
+<li>JavaもしくはPHPは、やったことがあるんだけど、というPython以外の開発経験がある方を想定しています。</li>
+<li>一部、UNIX的な知識が必要になるかもしれません。その場合まわりの誰かに助けを求めて下さい。</li>
+</ul>
+
+<h3>
+<span id="サンプルコード" class="fragment"></span><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89"><i class="fa fa-link"></i></a>サンプルコード</h3>
+
+<p>サンプルコードは、以下にあります。<br>
+講座の中ではコピペで構わないので、必要に応じて活用して下さい。</p>
+
+<p><a href="https://github.com/kakky/mybook19" rel="nofollow noopener" target="_blank">https://github.com/kakky/mybook19</a></p>
+
+<h3>
+<span id="使用マシン" class="fragment"></span><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E4%BD%BF%E7%94%A8%E3%83%9E%E3%82%B7%E3%83%B3"><i class="fa fa-link"></i></a>使用マシン</h3>
+
+<p>本編はMacを前提にお話します。</p>
+
+<ul>
+<li>Mac OS Xは、MacのGUIを被ったUNIXマシンです。</li>
+<li>コマンドプロンプトではなく、ターミナルは本当にUNIXターミナルです。</li>
+<li>素の状態で、各種UNIXコマンドが使えます。</li>
+<li>UNIXソースコードが、そのままコンパイルできるので、UNIXのツールがそのまま動き、Web開発の親和性が高い。</li>
+<li>アメリカ／日本のベンチャーも、勉強会に出ても、技術系ブログを検索しても、Mac比率はかなり上がってきている。</li>
+</ul>
+
+<p>会社やご家庭の財務最高責任者と相談して、Macを導入しましょう。</p>
+
+<p>とは言え、Windowsを使っている方も多いと思うので、環境構築の部分はWindows、Macのそれぞれを説明いたします。</p>
+
+<p>それでは、</p>
+
+<ul>
+<li><a href="http://qiita.com/kaki_k/items/1fff7fefcf26dc4b69bc" id="reference-0e581a008ca55f2e05c4">Python Django入門 (2) Win編</a></li>
+<li><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551" id="reference-57f99f75de3592591f68">Python Django入門 (2) Mac編</a></li>
+</ul>
+
+<p>のどちらかに進んで下さい。</p>
+
+<blockquote>
+<p>【更新履歴】<br>
+* Django 1.7 -&gt; Django 1.9<br>
+* eclipse -&gt; PyCharm<br>
+で書き直しました。<br>
+微妙に変わっているので、学習途中の方は、すみません。</p>
+</blockquote>
+<div class="hidden"><form class="js-task-list-update" action="http://qiita.com/kaki_k/items/511611cadac1d0c69c54" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="LYM5cTGa/HmYfXESDmhsv34JE4O9dgFqlO1MTq6bCzH8kMdMtuxHTOmgYXQA4sgnG2RE5M1SJtP7iRmsGHzQyQ=="><input type="hidden" name="updated_at_confirmation_in_unixtime" id="updated_at_confirmation_in_unixtime" value="1455753831" class="js-task-list-updated-at"><textarea name="raw_body" id="raw_body" class="js-task-list-field">
+![django-logo-negative.png](https://qiita-image-store.s3.amazonaws.com/0/48136/e3f38a61-bab7-8ad1-173b-a76b82ae8b78.png "django-logo-negative.png")
+
+はじめに
+-------
+
+### なぜPythonを選ぶか
+
+かなり独断と偏見が入っていますが、
+
+* シンプルな言語セット
+    - 某言語のように、呪文のように短く書けることが命ではない。
+        - それでいて、書くコード量は少なく、すっきりしている。
+    - 某言語のように、記号を多用しない。
+        - コードを書いている間Shiftキーを押しっぱなしにならない。
+* 学習コストが低い。
+    - 言語セットとしての文法は、わりと平易で、直感で理解できる。
+    - 難しい書き方は、後から覚えればよい。
+        - 文法書を読むのは、後からでいいでしょう。まずこの講座をやってみましょう。
+    - Djangoフレームワークや、各種Pythonパッケージのソースを読んでも、
+        - 言語仕様を駆使した難しい書き回しは少ない。
+        - メンテナーでなくても意外と読める。
+
+### なぜDjangoを選ぶか
+
+* Pythonで作られたフルスタック・フレームワークであるということ。
+    - 必要なものはすべて揃っている。
+    - テンプレートはあれを持ってきて、DBアクセスはあれを持ってきて、ということがない。
+    - もちろん、拡張するモジュールはあるが、基本はDjangoだけで完結する。
+
+* ORM - Object Relational Mapping オブジェクト関係マッピング が優れている。
+    - DBアクセスのためにSQLを1行も書かないこともできる。 
+* 管理サイトが素晴らしい。
+    - Djangoにはscaffoldはないが、管理サイトが秀逸（詳しくは講座の中で解説します）
+    - 管理サイトだけで、データ投入、データ検証ができる。
+    - 特にプロトタイプを作る局面で、生産コストが下がる。
+* 学習コストが低い
+    - 生の HTML、Javascript、CSSが基本だったりするが、最初に選ぶWebフレームワークとしてはシンプル。
+
+この講座について
+-------------
+
+この講座は、[GeekLab.NAGANO](https://www.facebook.com/geeklab.nagano/) 主催の「Django入門」講座用教材として書き起こしました。
+
+### 講座の概略
+
+「モバイル・ファースト」の時代ですが、スマートフォン・アプリケーションのバックエンド開発をDjangoで作れる人材を育てたいと願っています。
+
+講座の流れは、以下のようになります。
+
+* Python、Djangoの開発環境構築
+* Djangoで親子関係のあるDBモデルを定義する。
+* DBモデルを管理サイトで保守する。
+* DjangoのCRUDを書いてみる。
+* Twitter Bootstrapを使う。
+* スマホバックエンドを作る。(JSONを返すAPIを作る)
+
+### 学習対象者
+
+* JavaもしくはPHPは、やったことがあるんだけど、というPython以外の開発経験がある方を想定しています。
+* 一部、UNIX的な知識が必要になるかもしれません。その場合まわりの誰かに助けを求めて下さい。
+
+### サンプルコード
+
+サンプルコードは、以下にあります。
+講座の中ではコピペで構わないので、必要に応じて活用して下さい。
+
+[https://github.com/kakky/mybook19](https://github.com/kakky/mybook19)
+
+### 使用マシン
+
+本編はMacを前提にお話します。
+
+* Mac OS Xは、MacのGUIを被ったUNIXマシンです。
+* コマンドプロンプトではなく、ターミナルは本当にUNIXターミナルです。
+* 素の状態で、各種UNIXコマンドが使えます。
+* UNIXソースコードが、そのままコンパイルできるので、UNIXのツールがそのまま動き、Web開発の親和性が高い。
+* アメリカ／日本のベンチャーも、勉強会に出ても、技術系ブログを検索しても、Mac比率はかなり上がってきている。
+
+会社やご家庭の財務最高責任者と相談して、Macを導入しましょう。
+
+とは言え、Windowsを使っている方も多いと思うので、環境構築の部分はWindows、Macのそれぞれを説明いたします。
+
+それでは、
+
+* [Python Django入門 (2) Win編](http://qiita.com/kaki_k/items/1fff7fefcf26dc4b69bc)
+* [Python Django入門 (2) Mac編](http://qiita.com/kaki_k/items/e824cfcf089e75d43551)
+
+のどちらかに進んで下さい。
+
+&gt; 【更新履歴】
+&gt; * Django 1.7 -&gt; Django 1.9
+&gt; * eclipse -&gt; PyCharm
+&gt; で書き直しました。
+&gt; 微妙に変わっているので、学習途中の方は、すみません。
+</textarea><input type="submit" name="commit" value="Save changes" data-disable-with="Save changes"></form></div></section></div><div class="col-sm-3"><div id="div-gpt-ad-1493084685571-0" style="height:250px; width:300px; margin-bottom: 20px;" data-google-query-id="CL2IprbXstQCFZPPvAodbM8BnA"><div id="google_ads_iframe_/383564218/qiita.com_items-show_sidebar-top_0__container__" style="border: 0pt none; display: inline-block; width: 300px; height: 250px;"><iframe frameborder="0" src="./Python Django入門 (1) - Qiita_files/container.html" id="google_ads_iframe_/383564218/qiita.com_items-show_sidebar-top_0" title="3rd party ad content" name="" scrolling="no" marginwidth="0" marginheight="0" width="300" height="250" data-is-safeframe="true" style="border: 0px; vertical-align: bottom;"></iframe></div></div><div class="socialButtons"><div class="socialButtons_twitter"><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./Python Django入門 (1) - Qiita_files/tweet_button.7bf2b0e802ada47dae9548b7a1739fed.en.html" style="position: static; visibility: visible; width: 60px; height: 20px;" data-url="http://qiita.com/kaki_k/items/511611cadac1d0c69c54"></iframe></div><div class="socialButtons_hatebu"><iframe class="hatena-bookmark-button-frame" title="はてブに追加" frameborder="0" scrolling="no" width="47" height="20" src="javascript:false" style="width: 47px; height: 20px;" src="./Python Django入門 (1) - Qiita_files/saved_resource.html"></iframe><script async="async" charset="utf-8" src="./Python Django入門 (1) - Qiita_files/bookmark_button.js" type="text/javascript"></script></div><div class="socialButtons_googlePlus"><div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1497077267920" name="I0_1497077267920" src="./Python Django入門 (1) - Qiita_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div></div><div class="socialButtons_facebook"><div class="fb-like fb_iframe_widget" data-action="like" data-href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54" data-layout="button_count" data-share="false" data-show-faces="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=222621691108322&amp;container_width=0&amp;href=http%3A%2F%2Fqiita.com%2Fkaki_k%2Fitems%2F511611cadac1d0c69c54&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=false&amp;show_faces=false"><span style="vertical-align: bottom; width: 63px; height: 20px;"><iframe name="f19386bf86239c8" width="1000px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./Python Django入門 (1) - Qiita_files/like.html" style="border: none; visibility: visible; width: 63px; height: 20px;" class=""></iframe></span></div></div><div class="socialButtons_pocket"><div class="pocket-btn"><iframe width="135" height="22" id="pocket-button-0" frameborder="0" allowtransparency="true" scrolling="NO" src="./Python Django入門 (1) - Qiita_files/button.html"></iframe></div></div></div><section class="itemsShowAuthorInfo" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="http://qiita.com/kaki_k"><img alt="" class="itemsShowAuthorInfo_userIcon" itemprop="image" src="./Python Django入門 (1) - Qiita_files/1473691243"></a><div class="itemsShowAuthorInfo_profileStats"><strong class="itemsShowAuthorInfo_userName" itemprop="name"><a itemprop="url" href="http://qiita.com/kaki_k">kaki_k</a></strong><div class="itemsShowAuthorInfo_contribution"><span class="itemsShowAuthorInfo_count">2097</span><span class="itemsShowAuthorInfo_unit">Contribution</span></div><script type="application/json" id="js-react-on-rails-context">null</script>
+<script type="application/json" class="js-react-on-rails-component">{"component_name":"UserFollowButton","props":{"initial_followed_by":false,"position":"author-info","size":"btn-xs","url_name":"kaki_k"},"trace":false,"dom_id":"UserFollowButton-react-component-8e5ed148-bbad-41d8-af38-8038632e7496"}</script>
+    <div id="UserFollowButton-react-component-8e5ed148-bbad-41d8-af38-8038632e7496"><span data-reactroot="" class="userFollowButton"><button class="btn btn-default btn-block userFollowButton_inner btn-xs"><i class="i fa fa-user-plus"></i><!-- react-text: 4 -->フォロー<!-- /react-text --></button></span></div>
+    
+</div><section class="itemsShowAuthorPopularItems"><h5 class="itemsShowAuthorPopularItems_sectionTitle">人気の投稿</h5><ul class="itemsShowAuthorPopularItems_posts list-unstyled"><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54">Python Django入門 (1)</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551">Python Django入門 (2) Mac編</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d">Python Django入門 (3)</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/6e17597804437ef170ae">Python Django入門 (4)</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c">Python Django入門 (6)</a></li></ul></section></section><div class="scroll-chaser"><div class="ad_frame_right_banner_1"><div class="bigmining_zone_16"><a href="http://dg-ads-adserver.bigmining.com/www/delivery/ck.php?oaparams=2__bannerid=476__zoneid=16__source=_cat%28Python%29_cat%28Django%29__OXLCA=1__cb=66263c1a02__oadest=http%3A%2F%2Fwww.find-job.net%2Fjob%2Fpickup.pl%3Futm_source%3Dads%26utm_medium%3Dqiita" target="_blank"><img src="./Python Django入門 (1) - Qiita_files/002____.png" width="300" height="250" alt="" title="" border="0"></a><div id="beacon_66263c1a02" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./Python Django入門 (1) - Qiita_files/lg.php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</div></div><script async="" charset="UTF-8" defer="" src="./Python Django入門 (1) - Qiita_files/adjs_set_pro.js" type="text/javascript"></script></div><script type="application/json" class="js-react-on-rails-component">{"component_name":"Toc","props":{"body":"\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB\"\u003eはじめに\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%81%AA%E3%81%9Cpython%E3%82%92%E9%81%B8%E3%81%B6%E3%81%8B\"\u003eなぜPythonを選ぶか\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%81%AA%E3%81%9Cdjango%E3%82%92%E9%81%B8%E3%81%B6%E3%81%8B\"\u003eなぜDjangoを選ぶか\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%81%93%E3%81%AE%E8%AC%9B%E5%BA%A7%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6\"\u003eこの講座について\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#%E8%AC%9B%E5%BA%A7%E3%81%AE%E6%A6%82%E7%95%A5\"\u003e講座の概略\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E5%AD%A6%E7%BF%92%E5%AF%BE%E8%B1%A1%E8%80%85\"\u003e学習対象者\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89\"\u003eサンプルコード\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E4%BD%BF%E7%94%A8%E3%83%9E%E3%82%B7%E3%83%B3\"\u003e使用マシン\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n","wrapper":"#article-body-wrapper"},"trace":false,"dom_id":"Toc-react-component-40ae6668-1804-430a-9854-dea39f914391"}</script>
+    <div id="Toc-react-component-40ae6668-1804-430a-9854-dea39f914391"><div style="position: relative; top: 0px; height: 0px;"></div><div data-reactroot="" class="tocTree" style="width: 230px; position: relative; top: 0px;"><div class="tocTree_contents nav" style="max-height: 772px;"><ul>
+<li>
+<a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">はじめに</a>
+<ul>
+<li>
+<a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E3%81%AA%E3%81%9Cpython%E3%82%92%E9%81%B8%E3%81%B6%E3%81%8B">なぜPythonを選ぶか</a>
+</li>
+<li>
+<a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E3%81%AA%E3%81%9Cdjango%E3%82%92%E9%81%B8%E3%81%B6%E3%81%8B">なぜDjangoを選ぶか</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E3%81%93%E3%81%AE%E8%AC%9B%E5%BA%A7%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">この講座について</a>
+<ul>
+<li>
+<a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E8%AC%9B%E5%BA%A7%E3%81%AE%E6%A6%82%E7%95%A5">講座の概略</a>
+</li>
+<li>
+<a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E5%AD%A6%E7%BF%92%E5%AF%BE%E8%B1%A1%E8%80%85">学習対象者</a>
+</li>
+<li>
+<a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89">サンプルコード</a>
+</li>
+<li>
+<a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#%E4%BD%BF%E7%94%A8%E3%83%9E%E3%82%B7%E3%83%B3">使用マシン</a>
+</li>
+</ul>
+</li>
+</ul>
+</div></div></div>
+    
+</div></div><div class="row"><div class="col-sm-9"><div style="text-align: center;"><div style="display:inline-block;margin:10px;"><div id="div-gpt-ad-1489567219879-0" style="height:280px; width:336px;" data-google-query-id="CNmpprbXstQCFRYZvAodHq8FjQ"><div id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-left_0__container__" style="border: 0pt none; display: inline-block; width: 336px; height: 280px;"><iframe frameborder="0" src="./Python Django入門 (1) - Qiita_files/container(1).html" id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-left_0" title="3rd party ad content" name="" scrolling="no" marginwidth="0" marginheight="0" width="336" height="280" data-is-safeframe="true" style="border: 0px; vertical-align: bottom;"></iframe></div></div></div><div style="display:inline-block;margin:10px;"><div id="div-gpt-ad-1489568123856-0" style="height:280px; width:336px;" data-google-query-id="CNqpprbXstQCFRYZvAodHq8FjQ"><div id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-right_0__container__" style="border: 0pt none; display: inline-block; width: 336px; height: 280px;"><iframe frameborder="0" src="./Python Django入門 (1) - Qiita_files/container(2).html" id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-right_0" title="3rd party ad content" name="" scrolling="no" marginwidth="0" marginheight="0" width="336" height="280" data-is-safeframe="true" style="border: 0px; vertical-align: bottom;"></iframe></div></div></div></div><div class="ArticleFooter__menu"><div class="s-flex-align-center"><div class="js-likebutton" data-props="{&quot;like_status&quot;:false,&quot;like_count&quot;:1108,&quot;show_count&quot;:true,&quot;uuid&quot;:&quot;511611cadac1d0c69c54&quot;,&quot;likable_type&quot;:&quot;Article&quot;,&quot;position&quot;:&quot;article-footer&quot;}"><div data-reactroot="" class="LikeButton"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">1108</div></div></div><div class="ArticleFooter__userList"><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="akmiyoshi"><a itemprop="url" href="http://qiita.com/akmiyoshi"><img alt="akmiyoshi" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1473685997"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="ytsunetsune"><a itemprop="url" href="http://qiita.com/ytsunetsune"><img alt="ytsunetsune" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1473760628"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="sys_cat"><a itemprop="url" href="http://qiita.com/sys_cat"><img alt="sys_cat" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1473683977"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="kou_tana77"><a itemprop="url" href="http://qiita.com/kou_tana77"><img alt="kou_tana77" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1473690481"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="k-motoyan"><a itemprop="url" href="http://qiita.com/k-motoyan"><img alt="k-motoyan" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1473685191"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="applideveloper"><a itemprop="url" href="http://qiita.com/applideveloper"><img alt="applideveloper" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1475026490"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="sotoshigoto"><a itemprop="url" href="http://qiita.com/sotoshigoto"><img alt="sotoshigoto" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1473685534"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="kasumani"><a itemprop="url" href="http://qiita.com/kasumani"><img alt="kasumani" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1473683087"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="task_woof"><a itemprop="url" href="http://qiita.com/task_woof"><img alt="task_woof" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1473685166"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="opponitur"><a itemprop="url" href="http://qiita.com/opponitur"><img alt="opponitur" class="thumb thumb--xs" src="./Python Django入門 (1) - Qiita_files/1473690970"></a></div></div><div class="ArticleFooter__user"><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54/likers"><span class="fa fa-ellipsis-h"></span></a></div></div></div><div class="u-flex u-align-center"><div class="ArticleFooter__stock"><div class="js-stockbutton" data-position="footer_menu" data-props="{&quot;stock_status&quot;:false}"><div data-reactroot="" class="StockButton"><button><div class="StockButton__stock"><div class="fa-stack"><span class="fa fa-folder-open fa-stack-1x unstock"></span></div><!-- react-text: 6 -->&nbsp;<!-- /react-text --><span class="StockButton__label">ストック</span></div></button></div></div></div><div class="ArticleFooter__editRequest"><a class="u-link-no-underline" data-toggle="tooltip" title="" href="http://qiita.com/drafts/511611cadac1d0c69c54/edit" data-original-title="投稿者に記事をより良くするための提案ができます 💪"><span class="fa fa-send-o fa-lg"></span> <span>編集リクエスト</span></a></div><div class="dropdown ArticleFooter__dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#"><span class="fa fa-ellipsis-h"></span></a><ul class="dropdown-menu dropdown-menu-right"><li><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54.md"><span class="fa fa-fw fa-file-text-o"></span> Markdownで本文を見る</a></li><li><a data-target=".js-report-form" data-toggle="modal" href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#"><i class="fa fa-fw fa-flag"></i> 問題がある投稿を報告する</a></li></ul></div></div></div><ul class="references js-referencesView"><li class="references_header"><i class="fa fa-fw fa-link"></i> この記事は以下の記事からリンクされています</li><a class="references_toggleOldReferences js-toggleOldReferences" href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#"><i class="fa fa-expand js-toggleOldReferencesIcon"></i><span class="js-toggleOldReferencesText">過去の3件を表示する</span></a><li class="references_reference js-reference js-oldReference"><a href="http://qiita.com/xtatsux/items/0eb69fca7fa39df61cf3#_reference-4f1f186ca917c96d1a41"><img alt="" width="18" height="18" src="./Python Django入門 (1) - Qiita_files/1473693804">DjangoをHerokuにデプロイ</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2015-01-10T09:30:50+00:00">2年以上前</time></li><li class="references_reference js-reference js-oldReference"><a href="http://qiita.com/sayamada/items/1b970a8fcdf2337b8a83#_reference-7c832092ddf9d3f4f14f"><img alt="" width="18" height="18" src="./Python Django入門 (1) - Qiita_files/1473690004">Djangoの備忘録</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2015-11-14T02:14:06+00:00">1年以上前</time></li><li class="references_reference js-reference js-oldReference"><a href="http://qiita.com/minicoohei/items/b1e9f18e3b4ede5b2bdc#_reference-74198f53fcef5aad43f5"><img alt="" width="18" height="18" src="./Python Django入門 (1) - Qiita_files/1473690020">さくらVPS+django+scikit-learnで指定した顔の類似画像（エロ動画）検索できるサイトを作るまで</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2016-06-28T18:40:17+00:00">12ヶ月前</time></li><li class="references_reference js-reference"><a href="http://qiita.com/takechanman/items/d711e175b32f833c5e9c#_reference-771d7a2736645936cb43"><img alt="" width="18" height="18" src="./Python Django入門 (1) - Qiita_files/1473707826">Django入門にはDjango Girls Tutorialがおすすめ</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2016-08-12T14:28:52+00:00">10ヶ月前</time></li><li class="references_reference js-reference"><a href="http://qiita.com/Mabuchin/items/784c261c58f29785ac56#_reference-b39d8eb834df68158092"><img alt="" width="18" height="18" src="./Python Django入門 (1) - Qiita_files/1473700670">DjangoでNetwork機器のダッシュボードを作ろう！</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2016-12-06T21:15:18+00:00">6ヶ月前</time></li><li class="references_reference js-reference"><a href="http://qiita.com/gelehrte/items/857536509471b6b2d4a4#_reference-a61f40bf1884d829197d"><img alt="" width="18" height="18" src="./Python Django入門 (1) - Qiita_files/1737323">Mac + Windows + VisualStudio CodeでPythonの開発環境を整える（Mac版）</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2017-01-09T05:57:54+00:00">5ヶ月前</time></li><li class="references_reference js-reference"><a href="http://qiita.com/gelehrte/items/7a02b3df666217895c68#_reference-76e5ece13687daf40b0d"><img alt="" width="18" height="18" src="./Python Django入門 (1) - Qiita_files/1737323">Mac + Windows + VisualStudio CodeでPythonの開発環境を整える（Windows版）</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2017-01-09T05:58:56+00:00">5ヶ月前</time></li><li class="references_reference js-reference"><a href="http://qiita.com/gkmaro634/items/8152b8ba9572dc5b5aa5#_reference-24a5eeb361ef59bdd41e"><img alt="" width="18" height="18" src="./Python Django入門 (1) - Qiita_files/1473706831">Etherpad-liteのAPIをPythonで叩く</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2017-04-11T15:06:34+00:00">約2ヶ月前</time></li></ul><div class="itemsShowBody_articleColumnFooter"><div class="socialButtons"><div class="socialButtons_twitter"><iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./Python Django入門 (1) - Qiita_files/tweet_button.7bf2b0e802ada47dae9548b7a1739fed.en(1).html" style="position: static; visibility: visible; width: 60px; height: 20px;" data-url="http://qiita.com/kaki_k/items/511611cadac1d0c69c54"></iframe></div><div class="socialButtons_hatebu"><iframe class="hatena-bookmark-button-frame" title="はてブに追加" frameborder="0" scrolling="no" width="47" height="20" src="javascript:false" style="width: 47px; height: 20px;" src="./Python Django入門 (1) - Qiita_files/saved_resource(1).html"></iframe><script async="async" charset="utf-8" src="./Python Django入門 (1) - Qiita_files/bookmark_button.js" type="text/javascript"></script></div><div class="socialButtons_googlePlus"><div id="___plusone_1" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I1_1497077267929" name="I1_1497077267929" src="./Python Django入門 (1) - Qiita_files/fastbutton(1).html" data-gapiattached="true" title="+1"></iframe></div></div><div class="socialButtons_facebook"><div class="fb-like fb_iframe_widget" data-action="like" data-href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54" data-layout="button_count" data-share="false" data-show-faces="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=222621691108322&amp;container_width=0&amp;href=http%3A%2F%2Fqiita.com%2Fkaki_k%2Fitems%2F511611cadac1d0c69c54&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=false&amp;show_faces=false"><span style="vertical-align: bottom; width: 63px; height: 20px;"><iframe name="f12c61d06efa68" width="1000px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./Python Django入門 (1) - Qiita_files/like(1).html" style="border: none; visibility: visible; width: 63px; height: 20px;" class=""></iframe></span></div></div><div class="socialButtons_pocket"><div class="pocket-btn"><iframe width="135" height="22" id="pocket-button-1" frameborder="0" allowtransparency="true" scrolling="NO" src="./Python Django入門 (1) - Qiita_files/button(1).html"></iframe></div></div></div></div><div class="itemsShowComment_wrapper" id="comments"><script type="application/json" class="js-react-on-rails-component">{"component_name":"PublicCommentListContainer","props":{"currentUser":null,"initialComments":[{"banned":false,"body":"\u003cp\u003e\u003ca href=\"http://qiita.com/kaki_k/items/511611cadac1d0c69c54\" class=\"autolink\"\u003ehttp://qiita.com/kaki_k/items/511611cadac1d0c69c54\u003c/a\u003e\u003cbr\u003e\nPython Django入門 (1)\u003cbr\u003e\nPython Django入門 (2) Win編\u003cbr\u003e\nPython Django入門 (2) Mac編　があり\u003cbr\u003e\nUbuntu（LINUX）編と言うのが無いので、追加して欲しいです。\u003c/p\u003e\n","created_at":"2015-11-21T21:06:02+09:00","expanded_references":"","id":392465,"is_team":false,"item_id":99727,"item_type":"PublicDomainArticle","item_uuid":"511611cadac1d0c69c54","likable":false,"liked":false,"public_likes_count":1,"raw_body":"http://qiita.com/kaki_k/items/511611cadac1d0c69c54\nPython Django入門 (1)\nPython Django入門 (2) Win編\nPython Django入門 (2) Mac編　があり\nUbuntu（LINUX）編と言うのが無いので、追加して欲しいです。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/511611cadac1d0c69c54#comment-7fd53313898ca5e5f6eb","user":{"contribution":0,"created_at":"2015-08-27T08:06:34+09:00","id":91299,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/91299/profile-images/1473705262","suspended":false,"url_name":"Mongo_user"},"uuid":"7fd53313898ca5e5f6eb","via_email":false},{"banned":false,"body":"\u003cp\u003eDebian系のインストール方法：\u003c/p\u003e\n\n\u003cp\u003e$ sudo aptitude install python-django\u003c/p\u003e\n\n\u003cp\u003e上記コマンドでインストール出来ました。\u003cbr\u003e\nちなみにLinux MMINT 17.3です。\u003c/p\u003e\n","created_at":"2016-12-25T15:23:08+09:00","expanded_references":"","id":706693,"is_team":false,"item_id":99727,"item_type":"PublicDomainArticle","item_uuid":"511611cadac1d0c69c54","likable":false,"liked":false,"public_likes_count":0,"raw_body":"Debian系のインストール方法：\n\n$ sudo aptitude install python-django\n\n上記コマンドでインストール出来ました。\nちなみにLinux MMINT 17.3です。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/511611cadac1d0c69c54#comment-c763d6670b09aca81a42","user":{"contribution":2,"created_at":"2013-06-01T09:37:40+09:00","id":25141,"is_admin":false,"profile_image_url":"https://secure.gravatar.com/avatar/136a22346c5b91dbbf14cb656fa09ca1?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png","suspended":false,"url_name":"yuuhayashi@github"},"uuid":"c763d6670b09aca81a42","via_email":false}],"monthly_public_image_uploadable_size_limit":null,"total_uploaded_public_image_size_in_current_month":null,"item":{"id":99727,"uuid":"511611cadac1d0c69c54","suspended":false,"secret":false},"owner":{"url_name":"kaki_k"},"is_team":false,"is_project":false,"logged_in":false,"polling":false,"mention_candidates":[{"id":48136,"url_name":"kaki_k","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/48136/profile-images/1473691243"},{"id":91299,"url_name":"Mongo_user","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/91299/profile-images/1473705262"},{"id":25141,"url_name":"yuuhayashi@github","profile_image_url":"https://secure.gravatar.com/avatar/136a22346c5b91dbbf14cb656fa09ca1?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"}]},"trace":false,"dom_id":"PublicCommentListContainer-react-component-1d3046aa-3711-4101-8301-5b047ca1b12b"}</script>
+    <div id="PublicCommentListContainer-react-component-1d3046aa-3711-4101-8301-5b047ca1b12b"><div data-reactroot="" class="commentList"><noscript></noscript><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/Mongo_user"><span title="Mongo_user" itemprop="url" href="/Mongo_user"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (1) - Qiita_files/1473705262"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/Mongo_user">Mongo_user</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">0</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#comment-7fd53313898ca5e5f6eb"><time datetime="2015-11-21T21:06:02+09:00" itemprop="commentTime">2015-11-21 21:06</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">1</div></div></div></div><div class="comment_content"><div class="markdownContent"><p><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54" class="autolink">http://qiita.com/kaki_k/items/511611cadac1d0c69c54</a><br>
+Python Django入門 (1)<br>
+Python Django入門 (2) Win編<br>
+Python Django入門 (2) Mac編　があり<br>
+Ubuntu（LINUX）編と言うのが無いので、追加して欲しいです。</p>
+</div><!-- react-text: 26 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/yuuhayashi@github"><span title="yuuhayashi@github" itemprop="url" href="/yuuhayashi@github"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (1) - Qiita_files/136a22346c5b91dbbf14cb656fa09ca1"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/yuuhayashi@github">yuuhayashi@github</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">2</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#comment-c763d6670b09aca81a42"><time datetime="2016-12-25T15:23:08+09:00" itemprop="commentTime">2016-12-25 15:23</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>Debian系のインストール方法：</p>
+
+<p>$ sudo aptitude install python-django</p>
+
+<p>上記コマンドでインストール出来ました。<br>
+ちなみにLinux MMINT 17.3です。</p>
+</div><!-- react-text: 50 --><!-- /react-text --></div></div></div></div>
+    
+</div></div></div></div></article><div class="js-report-form modal fade reportForm"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button name="button" type="submit" class="close" data-dismiss="modal">×</button><h4 class="modal-title">問題がある投稿を報告する</h4></div><div class="modal-body"><form action="http://qiita.com/reports" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="LYM5cTGa/HmYfXESDmhsv34JE4O9dgFqlO1MTq6bCzH8kMdMtuxHTOmgYXQA4sgnG2RE5M1SJtP7iRmsGHzQyQ=="><input type="hidden" name="redirect_path" id="redirect_path" value="/kaki_k/items/511611cadac1d0c69c54"><input type="hidden" name="item_uuid" id="item_uuid" value="511611cadac1d0c69c54"><p>この投稿にどのような問題がありますか？</p><br><div class="form-group"><ul class="list-unstyled"><li><label><input type="radio" name="report_type" id="report_type_spam" value="spam" required="required"> スパムです </label></li><li><label><input type="radio" name="report_type" id="report_type_harassment" value="harassment" required="required"> 攻撃的または迷惑な内容を含んでいます </label></li><li><label><input type="radio" name="report_type" id="report_type_inappropriate_content" value="inappropriate_content" required="required"> 不適切な内容を含んでいます </label></li></ul></div><div class="reportForm_submitButtonContainer"><button name="button" type="submit" class="btn btn-primary reportForm_submitButton"><i class="fa fa-send"></i> 送信</button></div></form></div></div></div></div><script id="js-item" type="application/json">{ "url": "http://qiita.com/kaki_k/items/511611cadac1d0c69c54", "id": 99727, "uuid": "511611cadac1d0c69c54" }</script><script class="js-user" type="application/json">{&quot;id&quot;:48136,&quot;url_name&quot;:&quot;kaki_k&quot;,&quot;profile_image_url&quot;:&quot;https://qiita-image-store.s3.amazonaws.com/0/48136/profile-images/1473691243&quot;}</script><script language="JavaScript" src="./Python Django入門 (1) - Qiita_files/qiita_bigmining.js" type="text/javascript"></script></div><script src="./Python Django入門 (1) - Qiita_files/adrequest.js"></script><footer class="footer"><div class="footer_inner"><div class="footer_container"><ul class="footer_links-left"><li class="footer_link"><a class="footer_copyright" href="http://increments.co.jp/">© 2011-2017 Increments Inc.</a></li><li class="footer_link"><a href="http://qiita.com/terms">利用規約</a></li><li class="footer_link"><a href="http://qiita.com/privacy">プライバシー</a></li><li class="footer_link"><a href="http://help.qiita.com/">ヘルプ</a></li><li class="footer_link"><a href="https://increments.zendesk.com/anonymous_requests/new">お問い合わせ</a></li></ul><ul class="footer_links-right"><li class="footer_link"><a href="http://qiita.com/about">Qiitaとは</a></li><li class="footer_link"><a href="http://qiita.com/users">ユーザー</a></li><li class="footer_link"><a href="http://qiita.com/tags">タグ</a></li><li class="footer_link"><a href="http://blog.qiita.com/">ブログ</a></li><li class="footer_link"><a href="http://qiita.com/api/v2/docs">API</a></li><li class="footer_link"><a href="https://teams.qiita.com/">Team</a></li><li class="footer_link"><a href="http://kobito.qiita.com/">Kobito</a></li><li class="footer_link"><a class="js-public-form-feedback-link" data-target=".js-feedback-form" data-toggle="modal" href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54"><i class="fa fa-heart"></i> ご意見 <i class="fa fa-caret-down"></i></a></li></ul></div></div></footer><div class="js-feedback-form modal fade feedbackForm"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button name="button" type="submit" class="close" data-dismiss="modal">×</button><h4 class="modal-title">ご意見</h4></div><div class="modal-body"><form class="js-feedback-form-form" action="http://qiita.com/feedbacks" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="LYM5cTGa/HmYfXESDmhsv34JE4O9dgFqlO1MTq6bCzH8kMdMtuxHTOmgYXQA4sgnG2RE5M1SJtP7iRmsGHzQyQ=="><input type="hidden" name="redirect_path" id="redirect_path" value="/kaki_k/items/511611cadac1d0c69c54"><div class="form-group"><textarea name="feedback[message]" id="feedback_message" class="form-control js-feedback-form-text-area" placeholder="Qiitaについてのご意見をお聞かせください。" required="required" rows="5"></textarea></div><div class="feedbackForm_submitButtonContainer"><button name="button" type="submit" class="btn btn-primary feedbackForm_submitButton"><i class="fa fa-send"></i> 送信</button><p class="feedbackForm_note">いただいたご意見への返信は行っておりません。<br>返信の必要な内容については、<a href="https://increments.zendesk.com/anonymous_requests/new">こちら</a> からお問い合わせください。</p></div><div style="position:fixed;top:-99999px;opacity:0.0001;"><input name="feedback[name]" type="text"></div></form></div></div></div></div><script>// if (window.mixpanel instanceof Element) {
+//   window.mixpanel = [];
+// }
+// (function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+// for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);</script><script src="./Python Django入門 (1) - Qiita_files/public-ea9634d328dd01703100922f07784313.min.js"></script><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Python Django入門 (1) - Qiita_files/0F7S7QWJ0Ac.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Python Django入門 (1) - Qiita_files/0F7S7QWJ0Ac(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div><script>
+  (function () {
+    var script = document.getElementsByTagName('script')[0];
+    var load = function (src, id) {
+      var el = document.createElement('script');
+      el.async = true;
+      el.src = src;
+      el.id = id;
+      script.parentNode.insertBefore(el, script);
+    };
+      // Optimizely
+      load('//cdn.optimizely.com/js/52738645.js', 'optimizely-jssdk');
+      // Google Analytics
+      window._gaq = window._gaq || [];
+      var isCareer = location.hostname.split('.')[0] == 'career';
+      if (isCareer) {
+        window._gaq.push(['_setAccount', 'UA-24675221-11']);
+        window._gaq.push(['_setDomainName', 'qiita.com']);
+      } else {
+        window._gaq.push(['_setAccount', 'UA-24675221-1']);
+      }
+      window._gaq.push(['_setCustomVar', 1, 'logged_in', 'false', 2]);
+      window._gaq.push(['_trackPageview']);
+      var src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      load(src, 'google-analytics-jssdk');
+    // Google Analytics - Universal Analytics
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-24675221-12', {
+          
+        });
+        ga('set', 'dimension1', 'false');
+        ga('set', 'dimension3', 'false');
+      ga('require', 'displayfeatures');
+      ga('set', 'forceSSL', true);
+      ga('send', 'pageview');
+    // Google Tag Manager
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-TBQWPN');
+  })();
+</script>
+<div class="ReactModalPortal"><div data-reactroot=""></div></div><script type="text/javascript" id="">var googletag=googletag||{};googletag.cmd=googletag.cmd||[];googletag.cmd.push(function(){googletag.defineSlot("/383564218/qiita.com_items-show_under-article-left",[336,280],"div-gpt-ad-1489567219879-0").addService(googletag.pubads());googletag.pubads().enableSingleRequest();googletag.pubads().collapseEmptyDivs();googletag.enableServices()});
+googletag.cmd.push(function(){googletag.defineSlot("/383564218/qiita.com_items-show_under-article-right",[336,280],"div-gpt-ad-1489568123856-0").addService(googletag.pubads());googletag.pubads().enableSingleRequest();googletag.pubads().collapseEmptyDivs();googletag.enableServices()});
+$(function(){var a=$("\x3cdiv\x3e").css("text-align","center").append("\x3cdiv style\x3d'display:inline-block;margin:10px;'\x3e\x3cdiv id\x3d'div-gpt-ad-1489567219879-0' style\x3d'height:280px; width:336px;'\x3e\x3c/div\x3e\x3c/div\x3e").append("\x3cdiv style\x3d'display:inline-block;margin:10px;'\x3e\x3cdiv id\x3d'div-gpt-ad-1489568123856-0' style\x3d'height:280px; width:336px;'\x3e\x3c/div\x3e\x3c/div\x3e");$(".ArticleFooter__menu").before(a);googletag.cmd.push(function(){googletag.display("div-gpt-ad-1489567219879-0")});
+googletag.cmd.push(function(){googletag.display("div-gpt-ad-1489568123856-0")})});</script>
+<script type="text/javascript" id="">var googletag=googletag||{};googletag.cmd=googletag.cmd||[];googletag.cmd.push(function(){googletag.defineSlot("/383564218/qiita.com_items-show_sidebar-top",[300,250],"div-gpt-ad-1493084685571-0").addService(googletag.pubads());googletag.pubads().enableSingleRequest();googletag.pubads().collapseEmptyDivs();googletag.enableServices()});</script>
+
+
+<script type="text/javascript" id="">$("#article-body-wrapper \x3e .col-sm-3").prepend("\x3cdiv id\x3d'div-gpt-ad-1493084685571-0' style\x3d'height:250px; width:300px; margin-bottom: 20px;'\x3e");googletag.cmd.push(function(){googletag.display("div-gpt-ad-1493084685571-0")});</script><script type="text/javascript" id="" src="./Python Django入門 (1) - Qiita_files/gpt.js"></script><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe" src="./Python Django入門 (1) - Qiita_files/saved_resource(2).html"></iframe><iframe name="oauth2relay874821100" id="oauth2relay874821100" src="./Python Django入門 (1) - Qiita_files/postmessageRelay.html" tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><img src="./Python Django入門 (1) - Qiita_files/adevent" width="0" height="0" style="display: none;"><img src="./Python Django入門 (1) - Qiita_files/dmp" width="1" height="1" border="0" style="display: none;"><img src="./Python Django入門 (1) - Qiita_files/pixel" width="1" height="1" border="0" style="display: none;"><img src="./Python Django入門 (1) - Qiita_files/adsct" width="1" height="1" border="0" style="display: none;"><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-58Z82M');</script><iframe id="google_osd_static_frame_1984553646134" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./Python Django入門 (1) - Qiita_files/saved_resource(3).html"></iframe><div style="display: none; visibility: hidden;"><script type="text/javascript">(function(b,a,c){b=a.getElementsByTagName(c)[0];a=a.createElement(c);a.async=!0;a.src="//dmp.im-apps.net/js/6638/0001/itm.js";b.parentNode.insertBefore(a,b)})(window,document,"script");</script></div><div style="display: none; visibility: hidden;"><iframe src="./Python Django入門 (1) - Qiita_files/activityi.html" width="1" height="1" frameborder="0" style="display:none"></iframe></div><div style="display: none; visibility: hidden;"><iframe src="./Python Django入門 (1) - Qiita_files/activityi(1).html" width="1" height="1" frameborder="0" style="display:none"></iframe></div><div style="display: none; visibility: hidden;">
+<script src="./Python Django入門 (1) - Qiita_files/oct.js" type="text/javascript"></script>
+<script type="text/javascript">twttr.conversion.trackPid("nv2kc",{tw_sale_amount:0,tw_order_quantity:0});</script>
+<noscript></noscript>
+</div><div style="display: none; visibility: hidden;">
+<script>!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","809797712462041");fbq("track","PageView");</script>
+<noscript></noscript>
+</div><div style="display: none; visibility: hidden;">
+<script>!function(b,c,d,a){b.twq||(a=b.twq=function(){a.exe?a.exe.apply(a,arguments):a.queue.push(arguments)},a.version="1",a.queue=[],t=c.createElement(d),t.async=!0,t.src="//static.ads-twitter.com/uwt.js",s=c.getElementsByTagName(d)[0],s.parentNode.insertBefore(t,s))}(window,document,"script");twq("init","nve3t");twq("track","PageView");</script>
+</div><div style="display: none; visibility: hidden;">
+<script>!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","996402550503199");fbq("track","PageView");</script>
+<noscript></noscript>
+
+</div><div style="display: none; visibility: hidden;">
+<script>!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","954575148009345");fbq("track","PageView");</script>
+<noscript></noscript>
+
+</div><div style="display: none; visibility: hidden;">
+<script>!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","437265843064161");fbq("track","PageView");</script>
+<noscript></noscript>
+
+
+</div><div style="display: none; visibility: hidden;">
+<script src="./Python Django入門 (1) - Qiita_files/oct.js" type="text/javascript"></script>
+<script type="text/javascript">twttr.conversion.trackPid("nw0lq",{tw_sale_amount:0,tw_order_quantity:0});</script>
+<noscript></noscript>
+</div><div style="display: none; visibility: hidden;">
+<script src="./Python Django入門 (1) - Qiita_files/oct.js" type="text/javascript"></script>
+<script type="text/javascript">twttr.conversion.trackPid("nw1xy",{tw_sale_amount:0,tw_order_quantity:0});</script>
+<noscript></noscript>
+</div><div style="display: none; visibility: hidden;">
+<script src="./Python Django入門 (1) - Qiita_files/oct.js" type="text/javascript"></script>
+<script type="text/javascript">twttr.conversion.trackPid("nw9n2",{tw_sale_amount:0,tw_order_quantity:0});</script>
+<noscript></noscript>
+</div><div style="display: none; visibility: hidden;">
+<script>!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","262978464137256");fbq("track","PageView");</script>
+<noscript></noscript>
+
+
+</div><div style="display: none; visibility: hidden;">
+<script>!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","256605841418458");fbq("track","PageView");</script>
+<noscript></noscript>
+
+
+</div><div style="display: none; visibility: hidden;">
+<script>!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","386990638325508");fbq("track","PageView");</script>
+<noscript></noscript>
+
+
+</div><div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: MathJax_Size1, Times;"></div></div><script src="./Python Django入門 (1) - Qiita_files/adsct(1)" type="text/javascript"></script><script type="text/javascript" id="">!function(c,d,b,f){if(!d[c]){d[c]=function(){d[c].instances.push(this);this.init&&this.init()};d[c].instances=[];for(var a=0,e=["td_send","td_send_imid"];a<e.length;a++)d[c].prototype[e[a]]=function(a){return function(){this["tmp_"+a]=this["tmp_"+a]||[];this["tmp_"+a].push(Array.prototype.slice.call(arguments))}}(e[a]);a=b.getElementsByTagName(f)[0];b=b.createElement(f);b.async=!0;b.src="//cf.im-apps.net/sdk/tdim-0.11.2.js";a.parentNode.insertBefore(b,a)}}("TDIM",window,document,"script");var t=new TDIM;
+t.td_api_key="4633/44ab22321675f37f93c94f1c53265720999626e1";t.td_db="6638";t.im_api_token="omO0CDJd98sxiIkb8Mzm7Q";t.gtm_dl="dataLayer";t.td_send_imid("pageviews",{qiita_search_categories:google_tag_manager["GTM-5SNCW4"].macro('gtm5')});</script><script type="text/javascript" id="">(function(a){var b=a.createElement("iframe"),c="https:"==a.location.protocol?"https://":"http://";b.src=c+"cf.im-apps.net/imid/beacon.html";b.style.display="none";a.body.appendChild(b)})(document);</script><iframe src="./Python Django入門 (1) - Qiita_files/beacon.html" style="display: none;"></iframe><script src="./Python Django入門 (1) - Qiita_files/adsct(2)" type="text/javascript"></script><script src="./Python Django入門 (1) - Qiita_files/adsct(3)" type="text/javascript"></script><script src="./Python Django入門 (1) - Qiita_files/adsct(3)" type="text/javascript"></script><script src="./Python Django入門 (1) - Qiita_files/adsct(4)" type="text/javascript"></script><script src="./Python Django入門 (1) - Qiita_files/adsct(3)" type="text/javascript"></script><script src="./Python Django入門 (1) - Qiita_files/adsct(5)" type="text/javascript"></script><script src="./Python Django入門 (1) - Qiita_files/adsct(3)" type="text/javascript"></script><form method="post" action="https://www.facebook.com/tr/" target="fb0310465775791275" accept-charset="utf-8" style="display: none;"><iframe src="javascript:false" id="fb0310465775791275" name="fb0310465775791275" src="./Python Django入門 (1) - Qiita_files/saved_resource(4).html"></iframe><input name="id"><input name="ev"><input name="dl"><input name="rl"><input name="if"><input name="ts"><input name="cd[Schema.org]"><input name="cd[OpenGraph]"><input name="v"><input name="o"></form><form method="post" action="https://www.facebook.com/tr/" target="fb06381002463438676" accept-charset="utf-8" style="display: none;"><iframe src="javascript:false" id="fb06381002463438676" name="fb06381002463438676" src="./Python Django入門 (1) - Qiita_files/saved_resource(5).html"></iframe><input name="id"><input name="ev"><input name="dl"><input name="rl"><input name="if"><input name="ts"><input name="cd[Schema.org]"><input name="cd[OpenGraph]"><input name="v"><input name="o"></form></body></html>

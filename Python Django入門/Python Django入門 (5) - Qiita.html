@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://qiita.com/kaki_k/items/ebc8d8b07434e1721756 -->
+<html xmlns:og="http://ogp.me/ns#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Python Django入門 (5) - Qiita</title><meta content="width=device-width,initial-scale=1" name="viewport"><meta content="
+
+子モデルのCRUD
+
+
+子の読み方
+
+親の書籍に対して、子の感想の一覧を表示してみます。
+
+cms/models.py で、感想は書籍を外部キーとして持つよう定義しました。
+
+
+class Impression(models.Model):
+    &quot;&quot;&quot;感想&quot;&quot;&quot;
+    book = models.ForeignKey(Book, verbose_name=&#39;書籍&#39;, related_name=&#39;impressions&#39;)
+    comment = model..." name="description"><meta content="summary" name="twitter:card"><meta content="@Qiita" name="twitter:site"><meta content="kaki_k" name="twitter:creator"><meta content="Python Django入門 (5) - Qiita" property="og:title"><meta content="article" property="og:type"><meta content="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756" property="og:url"><meta content="http://cdn.qiita.com/assets/qiita-fb-2887e7b4aad86fd8c25cea84846f2236.png" property="og:image"><meta content="
+子モデルのCRUD
+-------------
+
+### 子の読み方
+
+親の書籍に対して、子の感想の一覧を表示してみます。
+
+`cms/models.py` で、感想は書籍を外部キーとして持つよう定義しました。
+
+```python..." property="og:description"><meta content="Qiita" property="og:site_name"><meta content="564524038" property="fb:admins"><link rel="shortcut icon" type="image/x-icon" href="http://cdn.qiita.com/assets/favicons/public/production-4ff10c1e1e2b5fcb353ff9cafdd56c70.ico"><link rel="apple-touch-icon" type="image/png" href="http://cdn.qiita.com/assets/favicons/public/apple-touch-icon-f9a6afad761ec2306e10db2736187c8b.png"><link href="http://qiita.com/opensearch.xml" rel="search" title="Qiita" type="application/opensearchdescription+xml"><link rel="stylesheet" media="all" href="./Python Django入門 (5) - Qiita_files/public-c0679298dc61c14b0940b4ba03acab77.min.css"><meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="T9XTZgmMfuQdQ+prYODnscuCIoKOKCEdmwvlXhWJXwGexi1bjvrF0Wye+g1uakMpru915f4MBqT0b7C8o26E+Q=="><script src="./Python Django入門 (5) - Qiita_files/ads"></script><script src="./Python Django入門 (5) - Qiita_files/ads(1)"></script><script src="./Python Django入門 (5) - Qiita_files/cb=gapi.loaded_1" async=""></script><script src="./Python Django入門 (5) - Qiita_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" charset="utf-8" async="" src="./Python Django入門 (5) - Qiita_files/button.b731e6c82269f70f6fc53634e044a4c6.js"></script><script src="./Python Django入門 (5) - Qiita_files/pubads_impl_121.js" async=""></script></head><body class=" with-js"><noscript>&lt;iframe height="0" src="//www.googletagmanager.com/ns.html?id=GTM-TBQWPN" style="display:none;visibility:hidden" width="0"&gt;&lt;/iframe&gt;</noscript><script async="" src="./Python Django入門 (5) - Qiita_files/gtm.js"></script><script async="" src="./Python Django入門 (5) - Qiita_files/analytics.js"></script><script async="" src="./Python Django入門 (5) - Qiita_files/52738645.js" id="optimizely-jssdk"></script><script async="" src="./Python Django入門 (5) - Qiita_files/ga.js" id="google-analytics-jssdk"></script><script async="" src="./Python Django入門 (5) - Qiita_files/widgets.js" id="twitter-jssdk"></script><script async="" src="./Python Django入門 (5) - Qiita_files/all.js" id="facebook-jssdk"></script><script async="" src="./Python Django入門 (5) - Qiita_files/plusone.js" id="google-plusone-jssdk" gapi_processed="true"></script><script async="" src="./Python Django入門 (5) - Qiita_files/btn.js" id="pocket-btn-js"></script><script>
+  document.body.className = document.body.className.replace('without-js', '') + ' with-js';
+  window.Qiita = {"asset_host":"cdn.qiita.com","TLD":"com","controller_path":"public/items","controller_action":"public/items#show","controller":"items","action":"show","action_path":"public/items#show","env":"production","flash":{},"is_team_page":false,"request_parameters":{"controller":"public/items","action":"show","user_id":"kaki_k","type":"items","id":"ebc8d8b07434e1721756"},"root_domain":"qiita.com","variant":null,"config":{"mixpanel":{"career":"dd35af27e959781713d63fd7ca898a8d","per_team":"c0a2116368b33b44b5029ebd2cc9b094","public":"be87616606b0e26a87689099aab2c4e5","team":"b7c0342acba2dbc8742484d98788efb3"},"default_locale":"ja","locale":"ja"},"team":null,"user":null,"GIT_BRANCH":null,"DEBUG":false};
+
+</script>
+<div class="headerContainer headerContainer-public" role="navigation"><script type="application/json" class="js-react-on-rails-component">{"component_name":"HeaderContainer","props":{"user":null,"team":null,"news":{"type":"News","content":"ストックの他に「いいね」が追加されました","url":"http://blog.qiita.com/post/153200849029/qiita-like-button"},"initial_unread_count":null,"siteid_image":"http://cdn.qiita.com/siteid-reverse.png","is_team_page":false,"on_team_setting":false,"show_post_menu":true,"show_search_menu":true,"is_fluid":false,"locale":"ja"},"trace":false,"dom_id":"HeaderContainer-react-component-ac111d86-337f-449c-86b6-ec16ab65b945"}</script>
+    <div id="HeaderContainer-react-component-ac111d86-337f-449c-86b6-ec16ab65b945"><header data-reactroot="" class="sharedHeader sharedHeader-public"><div class="sharedHeader_inner"><div class="sharedHeader_left"><span class="sharedHeader_logo open"><a class="sharedHeader_logo_main" href="http://qiita.com/"><span class="sharedHeader_logo_figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 26"><title>Qiita</title><path d="M24.6 12.2C24.6 6.2 20 0 12.2 0 6.2 0 0 4.6 0 12.4c0 6 4.6 12.2 12.4 12.2 2.5 0 5-.8 7.1-2.3l3.6 3.6 1.6-1.6-3.4-3.4c2.1-2.3 3.3-5.3 3.3-8.7zm-12.4-10c5.7 0 10.2 4.4 10.2 10.1 0 4.9-3.8 10.1-10.1 10.1s-10.1-5.1-10.1-10c0-6.4 5.1-10.2 10-10.2zM30.5 7.1h2.1v17h-2.1zM31.5 4.8c-1 0-1.8-.8-1.8-1.8s.8-1.8 1.8-1.8 1.8.8 1.8 1.8-.8 1.8-1.8 1.8zM40 4.8c-1 0-1.8-.8-1.8-1.8S39 1.2 40 1.2s1.8.8 1.8 1.8S41 4.8 40 4.8zM39 7.1h2.1v17H39zM53.7 24.4c-3.9 0-6.2-3-6.2-6v-16h2.1v4.7H57v2.1h-7.4v9.3c0 1.9 1.5 3.9 4.1 3.9.7 0 1.4-.2 2-.6l.2-.1 1 1.8-.2.1c-.9.5-2 .8-3 .8zM67.6 24.5c-5.7 0-9.1-4.5-9.1-8.9 0-5.7 4.5-9.1 8.9-9.1 2.3 0 4.1.8 5.4 2.3V7.1h2.1v17h-2.1v-1.9c-1.2 1.5-3 2.3-5.2 2.3zm-.2-15.9c-3.4 0-6.8 2.6-6.8 7 0 3.4 2.6 6.8 7 6.8 2 0 4-.9 5.3-2.5v-8.8c-1.4-1.6-3.3-2.5-5.5-2.5z"></path></svg></span></a></span><form class="navbar-form navbar-left searchForm" action="http://qiita.com/search" method="get"><div class="searchForm_queryWrapper"><input class="form-control searchForm_query" placeholder="キーワードを入力" autocomplete="off" name="q" value=""><div class="searchForm_wiseSearchButton"><i class="fa fa-caret-down"></i></div></div></form><div class="navbar-text headerNews hidden-xs hidden-sm"><div class="headerNews_label label label-warning">News</div><a class="navbar-link" target="_blank" href="http://blog.qiita.com/post/153200849029/qiita-like-button">ストックの他に「いいね」が追加されました</a></div></div><div class="sharedHeader_right"><div class="sharedHeader_registerUser"><a class="btn btn-warning navbar-btn navbar-right" href="http://qiita.com/signup?redirect_to=%2Fkaki_k%2Fitems%2Febc8d8b07434e1721756">ユーザ登録</a></div><div class="sharedHeader_loginUser"><a data-label="LoginButtonAtNavbar" href="http://qiita.com/login?redirect_to=%2Fkaki_k%2Fitems%2Febc8d8b07434e1721756">ログイン</a></div></div></div></header></div>
+    
+</div><div id="main"><script type="application/ld+json">{  "@context": "http://schema.org",  "@type": "BreadcrumbList",  "itemListElement": [    {      "@type": "ListItem",      "position": 1,      "item": {        "@id": "/",        "name": "Qiita"      }    },    {      "@type": "ListItem",      "position": 2,      "item": {        "@id": "/items",        "name": "投稿"      }    },    {      "@type": "ListItem",      "position": 3,      "item": {        "@id": "/tags/Python",        "name": "Python"      }    }  ]}</script><article itemscope="" itemtype="http://schema.org/Article"><div class="ArticleMainHeader "><div class="container"></div><div class="container"><div class="row s-flex-align-center"><div class="col-sm-9"><h1 class="ArticleMainHeader__title" itemprop="headline">Python Django入門 (5)</h1><ul class="TagList"><li class="TagList__item" data-count="11015"><a class="u-link-unstyled TagList__label" href="http://qiita.com/tags/Python"><img alt="Python" class="TagList__icon" src="./Python Django入門 (5) - Qiita_files/medium.jpg"><span>Python</span></a></li><li class="TagList__item" data-count="720"><a class="u-link-unstyled TagList__label" href="http://qiita.com/tags/Django"><img alt="Django" class="TagList__icon" src="./Python Django入門 (5) - Qiita_files/medium(1).jpg"><span>Django</span></a></li></ul></div><div class="col-sm-3"><div class="itemsShowHeaderStock"><ul class="list-unstyled itemsShowHeaderStock_statusList"><li><div class="itemsShowHeaderStock_count stock"><span class="fa fa-thumbs-up"></span><span class="js-likecount">73</span></div><div class="itemsShowHeaderStock_countText">いいね</div></li><li><div class="itemsShowHeaderStock_count" content="16 UserComments" itemprop="commentCount"><span class="fa fa-comment"></span>16</div><div class="itemsShowHeaderStock_countText">コメント</div></li></ul></div><div class="js-likebutton" data-props="{&quot;like_status&quot;:false,&quot;like_count&quot;:73,&quot;uuid&quot;:&quot;ebc8d8b07434e1721756&quot;,&quot;likable_type&quot;:&quot;Article&quot;,&quot;position&quot;:&quot;article-header&quot;}"></div><ul class="list-inline ArticleMainHeader__users"><li class="js-hovercard" data-hovercard-target-name="zeals_corp"><a itemprop="url" href="http://qiita.com/zeals_corp"><img alt="zeals_corp" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/25512308c002a3751919b509824cf9b0"></a></li><li class="js-hovercard" data-hovercard-target-name="ta7uwtaka"><a itemprop="url" href="http://qiita.com/ta7uwtaka"><img alt="ta7uwtaka" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/photo.jpg"></a></li><li class="js-hovercard" data-hovercard-target-name="muripo_life"><a itemprop="url" href="http://qiita.com/muripo_life"><img alt="muripo_life" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1473708759"></a></li><li class="js-hovercard" data-hovercard-target-name="dondoco7"><a itemprop="url" href="http://qiita.com/dondoco7"><img alt="dondoco7" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1473683812"></a></li><li class="js-hovercard" data-hovercard-target-name="0xmks"><a itemprop="url" href="http://qiita.com/0xmks"><img alt="0xmks" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1488637264"></a></li><li class="js-hovercard" data-hovercard-target-name="teratera"><a itemprop="url" href="http://qiita.com/teratera"><img alt="teratera" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1473714745"></a></li><li class="js-hovercard" data-hovercard-target-name="akaneko3"><a itemprop="url" href="http://qiita.com/akaneko3"><img alt="akaneko3" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1473685982"></a></li><li class="js-hovercard" data-hovercard-target-name="Codei_P"><a itemprop="url" href="http://qiita.com/Codei_P"><img alt="Codei_P" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1473688127"></a></li><li class="js-hovercard" data-hovercard-target-name="kfujita"><a itemprop="url" href="http://qiita.com/kfujita"><img alt="kfujita" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/7808f16a80989e21147c185b17ec2d27"></a></li><li class="js-hovercard" data-hovercard-target-name="sato32ha6"><a itemprop="url" href="http://qiita.com/sato32ha6"><img alt="sato32ha6" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1477056637"></a></li><li><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756/likers"><span class="fa fa-ellipsis-h"></span></a></li></ul></div></div></div></div><div class="ArticleAsideHeader"><div class="container"><div class="u-flex u-space-between"><div class="u-flex u-flex-wrap"><div class="u-flex u-align-center s-pdv-5 u-flex-wrap"><div class="ArticleAsideHeader__author"><a href="http://qiita.com/kaki_k"><img class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1473691243" alt="1473691243"></a> <a class="u-link-unstyled" href="http://qiita.com/kaki_k">kaki_k</a> </div><div class="ArticleAsideHeader__date"><meta content="2014-07-27T00:23:07+09:00" itemprop="datePublished"><span data-toggle="tooltip" title="" data-original-title="2014年07月27日に投稿"><time datetime="2016-02-18T01:53:53+09:00" itemprop="dateModified">2016年02月18日</time>に更新</span></div></div><div class="u-flex u-align-center s-pdv-5 mobile-hidden"><div class="ArticleAsideHeader__revision"> <a data-toggle="tooltip" title="" href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756/revisions" data-original-title="編集履歴"><span class="fa fa-history"></span></a><span class="ArticleAsideHeader__revisionCount">6</span></div></div><div class="u-flex u-align-center s-pdv-5 mobile-hidden"><div class="ArticleAsideHeader__editRequest"><span class="fa fa-inbox"></span><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756/patches">編集リクエスト</a><span class="ArticleAsideHeader__editRequestCount">1</span></div></div></div><div class="u-flex u-align-center s-flex-justiry-between s-pdv-5 u-shrink-0"><div class="ArticleAsideHeader__stock"><div class="js-stockbutton" data-position="top" data-props="{&quot;stock_status&quot;:false}"></div></div><div class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#"><span class="fa fa-ellipsis-h fa-lg"></span></a><ul class="dropdown-menu dropdown-menu-right"><li class="dropdown__item--mobile"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756/revisions"><span class="fa fa-fw fa-history"></span> 編集履歴<span>(6)</span></a></li><li><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756.md"><span class="fa fa-fw fa-file-text-o"></span> Markdownで本文を見る</a></li><li class="dropdown__item--mobile"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756/patches"><span class="fa fa-fw fa-inbox"></span> 編集リクエスト<span>(1)</span></a></li><li><a data-target=".js-report-form" data-toggle="modal" href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#"><span class="fa fa-fw fa-flag"></span> 問題がある投稿を報告する</a></li></ul></div></div></div></div></div><div class="container"><div class="row" id="article-body-wrapper" style="position: relative;"><div class="col-sm-9"><section class="markdownContent markdownContent-headingEnabled js-task-list-container clearfix position-relative" id="item-ebc8d8b07434e1721756" itemprop="articleBody"><div class="alert alert-warning"><i class="fa fa-clock-o"></i> この記事は最終更新日から1年以上が経過しています。</div>
+<h2>
+<span id="子モデルのcrud" class="fragment"></span><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEcrud"><i class="fa fa-link"></i></a>子モデルのCRUD</h2>
+
+<h3>
+<span id="子の読み方" class="fragment"></span><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AE%E8%AA%AD%E3%81%BF%E6%96%B9"><i class="fa fa-link"></i></a>子の読み方</h3>
+
+<p>親の書籍に対して、子の感想の一覧を表示してみます。</p>
+
+<p><code>cms/models.py</code> で、感想は書籍を外部キーとして持つよう定義しました。</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Impression</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">"""感想"""</span>
+    <span class="n">book</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Book</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s">'書籍'</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">'impressions'</span><span class="p">)</span>
+    <span class="n">comment</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s">'コメント'</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div></div>
+
+<p>よって、書籍に紐づく子供の感想は、related_nameを使って、以下のように読み出すことができます。<br><br>
+ここでも SQL は書きません。</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="n">impressions</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">impressions</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">'id'</span><span class="p">)</span>   <span class="c"># 書籍の子供の、感想を読む</span>
+</pre></div></div>
+
+<h3>
+<span id="子の一覧のビュー" class="fragment"></span><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AE%E4%B8%80%E8%A6%A7%E3%81%AE%E3%83%93%E3%83%A5%E3%83%BC"><i class="fa fa-link"></i></a>子の一覧のビュー</h3>
+
+<p>今回は、<code>汎用ビュー</code> の ListView を使って書いてみます。<br><br>
+これを使うと、ページングなどが簡単に実現できます。</p>
+
+<p><code>cms/views.py</code> に以下の記述を追加します。</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.views.generic.list</span> <span class="kn">import</span> <span class="n">ListView</span>
+  <span class="p">:</span>
+
+<span class="k">class</span> <span class="nc">ImpressionList</span><span class="p">(</span><span class="n">ListView</span><span class="p">):</span>
+    <span class="sd">"""感想の一覧"""</span>
+    <span class="n">context_object_name</span><span class="o">=</span><span class="s">'impressions'</span>
+    <span class="n">template_name</span><span class="o">=</span><span class="s">'cms/impression_list.html'</span>
+    <span class="n">paginate_by</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c"># １ページは最大2件ずつでページングする</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">book</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Book</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s">'book_id'</span><span class="p">])</span>  <span class="c"># 親の書籍を読む</span>
+        <span class="n">impressions</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">impressions</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">'id'</span><span class="p">)</span>   <span class="c"># 書籍の子供の、感想を読む</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">object_list</span> <span class="o">=</span> <span class="n">impressions</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="n">object_list</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">object_list</span><span class="p">,</span> <span class="n">book</span><span class="o">=</span><span class="n">book</span><span class="p">)</span>    
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_to_response</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+</pre></div></div>
+
+<h3>
+<span id="子の一覧のテンプレート" class="fragment"></span><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AE%E4%B8%80%E8%A6%A7%E3%81%AE%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88"><i class="fa fa-link"></i></a>子の一覧のテンプレート</h3>
+
+<p>BootStrapを応用して、</p>
+
+<ul>
+<li>ページングありの時、「前へ、1、2、次へ」などのページ番号を表すリンクを置く。</li>
+<li>削除する時、いきなり消すのではなく、確認のモーダルダイアログを出す。</li>
+</ul>
+
+<p>ということをしています。ちょっと長いです。</p>
+
+<p><code>mybook/cms/templates/base_html</code> を継承して <code>mybook/cms/templates/cms/impression_list.html</code> を作成します。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>{% extends "base.html" %}
+
+{% block title %}感想の一覧{% endblock title %}
+
+{% block extrahead %}
+&lt;script&gt;
+$(function() {
+  $('.del_confirm').on('click', function () {
+     $("#del_pk").text($(this).attr("pk"));
+     $('#del_url').attr('href', $(this).attr("url"));
+  });
+});
+&lt;/script&gt;
+&lt;style&gt;
+table {
+  margin-top: 8px;
+}
+&lt;/style&gt;
+{% endblock %}
+
+{% block content %}
+    &lt;h3 class="page-header"&gt;感想の一覧 &lt;small&gt;{{ book.name }}&lt;/small&gt;&lt;/h3&gt;
+    &lt;a href="{% url 'cms:impression_add' book_id=book.id %}" class="btn btn-default btn-sm"&gt;追加&lt;/a&gt;
+    &lt;table class="table table-striped table-bordered"&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;ID&lt;/th&gt;
+          &lt;th&gt;コメント&lt;/th&gt;
+          &lt;th&gt;操作&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        {% for impression in impressions %}
+        &lt;tr&gt;
+          &lt;td&gt;{{ impression.id }}&lt;/td&gt;
+          &lt;td&gt;{{ impression.comment|linebreaksbr }}&lt;/td&gt;
+          &lt;td&gt;
+            &lt;a href="{% url 'cms:impression_mod' book_id=book.id impression_id=impression.id %}" class="btn btn-default btn-sm"&gt;修正&lt;/a&gt;
+            &lt;button class="btn btn-default btn-sm del_confirm" data-toggle="modal" data-target="#deleteModal" pk="{{ impression.id }}" url="{% url 'cms:impression_del' book_id=book.id impression_id=impression.id %}"&gt;削除&lt;/button&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+        {% endfor %}
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    {% if is_paginated %}
+    &lt;ul class="pagination"&gt;
+      {% if page_obj.has_previous %}
+        &lt;li&gt;&lt;a href="?page={{ page_obj.previous_page_number }}"&gt;&amp;laquo;&lt;/a&gt;&lt;/li&gt;
+      {% else %}
+        &lt;li class="disabled"&gt;&lt;a href="#"&gt;&amp;laquo;&lt;/a&gt;&lt;/li&gt;
+      {% endif %}
+      {% for linkpage in page_obj.paginator.page_range %}
+        {% ifequal linkpage page_obj.number %}
+          &lt;li  class="active"&gt;&lt;a href="#"&gt;{{ linkpage }}&lt;/a&gt;&lt;/li&gt;
+        {% else %}
+          &lt;li&gt;&lt;a href="?page={{ linkpage }}"&gt;{{ linkpage }}&lt;/a&gt;&lt;/li&gt;
+        {% endifequal %}
+      {% endfor %}
+      {% if page_obj.has_next %}
+        &lt;li&gt;&lt;a href="?page={{ page_obj.next_page_number }}"&gt;&amp;raquo;&lt;/a&gt;&lt;/li&gt;
+      {% else %}
+        &lt;li class="disabled"&gt;&lt;a href="#"&gt;&amp;raquo;&lt;/a&gt;&lt;/li&gt;
+      {% endif %}
+    &lt;/ul&gt;
+    {% endif %}
+
+    &lt;div&gt;
+      &lt;a href="{% url 'cms:book_list' %}" class="btn btn-default btn-sm"&gt;戻る&lt;/a&gt;
+    &lt;/div&gt;
+
+{# 削除を確認するモーダル ダイアログ #}
+&lt;div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true"&gt;
+  &lt;div class="modal-dialog"&gt;
+    &lt;div class="modal-content"&gt;
+      &lt;div class="modal-header"&gt;
+        &lt;button type="button" class="close" data-dismiss="modal" aria-hidden="true"&gt;&amp;times;&lt;/button&gt;
+        &lt;h4 class="modal-title" id="deleteModalLabel"&gt;確認&lt;/h4&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-body"&gt;
+        &lt;p&gt;ID: &lt;span id="del_pk"&gt;&lt;/span&gt; を削除しますか？&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-footer"&gt;
+        &lt;a href="#" class="btn btn-primary" id="del_url"&gt;OK&lt;/a&gt;
+        &lt;button type="button" class="btn btn-default" data-dismiss="modal"&gt;Cancel&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+{% endblock content %}
+</pre></div></div>
+
+<p>出来上がる一覧ページは、以下のようなものとなります。</p>
+
+<p><a href="./Python Django入門 (5) - Qiita_files/715a9833-84ca-2184-7687-2fd4f83c6dcd.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (5) - Qiita_files/715a9833-84ca-2184-7687-2fd4f83c6dcd.jpeg" alt="cms03.jpg" title="cms03.jpg"></a></p>
+
+<h3>
+<span id="子の追加修正のフォーム" class="fragment"></span><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AE%E8%BF%BD%E5%8A%A0%E4%BF%AE%E6%AD%A3%E3%81%AE%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0"><i class="fa fa-link"></i></a>子の追加、修正のフォーム</h3>
+
+<p><code>cms/forms.py</code> に以下のように追加します。<br><br>
+ここでは、<code>cms/models.py</code> の Impression モデルを追加、修正するための元となるフォームを作成します。</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre>  <span class="p">:</span>
+<span class="kn">from</span> <span class="nn">cms.models</span> <span class="kn">import</span> <span class="n">Book</span><span class="p">,</span> <span class="n">Impression</span>
+  <span class="p">:</span>
+
+<span class="k">class</span> <span class="nc">ImpressionForm</span><span class="p">(</span><span class="n">ModelForm</span><span class="p">):</span>
+    <span class="sd">"""感想のフォーム"""</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Impression</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s">'comment'</span><span class="p">,</span> <span class="p">)</span>
+</pre></div></div>
+
+<h3>
+<span id="子の追加修正のビュー" class="fragment"></span><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AE%E8%BF%BD%E5%8A%A0%E4%BF%AE%E6%AD%A3%E3%81%AE%E3%83%93%E3%83%A5%E3%83%BC"><i class="fa fa-link"></i></a>子の追加、修正のビュー</h3>
+
+<p><code>cms/views.py</code> に以下のように追加します。</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre>  <span class="p">:</span>
+<span class="kn">from</span> <span class="nn">cms.models</span> <span class="kn">import</span> <span class="n">Book</span><span class="p">,</span> <span class="n">Impression</span>
+<span class="kn">from</span> <span class="nn">cms.forms</span> <span class="kn">import</span> <span class="n">BookForm</span><span class="p">,</span> <span class="n">ImpressionForm</span>
+  <span class="p">:</span>
+
+<span class="k">def</span> <span class="nf">impression_edit</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">book_id</span><span class="p">,</span> <span class="n">impression_id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">"""感想の編集"""</span>
+    <span class="n">book</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Book</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">book_id</span><span class="p">)</span>  <span class="c"># 親の書籍を読む</span>
+    <span class="k">if</span> <span class="n">impression_id</span><span class="p">:</span>   <span class="c"># impression_id が指定されている (修正時)</span>
+        <span class="n">impression</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Impression</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">impression_id</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>               <span class="c"># impression_id が指定されていない (追加時)</span>
+        <span class="n">impression</span> <span class="o">=</span> <span class="n">Impression</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">'POST'</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">ImpressionForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">impression</span><span class="p">)</span>  <span class="c"># POST された request データからフォームを作成</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>    <span class="c"># フォームのバリデーション</span>
+            <span class="n">impression</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="n">impression</span><span class="o">.</span><span class="n">book</span> <span class="o">=</span> <span class="n">book</span>  <span class="c"># この感想の、親の書籍をセット</span>
+            <span class="n">impression</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s">'cms:impression_list'</span><span class="p">,</span> <span class="n">book_id</span><span class="o">=</span><span class="n">book_id</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>    <span class="c"># GET の時</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">ImpressionForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">impression</span><span class="p">)</span>  <span class="c"># impression インスタンスからフォームを作成</span>
+
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span>
+                  <span class="s">'cms/impression_edit.html'</span><span class="p">,</span>
+                  <span class="nb">dict</span><span class="p">(</span><span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">,</span> <span class="n">book_id</span><span class="o">=</span><span class="n">book_id</span><span class="p">,</span> <span class="n">impression_id</span><span class="o">=</span><span class="n">impression_id</span><span class="p">))</span>
+</pre></div></div>
+
+<h3>
+<span id="子の追加修正のテンプレート" class="fragment"></span><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AE%E8%BF%BD%E5%8A%A0%E4%BF%AE%E6%AD%A3%E3%81%AE%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88"><i class="fa fa-link"></i></a>子の追加、修正のテンプレート</h3>
+
+<p><code>mybook/templates/base_html</code> を継承して <code>mybook/cms/templates/cms/impression_edit.html</code> を作成します。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block title %}感想の編集{% endblock title %}
+
+{% block content %}
+    &lt;h3 class="page-header"&gt;感想の編集&lt;/h3&gt;
+    {% if impression_id %}
+    &lt;form action="{% url 'cms:impression_mod' book_id=book_id impression_id=impression_id %}" method="post" class="form-horizontal" role="form"&gt;
+    {% else %}
+    &lt;form action="{% url 'cms:impression_add' book_id=book_id %}" method="post" class="form-horizontal" role="form"&gt;
+    {% endif %}
+      {% csrf_token %}
+      {{ form|bootstrap_horizontal }}
+      &lt;div class="form-group"&gt;
+        &lt;div class="col-sm-offset-2 col-sm-10"&gt;
+          &lt;button type="submit" class="btn btn-primary"&gt;送信&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+    &lt;a href="{% url 'cms:impression_list' book_id=book_id %}" class="btn btn-default btn-sm"&gt;戻る&lt;/a&gt;
+{% endblock content %}
+</pre></div></div>
+
+<p>追加、修正のページは、以下のようになります。</p>
+
+<p><a href="./Python Django入門 (5) - Qiita_files/40376edb-2c27-444d-833c-eb210becc47b.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (5) - Qiita_files/40376edb-2c27-444d-833c-eb210becc47b.jpeg" alt="cms04.jpg" title="cms04.jpg"></a></p>
+
+<h3>
+<span id="子の削除のビュー" class="fragment"></span><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AE%E5%89%8A%E9%99%A4%E3%81%AE%E3%83%93%E3%83%A5%E3%83%BC"><i class="fa fa-link"></i></a>子の削除のビュー</h3>
+
+<p><code>cms/views.py</code> に以下のように追加します。</p>
+
+<p>今回は、いきなり消さずに、Bootstrap の モーダルダイアログを出して、確認メッセージを出しています。<br>
+ただ、ビューの中身は、親の書籍の時と変わりません。</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">impression_del</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">book_id</span><span class="p">,</span> <span class="n">impression_id</span><span class="p">):</span>
+    <span class="sd">"""感想の削除"""</span>
+    <span class="n">impression</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Impression</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">impression_id</span><span class="p">)</span>
+    <span class="n">impression</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s">'cms:impression_list'</span><span class="p">,</span> <span class="n">book_id</span><span class="o">=</span><span class="n">book_id</span><span class="p">)</span>
+</pre></div></div>
+
+<p><a href="./Python Django入門 (5) - Qiita_files/afdedc17-7b38-3afc-abd6-ed73b9b63438.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (5) - Qiita_files/afdedc17-7b38-3afc-abd6-ed73b9b63438.jpeg" alt="cms05.jpg" title="cms05.jpg"></a></p>
+
+<h3>
+<span id="子のurlスキーム" class="fragment"></span><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AEurl%E3%82%B9%E3%82%AD%E3%83%BC%E3%83%A0"><i class="fa fa-link"></i></a>子のURLスキーム</h3>
+
+<p><code>cms/urls.py</code> に以下のように追加します。</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">:</span>
+
+    <span class="c"># 感想</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r'^impression/(?P&lt;book_id&gt;\d+)/$'</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">ImpressionList</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s">'impression_list'</span><span class="p">),</span>  <span class="c"># 一覧</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r'^impression/add/(?P&lt;book_id&gt;\d+)/$'</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">impression_edit</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'impression_add'</span><span class="p">),</span>        <span class="c"># 登録</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r'^impression/mod/(?P&lt;book_id&gt;\d+)/(?P&lt;impression_id&gt;\d+)/$'</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">impression_edit</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'impression_mod'</span><span class="p">),</span>  <span class="c"># 修正</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r'^impression/del/(?P&lt;book_id&gt;\d+)/(?P&lt;impression_id&gt;\d+)/$'</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">impression_del</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'impression_del'</span><span class="p">),</span>   <span class="c"># 削除</span>
+<span class="p">]</span>
+</pre></div></div>
+
+<h3>
+<span id="親の一覧の修正" class="fragment"></span><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E8%A6%AA%E3%81%AE%E4%B8%80%E8%A6%A7%E3%81%AE%E4%BF%AE%E6%AD%A3"><i class="fa fa-link"></i></a>親の一覧の修正</h3>
+
+<p>親の書籍の一覧から、該当する書籍の「感想一覧」が出せるよう、リンクを追加します。</p>
+
+<p><code>mybook/cms/templates/cms/book_list.html</code> に1行追加します。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>          &lt;td&gt;
+            &lt;a href="{% url 'cms:book_mod' book_id=book.id %}" class="btn btn-default btn-sm"&gt;修正&lt;/a&gt;
+            &lt;a href="{% url 'cms:book_del' book_id=book.id %}" class="btn btn-default btn-sm"&gt;削除&lt;/a&gt;
+            &lt;a href="{% url 'cms:impression_list' book_id=book.id %}" class="btn btn-default btn-sm btn-primary"&gt;感想の一覧&lt;/a&gt;
+          &lt;/td&gt;
+</pre></div></div>
+
+<p><a href="./Python Django入門 (5) - Qiita_files/36e5eefd-01e8-08ee-0b84-848b1e5ddb82.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (5) - Qiita_files/36e5eefd-01e8-08ee-0b84-848b1e5ddb82.jpeg" alt="cms06.jpg" title="cms06.jpg"></a></p>
+
+<p>それでは、ローカルサーバを起動し、「書籍の一覧」から「感想の一覧」をたどって、感想の登録／修正／削除を行ってみましょう。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre>http://127.0.0.1:8000/cms/book/
+</pre></div></div>
+
+<p>ここまでの説明のように親子関係のあるモデルのCRUDができれば、後はモデルをどう設計するかということなので、応用して色々なものが作れると思います。</p>
+
+<p><a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c" id="reference-1f3c4ad73efaedbec482">Python Django入門 (6)</a> に続きます。</p>
+<div class="hidden"><form class="js-task-list-update" action="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="T9XTZgmMfuQdQ+prYODnscuCIoKOKCEdmwvlXhWJXwGexi1bjvrF0Wye+g1uakMpru915f4MBqT0b7C8o26E+Q=="><input type="hidden" name="updated_at_confirmation_in_unixtime" id="updated_at_confirmation_in_unixtime" value="1455728033" class="js-task-list-updated-at"><textarea name="raw_body" id="raw_body" class="js-task-list-field">
+子モデルのCRUD
+-------------
+
+### 子の読み方
+
+親の書籍に対して、子の感想の一覧を表示してみます。
+
+`cms/models.py` で、感想は書籍を外部キーとして持つよう定義しました。
+
+```python
+class Impression(models.Model):
+    """感想"""
+    book = models.ForeignKey(Book, verbose_name='書籍', related_name='impressions')
+    comment = models.TextField('コメント', blank=True)
+```
+
+よって、書籍に紐づく子供の感想は、related_nameを使って、以下のように読み出すことができます。  
+ここでも SQL は書きません。
+
+```python
+impressions = book.impressions.all().order_by('id')   # 書籍の子供の、感想を読む
+```
+
+### 子の一覧のビュー
+
+今回は、`汎用ビュー` の ListView を使って書いてみます。  
+これを使うと、ページングなどが簡単に実現できます。
+
+`cms/views.py` に以下の記述を追加します。
+
+```python
+from django.views.generic.list import ListView
+  :
+
+class ImpressionList(ListView):
+    """感想の一覧"""
+    context_object_name='impressions'
+    template_name='cms/impression_list.html'
+    paginate_by = 2  # １ページは最大2件ずつでページングする
+
+    def get(self, request, *args, **kwargs):
+        book = get_object_or_404(Book, pk=kwargs['book_id'])  # 親の書籍を読む
+        impressions = book.impressions.all().order_by('id')   # 書籍の子供の、感想を読む
+        self.object_list = impressions
+        
+        context = self.get_context_data(object_list=self.object_list, book=book)    
+        return self.render_to_response(context)
+```
+
+### 子の一覧のテンプレート
+
+BootStrapを応用して、
+
+* ページングありの時、「前へ、1、2、次へ」などのページ番号を表すリンクを置く。
+* 削除する時、いきなり消すのではなく、確認のモーダルダイアログを出す。
+
+ということをしています。ちょっと長いです。
+
+`mybook/cms/templates/base_html` を継承して `mybook/cms/templates/cms/impression_list.html` を作成します。
+
+```
+{% extends "base.html" %}
+
+{% block title %}感想の一覧{% endblock title %}
+
+{% block extrahead %}
+&lt;script&gt;
+$(function() {
+  $('.del_confirm').on('click', function () {
+     $("#del_pk").text($(this).attr("pk"));
+     $('#del_url').attr('href', $(this).attr("url"));
+  });
+});
+&lt;/script&gt;
+&lt;style&gt;
+table {
+  margin-top: 8px;
+}
+&lt;/style&gt;
+{% endblock %}
+
+{% block content %}
+    &lt;h3 class="page-header"&gt;感想の一覧 &lt;small&gt;{{ book.name }}&lt;/small&gt;&lt;/h3&gt;
+    &lt;a href="{% url 'cms:impression_add' book_id=book.id %}" class="btn btn-default btn-sm"&gt;追加&lt;/a&gt;
+    &lt;table class="table table-striped table-bordered"&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;ID&lt;/th&gt;
+          &lt;th&gt;コメント&lt;/th&gt;
+          &lt;th&gt;操作&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        {% for impression in impressions %}
+        &lt;tr&gt;
+          &lt;td&gt;{{ impression.id }}&lt;/td&gt;
+          &lt;td&gt;{{ impression.comment|linebreaksbr }}&lt;/td&gt;
+          &lt;td&gt;
+            &lt;a href="{% url 'cms:impression_mod' book_id=book.id impression_id=impression.id %}" class="btn btn-default btn-sm"&gt;修正&lt;/a&gt;
+            &lt;button class="btn btn-default btn-sm del_confirm" data-toggle="modal" data-target="#deleteModal" pk="{{ impression.id }}" url="{% url 'cms:impression_del' book_id=book.id impression_id=impression.id %}"&gt;削除&lt;/button&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+        {% endfor %}
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    {% if is_paginated %}
+    &lt;ul class="pagination"&gt;
+      {% if page_obj.has_previous %}
+        &lt;li&gt;&lt;a href="?page={{ page_obj.previous_page_number }}"&gt;&amp;laquo;&lt;/a&gt;&lt;/li&gt;
+      {% else %}
+        &lt;li class="disabled"&gt;&lt;a href="#"&gt;&amp;laquo;&lt;/a&gt;&lt;/li&gt;
+      {% endif %}
+      {% for linkpage in page_obj.paginator.page_range %}
+        {% ifequal linkpage page_obj.number %}
+          &lt;li  class="active"&gt;&lt;a href="#"&gt;{{ linkpage }}&lt;/a&gt;&lt;/li&gt;
+        {% else %}
+          &lt;li&gt;&lt;a href="?page={{ linkpage }}"&gt;{{ linkpage }}&lt;/a&gt;&lt;/li&gt;
+        {% endifequal %}
+      {% endfor %}
+      {% if page_obj.has_next %}
+        &lt;li&gt;&lt;a href="?page={{ page_obj.next_page_number }}"&gt;&amp;raquo;&lt;/a&gt;&lt;/li&gt;
+      {% else %}
+        &lt;li class="disabled"&gt;&lt;a href="#"&gt;&amp;raquo;&lt;/a&gt;&lt;/li&gt;
+      {% endif %}
+    &lt;/ul&gt;
+    {% endif %}
+
+    &lt;div&gt;
+      &lt;a href="{% url 'cms:book_list' %}" class="btn btn-default btn-sm"&gt;戻る&lt;/a&gt;
+    &lt;/div&gt;
+
+{# 削除を確認するモーダル ダイアログ #}
+&lt;div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true"&gt;
+  &lt;div class="modal-dialog"&gt;
+    &lt;div class="modal-content"&gt;
+      &lt;div class="modal-header"&gt;
+        &lt;button type="button" class="close" data-dismiss="modal" aria-hidden="true"&gt;&amp;times;&lt;/button&gt;
+        &lt;h4 class="modal-title" id="deleteModalLabel"&gt;確認&lt;/h4&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-body"&gt;
+        &lt;p&gt;ID: &lt;span id="del_pk"&gt;&lt;/span&gt; を削除しますか？&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-footer"&gt;
+        &lt;a href="#" class="btn btn-primary" id="del_url"&gt;OK&lt;/a&gt;
+        &lt;button type="button" class="btn btn-default" data-dismiss="modal"&gt;Cancel&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+{% endblock content %}
+```
+
+出来上がる一覧ページは、以下のようなものとなります。
+
+![cms03.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/715a9833-84ca-2184-7687-2fd4f83c6dcd.jpeg "cms03.jpg")
+
+
+### 子の追加、修正のフォーム
+
+`cms/forms.py` に以下のように追加します。  
+ここでは、`cms/models.py` の Impression モデルを追加、修正するための元となるフォームを作成します。
+
+```python
+  :
+from cms.models import Book, Impression
+  :
+
+class ImpressionForm(ModelForm):
+    """感想のフォーム"""
+    class Meta:
+        model = Impression
+        fields = ('comment', )
+```
+
+### 子の追加、修正のビュー
+
+`cms/views.py` に以下のように追加します。
+
+```python
+  :
+from cms.models import Book, Impression
+from cms.forms import BookForm, ImpressionForm
+  :
+
+def impression_edit(request, book_id, impression_id=None):
+    """感想の編集"""
+    book = get_object_or_404(Book, pk=book_id)  # 親の書籍を読む
+    if impression_id:   # impression_id が指定されている (修正時)
+        impression = get_object_or_404(Impression, pk=impression_id)
+    else:               # impression_id が指定されていない (追加時)
+        impression = Impression()
+
+    if request.method == 'POST':
+        form = ImpressionForm(request.POST, instance=impression)  # POST された request データからフォームを作成
+        if form.is_valid():    # フォームのバリデーション
+            impression = form.save(commit=False)
+            impression.book = book  # この感想の、親の書籍をセット
+            impression.save()
+            return redirect('cms:impression_list', book_id=book_id)
+    else:    # GET の時
+        form = ImpressionForm(instance=impression)  # impression インスタンスからフォームを作成
+        
+    return render(request,
+                  'cms/impression_edit.html',
+                  dict(form=form, book_id=book_id, impression_id=impression_id))
+```
+
+### 子の追加、修正のテンプレート
+
+`mybook/templates/base_html` を継承して `mybook/cms/templates/cms/impression_edit.html` を作成します。
+
+```
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block title %}感想の編集{% endblock title %}
+
+{% block content %}
+    &lt;h3 class="page-header"&gt;感想の編集&lt;/h3&gt;
+    {% if impression_id %}
+    &lt;form action="{% url 'cms:impression_mod' book_id=book_id impression_id=impression_id %}" method="post" class="form-horizontal" role="form"&gt;
+    {% else %}
+    &lt;form action="{% url 'cms:impression_add' book_id=book_id %}" method="post" class="form-horizontal" role="form"&gt;
+    {% endif %}
+      {% csrf_token %}
+      {{ form|bootstrap_horizontal }}
+      &lt;div class="form-group"&gt;
+        &lt;div class="col-sm-offset-2 col-sm-10"&gt;
+          &lt;button type="submit" class="btn btn-primary"&gt;送信&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+    &lt;a href="{% url 'cms:impression_list' book_id=book_id %}" class="btn btn-default btn-sm"&gt;戻る&lt;/a&gt;
+{% endblock content %}
+```
+
+追加、修正のページは、以下のようになります。
+
+![cms04.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/40376edb-2c27-444d-833c-eb210becc47b.jpeg "cms04.jpg")
+
+
+### 子の削除のビュー
+
+`cms/views.py` に以下のように追加します。
+
+今回は、いきなり消さずに、Bootstrap の モーダルダイアログを出して、確認メッセージを出しています。
+ただ、ビューの中身は、親の書籍の時と変わりません。
+
+```python
+def impression_del(request, book_id, impression_id):
+    """感想の削除"""
+    impression = get_object_or_404(Impression, pk=impression_id)
+    impression.delete()
+    return redirect('cms:impression_list', book_id=book_id)
+```
+
+![cms05.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/afdedc17-7b38-3afc-abd6-ed73b9b63438.jpeg "cms05.jpg")
+
+
+### 子のURLスキーム
+
+`cms/urls.py` に以下のように追加します。
+
+```python
+urlpatterns = [
+    :
+
+    # 感想
+    url(r'^impression/(?P&lt;book_id&gt;\d+)/$', views.ImpressionList.as_view(), name='impression_list'),  # 一覧
+    url(r'^impression/add/(?P&lt;book_id&gt;\d+)/$', views.impression_edit, name='impression_add'),        # 登録
+    url(r'^impression/mod/(?P&lt;book_id&gt;\d+)/(?P&lt;impression_id&gt;\d+)/$', views.impression_edit, name='impression_mod'),  # 修正
+    url(r'^impression/del/(?P&lt;book_id&gt;\d+)/(?P&lt;impression_id&gt;\d+)/$', views.impression_del, name='impression_del'),   # 削除
+]
+```
+
+### 親の一覧の修正
+
+親の書籍の一覧から、該当する書籍の「感想一覧」が出せるよう、リンクを追加します。
+
+`mybook/cms/templates/cms/book_list.html` に1行追加します。
+
+```
+          &lt;td&gt;
+            &lt;a href="{% url 'cms:book_mod' book_id=book.id %}" class="btn btn-default btn-sm"&gt;修正&lt;/a&gt;
+            &lt;a href="{% url 'cms:book_del' book_id=book.id %}" class="btn btn-default btn-sm"&gt;削除&lt;/a&gt;
+            &lt;a href="{% url 'cms:impression_list' book_id=book.id %}" class="btn btn-default btn-sm btn-primary"&gt;感想の一覧&lt;/a&gt;
+          &lt;/td&gt;
+```
+
+![cms06.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/36e5eefd-01e8-08ee-0b84-848b1e5ddb82.jpeg "cms06.jpg")
+
+
+それでは、ローカルサーバを起動し、「書籍の一覧」から「感想の一覧」をたどって、感想の登録／修正／削除を行ってみましょう。
+
+```bash
+http://127.0.0.1:8000/cms/book/
+```
+
+ここまでの説明のように親子関係のあるモデルのCRUDができれば、後はモデルをどう設計するかということなので、応用して色々なものが作れると思います。
+
+[Python Django入門 (6)](http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c) に続きます。
+</textarea><input type="submit" name="commit" value="Save changes" data-disable-with="Save changes"></form></div></section></div><div class="col-sm-3"><div id="div-gpt-ad-1493084685571-0" style="height:250px; width:300px; margin-bottom: 20px;"><div id="google_ads_iframe_/383564218/qiita.com_items-show_sidebar-top_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/383564218/qiita.com_items-show_sidebar-top_0" title="3rd party ad content" name="google_ads_iframe_/383564218/qiita.com_items-show_sidebar-top_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" src="./Python Django入門 (5) - Qiita_files/saved_resource.html"></iframe></div></div><div class="socialButtons"><div class="socialButtons_twitter"><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./Python Django入門 (5) - Qiita_files/tweet_button.7bf2b0e802ada47dae9548b7a1739fed.en.html" style="position: static; visibility: visible; width: 60px; height: 20px;" data-url="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756"></iframe></div><div class="socialButtons_hatebu"><iframe class="hatena-bookmark-button-frame" title="はてブに追加" frameborder="0" scrolling="no" width="47" height="20" src="javascript:false" style="width: 47px; height: 20px;" src="./Python Django入門 (5) - Qiita_files/saved_resource(1).html"></iframe><script async="async" charset="utf-8" src="./Python Django入門 (5) - Qiita_files/bookmark_button.js" type="text/javascript"></script></div><div class="socialButtons_googlePlus"><div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1497077932990" name="I0_1497077932990" src="./Python Django入門 (5) - Qiita_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div></div><div class="socialButtons_facebook"><div class="fb-like" data-action="like" data-href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756" data-layout="button_count" data-share="false" data-show-faces="false"></div></div><div class="socialButtons_pocket"><div class="pocket-btn"><iframe width="135" height="22" id="pocket-button-0" frameborder="0" allowtransparency="true" scrolling="NO" src="./Python Django入門 (5) - Qiita_files/button.html"></iframe></div></div></div><section class="itemsShowAuthorInfo" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="http://qiita.com/kaki_k"><img alt="" class="itemsShowAuthorInfo_userIcon" itemprop="image" src="./Python Django入門 (5) - Qiita_files/1473691243"></a><div class="itemsShowAuthorInfo_profileStats"><strong class="itemsShowAuthorInfo_userName" itemprop="name"><a itemprop="url" href="http://qiita.com/kaki_k">kaki_k</a></strong><div class="itemsShowAuthorInfo_contribution"><span class="itemsShowAuthorInfo_count">2097</span><span class="itemsShowAuthorInfo_unit">Contribution</span></div><script type="application/json" id="js-react-on-rails-context">null</script>
+<script type="application/json" class="js-react-on-rails-component">{"component_name":"UserFollowButton","props":{"initial_followed_by":false,"position":"author-info","size":"btn-xs","url_name":"kaki_k"},"trace":false,"dom_id":"UserFollowButton-react-component-0e272125-8b9a-4ce1-a11b-d662d2abb763"}</script>
+    <div id="UserFollowButton-react-component-0e272125-8b9a-4ce1-a11b-d662d2abb763"><span data-reactroot="" class="userFollowButton"><button class="btn btn-default btn-block userFollowButton_inner btn-xs"><i class="i fa fa-user-plus"></i><!-- react-text: 4 -->フォロー<!-- /react-text --></button></span></div>
+    
+</div><section class="itemsShowAuthorPopularItems"><h5 class="itemsShowAuthorPopularItems_sectionTitle">人気の投稿</h5><ul class="itemsShowAuthorPopularItems_posts list-unstyled"><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54">Python Django入門 (1)</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551">Python Django入門 (2) Mac編</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d">Python Django入門 (3)</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/6e17597804437ef170ae">Python Django入門 (4)</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c">Python Django入門 (6)</a></li></ul></section></section><div class="scroll-chaser"><div class="ad_frame_right_banner_1"><div class="bigmining_zone_16"><a href="http://dg-ads-adserver.bigmining.com/www/delivery/ck.php?oaparams=2__bannerid=476__zoneid=16__source=_cat%28Python%29_cat%28Django%29__OXLCA=1__cb=82b3473aad__oadest=http%3A%2F%2Fwww.find-job.net%2Fjob%2Fpickup.pl%3Futm_source%3Dads%26utm_medium%3Dqiita" target="_blank"><img src="./Python Django入門 (5) - Qiita_files/002____.png" width="300" height="250" alt="" title="" border="0"></a><div id="beacon_82b3473aad" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./Python Django入門 (5) - Qiita_files/lg.php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</div></div><script async="" charset="UTF-8" defer="" src="./Python Django入門 (5) - Qiita_files/adjs_set_pro.js" type="text/javascript"></script></div><script type="application/json" class="js-react-on-rails-component">{"component_name":"Toc","props":{"body":"\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#%E5%AD%90%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEcrud\"\u003e子モデルのCRUD\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#%E5%AD%90%E3%81%AE%E8%AA%AD%E3%81%BF%E6%96%B9\"\u003e子の読み方\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E5%AD%90%E3%81%AE%E4%B8%80%E8%A6%A7%E3%81%AE%E3%83%93%E3%83%A5%E3%83%BC\"\u003e子の一覧のビュー\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E5%AD%90%E3%81%AE%E4%B8%80%E8%A6%A7%E3%81%AE%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88\"\u003e子の一覧のテンプレート\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E5%AD%90%E3%81%AE%E8%BF%BD%E5%8A%A0%E4%BF%AE%E6%AD%A3%E3%81%AE%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0\"\u003e子の追加、修正のフォーム\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E5%AD%90%E3%81%AE%E8%BF%BD%E5%8A%A0%E4%BF%AE%E6%AD%A3%E3%81%AE%E3%83%93%E3%83%A5%E3%83%BC\"\u003e子の追加、修正のビュー\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E5%AD%90%E3%81%AE%E8%BF%BD%E5%8A%A0%E4%BF%AE%E6%AD%A3%E3%81%AE%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88\"\u003e子の追加、修正のテンプレート\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E5%AD%90%E3%81%AE%E5%89%8A%E9%99%A4%E3%81%AE%E3%83%93%E3%83%A5%E3%83%BC\"\u003e子の削除のビュー\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E5%AD%90%E3%81%AEurl%E3%82%B9%E3%82%AD%E3%83%BC%E3%83%A0\"\u003e子のURLスキーム\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E8%A6%AA%E3%81%AE%E4%B8%80%E8%A6%A7%E3%81%AE%E4%BF%AE%E6%AD%A3\"\u003e親の一覧の修正\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n","wrapper":"#article-body-wrapper"},"trace":false,"dom_id":"Toc-react-component-e4eef7fc-9af6-471e-857d-c040a058093c"}</script>
+    <div id="Toc-react-component-e4eef7fc-9af6-471e-857d-c040a058093c"><div style="position: relative; top: 0px; height: 0px;"></div><div data-reactroot="" class="tocTree" style="width: 230px; position: fixed; top: 0px;"><div class="tocTree_contents nav" style="max-height: 723px;"><ul>
+<li class="active">
+<a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AEcrud">子モデルのCRUD</a>
+<ul>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AE%E8%AA%AD%E3%81%BF%E6%96%B9">子の読み方</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AE%E4%B8%80%E8%A6%A7%E3%81%AE%E3%83%93%E3%83%A5%E3%83%BC">子の一覧のビュー</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AE%E4%B8%80%E8%A6%A7%E3%81%AE%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88">子の一覧のテンプレート</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AE%E8%BF%BD%E5%8A%A0%E4%BF%AE%E6%AD%A3%E3%81%AE%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0">子の追加、修正のフォーム</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AE%E8%BF%BD%E5%8A%A0%E4%BF%AE%E6%AD%A3%E3%81%AE%E3%83%93%E3%83%A5%E3%83%BC">子の追加、修正のビュー</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AE%E8%BF%BD%E5%8A%A0%E4%BF%AE%E6%AD%A3%E3%81%AE%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88">子の追加、修正のテンプレート</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AE%E5%89%8A%E9%99%A4%E3%81%AE%E3%83%93%E3%83%A5%E3%83%BC">子の削除のビュー</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E5%AD%90%E3%81%AEurl%E3%82%B9%E3%82%AD%E3%83%BC%E3%83%A0">子のURLスキーム</a>
+</li>
+<li class="active">
+<a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#%E8%A6%AA%E3%81%AE%E4%B8%80%E8%A6%A7%E3%81%AE%E4%BF%AE%E6%AD%A3">親の一覧の修正</a>
+</li>
+</ul>
+</li>
+</ul>
+</div></div></div>
+    
+</div></div><div class="row"><div class="col-sm-9"><div style="text-align: center;"><div style="display:inline-block;margin:10px;"><div id="div-gpt-ad-1489567219879-0" style="height:280px; width:336px;"><div id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-left_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-left_0" title="3rd party ad content" name="google_ads_iframe_/383564218/qiita.com_items-show_under-article-left_0" width="336" height="280" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" src="./Python Django入門 (5) - Qiita_files/saved_resource(2).html"></iframe></div></div></div><div style="display:inline-block;margin:10px;"><div id="div-gpt-ad-1489568123856-0" style="height:280px; width:336px;"><div id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-right_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-right_0" title="3rd party ad content" name="google_ads_iframe_/383564218/qiita.com_items-show_under-article-right_0" width="336" height="280" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" src="./Python Django入門 (5) - Qiita_files/saved_resource(3).html"></iframe></div></div></div></div><div class="ArticleFooter__menu"><div class="s-flex-align-center"><div class="js-likebutton" data-props="{&quot;like_status&quot;:false,&quot;like_count&quot;:73,&quot;show_count&quot;:true,&quot;uuid&quot;:&quot;ebc8d8b07434e1721756&quot;,&quot;likable_type&quot;:&quot;Article&quot;,&quot;position&quot;:&quot;article-footer&quot;}"></div><div class="ArticleFooter__userList"><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="akmiyoshi"><a itemprop="url" href="http://qiita.com/akmiyoshi"><img alt="akmiyoshi" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1473685997"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="sys_cat"><a itemprop="url" href="http://qiita.com/sys_cat"><img alt="sys_cat" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1473683977"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="kasumani"><a itemprop="url" href="http://qiita.com/kasumani"><img alt="kasumani" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1473683087"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="task_woof"><a itemprop="url" href="http://qiita.com/task_woof"><img alt="task_woof" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1473685166"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="opponitur"><a itemprop="url" href="http://qiita.com/opponitur"><img alt="opponitur" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1473690970"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="goldarn_ring"><a itemprop="url" href="http://qiita.com/goldarn_ring"><img alt="goldarn_ring" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1473684200"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="k-motoyan"><a itemprop="url" href="http://qiita.com/k-motoyan"><img alt="k-motoyan" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1473685191"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="yukio"><a itemprop="url" href="http://qiita.com/yukio"><img alt="yukio" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/1473691098"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="choco1031"><a itemprop="url" href="http://qiita.com/choco1031"><img alt="choco1031" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/af3c0f1931a48c638666a0212273c20c"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="iskw"><a itemprop="url" href="http://qiita.com/iskw"><img alt="iskw" class="thumb thumb--xs" src="./Python Django入門 (5) - Qiita_files/7a4cde7e4eaa1d48fd39cc0ae3538d10"></a></div></div><div class="ArticleFooter__user"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756/likers"><span class="fa fa-ellipsis-h"></span></a></div></div></div><div class="u-flex u-align-center"><div class="ArticleFooter__stock"><div class="js-stockbutton" data-position="footer_menu" data-props="{&quot;stock_status&quot;:false}"></div></div><div class="ArticleFooter__editRequest"><a class="u-link-no-underline" data-toggle="tooltip" title="" href="http://qiita.com/drafts/ebc8d8b07434e1721756/edit" data-original-title="投稿者に記事をより良くするための提案ができます 💪"><span class="fa fa-send-o fa-lg"></span> <span>編集リクエスト</span></a></div><div class="dropdown ArticleFooter__dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#"><span class="fa fa-ellipsis-h"></span></a><ul class="dropdown-menu dropdown-menu-right"><li><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756.md"><span class="fa fa-fw fa-file-text-o"></span> Markdownで本文を見る</a></li><li><a data-target=".js-report-form" data-toggle="modal" href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#"><i class="fa fa-fw fa-flag"></i> 問題がある投稿を報告する</a></li></ul></div></div></div><ul class="references js-referencesView"><li class="references_header"><i class="fa fa-fw fa-link"></i> この記事は以下の記事からリンクされています</li><li class="references_reference js-reference"><a href="http://qiita.com/kaki_k/items/6e17597804437ef170ae#_reference-c2201d8b4b9a20f1e462"><img alt="" width="18" height="18" src="./Python Django入門 (5) - Qiita_files/1473691243">Python Django入門 (4)</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2014-07-26T15:27:01+00:00">3年弱前</time></li></ul><div class="itemsShowBody_articleColumnFooter"><div class="socialButtons"><div class="socialButtons_twitter"><iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./Python Django入門 (5) - Qiita_files/tweet_button.7bf2b0e802ada47dae9548b7a1739fed.en(1).html" style="position: static; visibility: visible; width: 60px; height: 20px;" data-url="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756"></iframe></div><div class="socialButtons_hatebu"><iframe class="hatena-bookmark-button-frame" title="はてブに追加" frameborder="0" scrolling="no" width="47" height="20" src="javascript:false" style="width: 47px; height: 20px;" src="./Python Django入門 (5) - Qiita_files/saved_resource(4).html"></iframe><script async="async" charset="utf-8" src="./Python Django入門 (5) - Qiita_files/bookmark_button.js" type="text/javascript"></script></div><div class="socialButtons_googlePlus"><div id="___plusone_1" style="position: absolute; width: 450px; left: -10000px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position:absolute;top:-10000px;width:450px;margin:0px;border-style:none" tabindex="0" vspace="0" width="100%" id="I1_1497077933140" name="I1_1497077933140" src="./Python Django入門 (5) - Qiita_files/fastbutton(1).html" data-gapiattached="true"></iframe></div><div class="g-plusone" data-href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756" data-size="medium" data-gapiscan="true" data-onload="true" data-gapistub="true"></div></div><div class="socialButtons_facebook"><div class="fb-like" data-action="like" data-href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756" data-layout="button_count" data-share="false" data-show-faces="false"></div></div><div class="socialButtons_pocket"><div class="pocket-btn"><iframe width="135" height="22" id="pocket-button-1" frameborder="0" allowtransparency="true" scrolling="NO" src="./Python Django入門 (5) - Qiita_files/button(1).html"></iframe></div></div></div></div><div class="itemsShowComment_wrapper" id="comments"><script type="application/json" class="js-react-on-rails-component">{"component_name":"PublicCommentListContainer","props":{"currentUser":null,"initialComments":[{"banned":false,"body":"\u003cp\u003e非常に分かりやすいチュートリアル記事をありがとうございます．\u003c/p\u003e\n\n\u003cdiv class=\"code-frame\" data-lang=\"text\"\u003e\u003cdiv class=\"highlight\"\u003e\u003cpre\u003e\nclass Impression(models.Model):\n    '''感想'''\n    book = models.ForeignKey(Book, verbose_name=u'書籍', related_name='impressions')\n    comment = models.TextField(u'コメント', blank=True)\n\u003c/pre\u003e\u003c/div\u003e\u003c/div\u003e\n\n\u003cp\u003eImpressionクラスのcommentフィールドについて、blank=Trueを指定してしまうと空のコメントが挿入できてしまうので無い方が良いのではないかと思ったのですがどうでしょうか？\u003c/p\u003e\n","created_at":"2014-12-11T19:21:58+09:00","expanded_references":"","id":129906,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":0,"raw_body":"非常に分かりやすいチュートリアル記事をありがとうございます．\n\n```\nclass Impression(models.Model):\n    '''感想'''\n    book = models.ForeignKey(Book, verbose_name=u'書籍', related_name='impressions')\n    comment = models.TextField(u'コメント', blank=True)\n```\n\nImpressionクラスのcommentフィールドについて、blank=Trueを指定してしまうと空のコメントが挿入できてしまうので無い方が良いのではないかと思ったのですがどうでしょうか？\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-e7e0ca3d3473e816db5d","user":{"contribution":47,"created_at":"2013-09-25T21:45:11+09:00","id":29989,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/29989/profile-images/1473685423","suspended":false,"url_name":"c-bata"},"uuid":"e7e0ca3d3473e816db5d","via_email":false},{"banned":false,"body":"\u003cp\u003e読んでいただいて、ありがとうございます。\u003c/p\u003e\n\n\u003cp\u003eblank=True がないと、Formからはコメントは必須入力で、省略できなくなってしまいます。\u003cbr\u003e\nこのままの状態で、空のコメントが挿入できますと思います。\u003cbr\u003e\nDB上は、NULLではなく、空文字\"\"となります。\u003c/p\u003e\n","created_at":"2014-12-11T20:13:13+09:00","expanded_references":"","id":129953,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":1,"raw_body":"読んでいただいて、ありがとうございます。\n\nblank=True がないと、Formからはコメントは必須入力で、省略できなくなってしまいます。\nこのままの状態で、空のコメントが挿入できますと思います。\nDB上は、NULLではなく、空文字\"\"となります。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-8396ec9a6dc5758fe631","user":{"contribution":2097,"created_at":"2014-07-05T22:42:17+09:00","id":48136,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/48136/profile-images/1473691243","suspended":false,"url_name":"kaki_k"},"uuid":"8396ec9a6dc5758fe631","via_email":false},{"banned":false,"body":"\u003cp\u003e返信ありがとうございます。\u003cbr\u003e\nなるほど。コメントを省略できるようにしていたんですね。\u003c/p\u003e\n\n\u003cp\u003eこの記事のおかげでDjangoの勉強を始めることが出来ました。本当にありがとうございます。\u003c/p\u003e\n","created_at":"2014-12-12T00:30:51+09:00","expanded_references":"","id":130049,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":0,"raw_body":"返信ありがとうございます。\nなるほど。コメントを省略できるようにしていたんですね。\n\nこの記事のおかげでDjangoの勉強を始めることが出来ました。本当にありがとうございます。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-01e08d223bc8cd51ad9e","user":{"contribution":47,"created_at":"2013-09-25T21:45:11+09:00","id":29989,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/29989/profile-images/1473685423","suspended":false,"url_name":"c-bata"},"uuid":"01e08d223bc8cd51ad9e","via_email":false},{"banned":false,"body":"\u003cp\u003eDjangoの勉強ですごく参考にさせていただいています。\u003cbr\u003e\n何箇所かファイルのパスが間違っていたのを発見したので編集リクエストを送らせていただきましたm(_ _)m\u003c/p\u003e\n","created_at":"2015-02-03T11:00:59+09:00","expanded_references":"","id":159921,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":1,"raw_body":"Djangoの勉強ですごく参考にさせていただいています。\n何箇所かファイルのパスが間違っていたのを発見したので編集リクエストを送らせていただきましたm(_ _)m\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-58494e515e26e036b930","user":{"contribution":1213,"created_at":"2013-11-26T09:24:40+09:00","id":32946,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/32946/profile-images/1490789470","suspended":false,"url_name":"fantm21"},"uuid":"58494e515e26e036b930","via_email":false},{"banned":false,"body":"\u003cp\u003eありがとうございます。 \u003cimg alt=\":smile:\" class=\"emoji\" height=\"20\" src=\"https://cdn.qiita.com/emoji/twemoji/unicode/1f604.png\" title=\":smile:\" width=\"20\"\u003e \u003cbr\u003e\n修正しました。\u003c/p\u003e\n","created_at":"2015-02-03T23:42:59+09:00","expanded_references":"","id":160682,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":2,"raw_body":"ありがとうございます。 :smile: \n修正しました。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-6bc3d36024f64bcbe3c1","user":{"contribution":2097,"created_at":"2014-07-05T22:42:17+09:00","id":48136,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/48136/profile-images/1473691243","suspended":false,"url_name":"kaki_k"},"uuid":"6bc3d36024f64bcbe3c1","via_email":false},{"banned":false,"body":"\u003cp\u003e\u0026lt;button class=\"btn btn-default btn-sm del_confirm\" data-toggle=\"modal\" data-target=\"#deleteModal\" pk=\"{{ impression.id }}\" url=\"{% url 'cms:impression_del' book_id=book.id impression_id=impression.id %}\"\u0026gt;削除\u0026lt;/a\u0026gt;\u003cbr\u003e\nの\u0026lt;/a\u0026gt;ですが、\u0026lt;/button\u0026gt;だと思います。たぶん。\u003c/p\u003e\n","created_at":"2015-05-10T03:30:47+09:00","expanded_references":"","id":230050,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":1,"raw_body":"\u0026lt;button class=\"btn btn-default btn-sm del_confirm\" data-toggle=\"modal\" data-target=\"#deleteModal\" pk=\"{{ impression.id }}\" url=\"{% url 'cms:impression_del' book_id=book.id impression_id=impression.id %}\"\u0026gt;削除\u0026lt;/a\u0026gt;\nの\u0026lt;/a\u0026gt;ですが、\u0026lt;/button\u0026gt;だと思います。たぶん。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-3cfe7c600061b8fda7e9","user":{"contribution":0,"created_at":"2013-10-29T05:29:39+09:00","id":31377,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/31377/profile-images/1473685681","suspended":false,"url_name":"harukaeru"},"uuid":"3cfe7c600061b8fda7e9","via_email":false},{"banned":false,"body":"\u003cp\u003e一念発起してプログラミングを勉強しており、とても参考になってます。\u003cbr\u003e\nどうもありがとうございます。\u003cbr\u003e\n削除ボタンが動かなくてハマっていたのですが、\u003cbr\u003e\njqueryのバージョンが上がっていたのが原因でした。\u003cbr\u003e\n同じ事象が起きている人の参考になるように書き込ませていただきます。\u003cbr\u003e\njquery-1.11.1.min.js　→　jquery-1.11.3.min.js\u003cbr\u003e\nbase.htmlを下記の通り変更しました。\u003c/p\u003e\n\n\u003cp\u003escript src=\"{% static 'js/jquery-1.11.3.min.js' %}\"\u003c/p\u003e\n","created_at":"2015-06-21T22:58:48+09:00","expanded_references":"","id":267847,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":0,"raw_body":"一念発起してプログラミングを勉強しており、とても参考になってます。\nどうもありがとうございます。\n削除ボタンが動かなくてハマっていたのですが、\njqueryのバージョンが上がっていたのが原因でした。\n同じ事象が起きている人の参考になるように書き込ませていただきます。\njquery-1.11.1.min.js　→　jquery-1.11.3.min.js\nbase.htmlを下記の通り変更しました。\n\nscript src=\"{% static 'js/jquery-1.11.3.min.js' %}\"\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-6fe54aab72bba48dbfb5","user":{"contribution":0,"created_at":"2015-06-21T22:49:27+09:00","id":83608,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/83608/profile-images/1473702829","suspended":false,"url_name":"miyazakih"},"uuid":"6fe54aab72bba48dbfb5","via_email":false},{"banned":false,"body":"\u003cp\u003e参考になりました。続編期待してます。\u003c/p\u003e\n","created_at":"2016-03-13T18:57:02+09:00","expanded_references":"","id":485757,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":0,"raw_body":"参考になりました。続編期待してます。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-83ef1912c36d143b2ac9","user":{"contribution":20,"created_at":"2014-04-07T10:04:53+09:00","id":41249,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/41249/profile-images/1473688727","suspended":false,"url_name":"sai03"},"uuid":"83ef1912c36d143b2ac9","via_email":false},{"banned":false,"body":"\u003cp\u003e子の一覧のテンプレートの時点で\u003cbr\u003e\n\u003ca href=\"http://localhost:8000/cms/impression/1/\" class=\"autolink\" rel=\"nofollow noopener\" target=\"_blank\"\u003ehttp://localhost:8000/cms/impression/1/\u003c/a\u003e\u003cbr\u003e\nにアクセスすると以下のようなエラーがでます。\u003cbr\u003e\nどこを改善すれば良いでしょうか？\u003c/p\u003e\n\n\u003chr\u003e\n\n\u003cp\u003eNoReverseMatch at /cms/impression/1/\u003cbr\u003e\nReverse for 'impression_add' with arguments '()' and keyword arguments '{'book_id': 1}' not found. 0 pattern(s) tried: []\u003cbr\u003e\nRequest Method: GET\u003cbr\u003e\nRequest URL:    \u003ca href=\"http://127.0.0.1:8000/cms/impression/1/\" class=\"autolink\" rel=\"nofollow noopener\" target=\"_blank\"\u003ehttp://127.0.0.1:8000/cms/impression/1/\u003c/a\u003e\u003cbr\u003e\nDjango Version: 1.9.6\u003cbr\u003e\nException Type: NoReverseMatch\u003cbr\u003e\nException Value:\u003cbr\u003e\u003cbr\u003e\nReverse for 'impression_add' with arguments '()' and keyword arguments '{'book_id': 1}' not found. 0 pattern(s) tried: []\u003cbr\u003e\nException Location: /Users/myname/.pyenv/versions/3.5.1/lib/python3.5/site-packages/django/core/urlresolvers.py in _reverse_with_prefix, line 508\u003cbr\u003e\nPython Executable:  /Users/myname/.pyenv/versions/3.5.1/bin/python\u003cbr\u003e\nPython Version: 3.5.1\u003c/p\u003e\n","created_at":"2016-06-03T08:13:39+09:00","expanded_references":"","id":554717,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":0,"raw_body":"子の一覧のテンプレートの時点で\nhttp://localhost:8000/cms/impression/1/\nにアクセスすると以下のようなエラーがでます。\nどこを改善すれば良いでしょうか？\n\n\n----\nNoReverseMatch at /cms/impression/1/\nReverse for 'impression_add' with arguments '()' and keyword arguments '{'book_id': 1}' not found. 0 pattern(s) tried: []\nRequest Method:\tGET\nRequest URL:\thttp://127.0.0.1:8000/cms/impression/1/\nDjango Version:\t1.9.6\nException Type:\tNoReverseMatch\nException Value:\t\nReverse for 'impression_add' with arguments '()' and keyword arguments '{'book_id': 1}' not found. 0 pattern(s) tried: []\nException Location:\t/Users/myname/.pyenv/versions/3.5.1/lib/python3.5/site-packages/django/core/urlresolvers.py in _reverse_with_prefix, line 508\nPython Executable:\t/Users/myname/.pyenv/versions/3.5.1/bin/python\nPython Version:\t3.5.1\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-3eaebad1e6ffb08c11bd","user":{"contribution":1,"created_at":"2015-08-03T05:44:00+09:00","id":88339,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/88339/profile-images/1473704391","suspended":false,"url_name":"horik"},"uuid":"3eaebad1e6ffb08c11bd","via_email":false},{"banned":false,"body":"\u003cp\u003e子の一覧のテンプレート、子のURLスキーム　を見比べて見て下さい。\u003cbr\u003e\u003cbr\u003e\n* impression_add があるか\u003c/p\u003e\n\n\u003cp\u003eどこかおかしいですね。\u003c/p\u003e\n","created_at":"2016-06-03T08:47:33+09:00","expanded_references":"","id":554728,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":0,"raw_body":"子の一覧のテンプレート、子のURLスキーム　を見比べて見て下さい。  \n* impression_add があるか\n\nどこかおかしいですね。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-39cc9c67885673c41a14","user":{"contribution":2097,"created_at":"2014-07-05T22:42:17+09:00","id":48136,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/48136/profile-images/1473691243","suspended":false,"url_name":"kaki_k"},"uuid":"39cc9c67885673c41a14","via_email":false},{"banned":false,"body":"\u003cp\u003e動きました。\u003cbr\u003e\n(5)を全部やりきらないといけないんですね。\u003cbr\u003e\nてっきり、そのつど実行できるものとばかり思ってました。\u003c/p\u003e\n","created_at":"2016-06-03T11:57:20+09:00","expanded_references":"","id":555054,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":1,"raw_body":"動きました。\n(5)を全部やりきらないといけないんですね。\nてっきり、そのつど実行できるものとばかり思ってました。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-092254b38691783da168","user":{"contribution":1,"created_at":"2015-08-03T05:44:00+09:00","id":88339,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/88339/profile-images/1473704391","suspended":false,"url_name":"horik"},"uuid":"092254b38691783da168","via_email":false},{"banned":false,"body":"\u003cp\u003eお世話になっております。\u003c/p\u003e\n\n\u003cp\u003eコードを全てコピペしたのですが、「ImportError: cannot import name 'Book'」と出てしまいます。\u003cbr\u003e\nちなみに、開発環境はpycharmを使っておらず、テキストエディタで編集してそのまま実行しております。\u003cbr\u003e\nまた、Djangoのバージョンは1.10です。\u003c/p\u003e\n\n\u003cp\u003e何か思い当たる問題点があれば、ご教授おねがいします。\u003c/p\u003e\n","created_at":"2016-11-12T18:50:46+09:00","expanded_references":"","id":676793,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":0,"raw_body":"お世話になっております。\n\nコードを全てコピペしたのですが、「ImportError: cannot import name 'Book'」と出てしまいます。\nちなみに、開発環境はpycharmを使っておらず、テキストエディタで編集してそのまま実行しております。\nまた、Djangoのバージョンは1.10です。\n\n何か思い当たる問題点があれば、ご教授おねがいします。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-57cc97f8b062b2848895","user":{"contribution":0,"created_at":"2016-11-12T18:39:00+09:00","id":149082,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/149082/profile-images/1478943734","suspended":false,"url_name":"yukkariiiiiiii"},"uuid":"57cc97f8b062b2848895","via_email":false},{"banned":false,"body":"\u003cp\u003e\u003ca href=\"/yukkariiiiiiii\" class=\"user-mention js-hovercard\" title=\"yukkariiiiiiii\" data-hovercard-target-type=\"user\" data-hovercard-target-name=\"yukkariiiiiiii\"\u003e@yukkariiiiiiii\u003c/a\u003e エラーのスタックトレース、貼れますか？\u003cbr\u003e\nもしかしたら \u003ccode\u003ecms/models.py\u003c/code\u003e のところで \u003ccode\u003efrom cms.models import Book\u003c/code\u003e が抜けてるかもしれません\u003c/p\u003e\n","created_at":"2016-11-13T14:01:13+09:00","expanded_references":"","id":676869,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":0,"raw_body":"@yukkariiiiiiii エラーのスタックトレース、貼れますか？\nもしかしたら `cms/models.py` のところで `from cms.models import Book` が抜けてるかもしれません\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-b542ec4b89949134c902","user":{"contribution":47,"created_at":"2013-09-25T21:45:11+09:00","id":29989,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/29989/profile-images/1473685423","suspended":false,"url_name":"c-bata"},"uuid":"b542ec4b89949134c902","via_email":false},{"banned":false,"body":"\u003cp\u003eお世話になります\u003cbr\u003e\nimpression_list.htmlをそのままコピペしました。（4）までは順調にクリアできました。\u003cbr\u003e\nしかし、impression_list.htmlを実行するとプロパティ―＄の値は未定義でFunction オブジェトではありませんとなります（ビルダーで確認しました）ローカルホストでもちろんエラーです\u003c/p\u003e\n","created_at":"2017-04-11T10:30:47+09:00","expanded_references":"","id":777555,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":0,"raw_body":"お世話になります\nimpression_list.htmlをそのままコピペしました。（4）までは順調にクリアできました。\nしかし、impression_list.htmlを実行するとプロパティ―＄の値は未定義でFunction オブジェトではありませんとなります（ビルダーで確認しました）ローカルホストでもちろんエラーです\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-7d2d2bd48bca55eea96e","user":{"contribution":2,"created_at":"2015-07-19T15:36:13+09:00","id":86833,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/86833/profile-images/1473703875","suspended":false,"url_name":"moriuchiryoko"},"uuid":"7d2d2bd48bca55eea96e","via_email":false},{"banned":false,"body":"\u003cp\u003e\u003ca href=\"/moriuchiryoko\" class=\"user-mention js-hovercard\" title=\"moriuchiryoko\" data-hovercard-target-type=\"user\" data-hovercard-target-name=\"moriuchiryoko\"\u003e@moriuchiryoko\u003c/a\u003e さん\u003cbr\u003e\njQueryのバージョンが誤っていませんか？\u003cbr\u003e\nbase.html に記載しているjQuery のバージョンとアプリに配置した jQuery のバージョンを確認してみてください。\u003c/p\u003e\n","created_at":"2017-04-17T10:12:54+09:00","expanded_references":"","id":782065,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":0,"raw_body":"@moriuchiryoko さん\njQueryのバージョンが誤っていませんか？\nbase.html に記載しているjQuery のバージョンとアプリに配置した jQuery のバージョンを確認してみてください。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-175b28c8222a61dd7ac2","user":{"contribution":0,"created_at":"2013-02-23T03:13:08+09:00","id":17018,"is_admin":false,"profile_image_url":"https://secure.gravatar.com/avatar/6e3b7866567a45ecd37e0a4a1ee889df?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png","suspended":false,"url_name":"YuoMamoru@github"},"uuid":"175b28c8222a61dd7ac2","via_email":false},{"banned":false,"body":"\u003cp\u003e大変わかりやすいチュートリアルで大変勉強になりました。\u003c/p\u003e\n\n\u003cp\u003e1点、削除ボタンですが、「pk」「url」というHTMLで定義されていない属性を定義していますが、これではHTMLチェッカーにかけるとエラーになります。\u003cbr\u003e\n「data-pk」「data-url」としたほうが良いように思います。\u003cbr\u003e\nそうした場合、JavaScript側では以下のようにアクセスできます。\u003c/p\u003e\n\n\u003cdiv class=\"code-frame\" data-lang=\"javascript\"\u003e\u003cdiv class=\"highlight\"\u003e\u003cpre\u003e\u003cspan\u003e\u003c/span\u003e\u003cspan class=\"nx\"\u003e$\u003c/span\u003e\u003cspan class=\"p\"\u003e(\u003c/span\u003e\u003cspan class=\"s1\"\u003e'#del_pk'\u003c/span\u003e\u003cspan class=\"p\"\u003e).\u003c/span\u003e\u003cspan class=\"nx\"\u003etext\u003c/span\u003e\u003cspan class=\"p\"\u003e(\u003c/span\u003e\u003cspan class=\"k\"\u003ethis\u003c/span\u003e\u003cspan class=\"p\"\u003e.\u003c/span\u003e\u003cspan class=\"nx\"\u003edataset\u003c/span\u003e\u003cspan class=\"p\"\u003e.\u003c/span\u003e\u003cspan class=\"nx\"\u003epk\u003c/span\u003e\u003cspan class=\"p\"\u003e);\u003c/span\u003e\n\u003cspan class=\"nx\"\u003e$\u003c/span\u003e\u003cspan class=\"p\"\u003e(\u003c/span\u003e\u003cspan class=\"s1\"\u003e'#del_url'\u003c/span\u003e\u003cspan class=\"p\"\u003e).\u003c/span\u003e\u003cspan class=\"nx\"\u003eattr\u003c/span\u003e\u003cspan class=\"p\"\u003e(\u003c/span\u003e\u003cspan class=\"s1\"\u003e'href'\u003c/span\u003e\u003cspan class=\"p\"\u003e,\u003c/span\u003e \u003cspan class=\"k\"\u003ethis\u003c/span\u003e\u003cspan class=\"p\"\u003e.\u003c/span\u003e\u003cspan class=\"nx\"\u003edataset\u003c/span\u003e\u003cspan class=\"p\"\u003e.\u003c/span\u003e\u003cspan class=\"nx\"\u003eurl\u003c/span\u003e\u003cspan class=\"p\"\u003e);\u003c/span\u003e\n\u003c/pre\u003e\u003c/div\u003e\u003c/div\u003e\n","created_at":"2017-04-17T10:19:47+09:00","expanded_references":"","id":782077,"is_team":false,"item_id":99733,"item_type":"PublicDomainArticle","item_uuid":"ebc8d8b07434e1721756","likable":false,"liked":false,"public_likes_count":0,"raw_body":"大変わかりやすいチュートリアルで大変勉強になりました。\n\n1点、削除ボタンですが、「pk」「url」というHTMLで定義されていない属性を定義していますが、これではHTMLチェッカーにかけるとエラーになります。\n「data-pk」「data-url」としたほうが良いように思います。\nそうした場合、JavaScript側では以下のようにアクセスできます。\n\n``` javascript\n$('#del_pk').text(this.dataset.pk);\n$('#del_url').attr('href', this.dataset.url);\n```\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-280090753835b335d08d","user":{"contribution":0,"created_at":"2013-02-23T03:13:08+09:00","id":17018,"is_admin":false,"profile_image_url":"https://secure.gravatar.com/avatar/6e3b7866567a45ecd37e0a4a1ee889df?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png","suspended":false,"url_name":"YuoMamoru@github"},"uuid":"280090753835b335d08d","via_email":false}],"monthly_public_image_uploadable_size_limit":null,"total_uploaded_public_image_size_in_current_month":null,"item":{"id":99733,"uuid":"ebc8d8b07434e1721756","suspended":false,"secret":false},"owner":{"url_name":"kaki_k"},"is_team":false,"is_project":false,"logged_in":false,"polling":false,"mention_candidates":[{"id":48136,"url_name":"kaki_k","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/48136/profile-images/1473691243"},{"id":29989,"url_name":"c-bata","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/29989/profile-images/1473685423"},{"id":32946,"url_name":"fantm21","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/32946/profile-images/1490789470"},{"id":31377,"url_name":"harukaeru","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/31377/profile-images/1473685681"},{"id":83608,"url_name":"miyazakih","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/83608/profile-images/1473702829"},{"id":41249,"url_name":"sai03","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/41249/profile-images/1473688727"},{"id":88339,"url_name":"horik","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/88339/profile-images/1473704391"},{"id":149082,"url_name":"yukkariiiiiiii","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/149082/profile-images/1478943734"},{"id":86833,"url_name":"moriuchiryoko","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/86833/profile-images/1473703875"},{"id":17018,"url_name":"YuoMamoru@github","profile_image_url":"https://secure.gravatar.com/avatar/6e3b7866567a45ecd37e0a4a1ee889df?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"}]},"trace":false,"dom_id":"PublicCommentListContainer-react-component-6e00ab21-67c1-4f2d-a145-2298d15bd774"}</script>
+    <div id="PublicCommentListContainer-react-component-6e00ab21-67c1-4f2d-a145-2298d15bd774"><div data-reactroot="" class="commentList"><noscript></noscript><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/c-bata"><span title="c-bata" itemprop="url" href="/c-bata"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/1473685423"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/c-bata">c-bata</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">47</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-e7e0ca3d3473e816db5d"><time datetime="2014-12-11T19:21:58+09:00" itemprop="commentTime">2014-12-11 19:21</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>非常に分かりやすいチュートリアル記事をありがとうございます．</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>class Impression(models.Model):
+    '''感想'''
+    book = models.ForeignKey(Book, verbose_name=u'書籍', related_name='impressions')
+    comment = models.TextField(u'コメント', blank=True)
+</pre></div></div>
+
+<p>Impressionクラスのcommentフィールドについて、blank=Trueを指定してしまうと空のコメントが挿入できてしまうので無い方が良いのではないかと思ったのですがどうでしょうか？</p>
+</div><!-- react-text: 26 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/kaki_k"><span title="kaki_k" itemprop="url" href="/kaki_k"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/1473691243"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/kaki_k">kaki_k</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">2097</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-8396ec9a6dc5758fe631"><time datetime="2014-12-11T20:13:13+09:00" itemprop="commentTime">2014-12-11 20:13</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">1</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>読んでいただいて、ありがとうございます。</p>
+
+<p>blank=True がないと、Formからはコメントは必須入力で、省略できなくなってしまいます。<br>
+このままの状態で、空のコメントが挿入できますと思います。<br>
+DB上は、NULLではなく、空文字""となります。</p>
+</div><!-- react-text: 50 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/c-bata"><span title="c-bata" itemprop="url" href="/c-bata"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/1473685423"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/c-bata">c-bata</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">47</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-01e08d223bc8cd51ad9e"><time datetime="2014-12-12T00:30:51+09:00" itemprop="commentTime">2014-12-12 00:30</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>返信ありがとうございます。<br>
+なるほど。コメントを省略できるようにしていたんですね。</p>
+
+<p>この記事のおかげでDjangoの勉強を始めることが出来ました。本当にありがとうございます。</p>
+</div><!-- react-text: 74 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/fantm21"><span title="fantm21" itemprop="url" href="/fantm21"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/1490789470"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/fantm21">fantm21</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">1213</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-58494e515e26e036b930"><time datetime="2015-02-03T11:00:59+09:00" itemprop="commentTime">2015-02-03 11:00</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">1</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>Djangoの勉強ですごく参考にさせていただいています。<br>
+何箇所かファイルのパスが間違っていたのを発見したので編集リクエストを送らせていただきましたm(_ _)m</p>
+</div><!-- react-text: 98 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/kaki_k"><span title="kaki_k" itemprop="url" href="/kaki_k"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/1473691243"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/kaki_k">kaki_k</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">2097</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-6bc3d36024f64bcbe3c1"><time datetime="2015-02-03T23:42:59+09:00" itemprop="commentTime">2015-02-03 23:42</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">2</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>ありがとうございます。 <img alt=":smile:" class="emoji" height="20" src="./Python Django入門 (5) - Qiita_files/1f604.png" title=":smile:" width="20"> <br>
+修正しました。</p>
+</div><!-- react-text: 122 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/harukaeru"><span title="harukaeru" itemprop="url" href="/harukaeru"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/1473685681"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/harukaeru">harukaeru</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">0</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-3cfe7c600061b8fda7e9"><time datetime="2015-05-10T03:30:47+09:00" itemprop="commentTime">2015-05-10 03:30</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">1</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>&lt;button class="btn btn-default btn-sm del_confirm" data-toggle="modal" data-target="#deleteModal" pk="{{ impression.id }}" url="{% url 'cms:impression_del' book_id=book.id impression_id=impression.id %}"&gt;削除&lt;/a&gt;<br>
+の&lt;/a&gt;ですが、&lt;/button&gt;だと思います。たぶん。</p>
+</div><!-- react-text: 146 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/miyazakih"><span title="miyazakih" itemprop="url" href="/miyazakih"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/1473702829"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/miyazakih">miyazakih</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">0</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-6fe54aab72bba48dbfb5"><time datetime="2015-06-21T22:58:48+09:00" itemprop="commentTime">2015-06-21 22:58</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>一念発起してプログラミングを勉強しており、とても参考になってます。<br>
+どうもありがとうございます。<br>
+削除ボタンが動かなくてハマっていたのですが、<br>
+jqueryのバージョンが上がっていたのが原因でした。<br>
+同じ事象が起きている人の参考になるように書き込ませていただきます。<br>
+jquery-1.11.1.min.js　→　jquery-1.11.3.min.js<br>
+base.htmlを下記の通り変更しました。</p>
+
+<p>script src="{% static 'js/jquery-1.11.3.min.js' %}"</p>
+</div><!-- react-text: 170 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/sai03"><span title="sai03" itemprop="url" href="/sai03"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/1473688727"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/sai03">sai03</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">20</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-83ef1912c36d143b2ac9"><time datetime="2016-03-13T18:57:02+09:00" itemprop="commentTime">2016-03-13 18:57</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>参考になりました。続編期待してます。</p>
+</div><!-- react-text: 194 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/horik"><span title="horik" itemprop="url" href="/horik"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/1473704391"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/horik">horik</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">1</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-3eaebad1e6ffb08c11bd"><time datetime="2016-06-03T08:13:39+09:00" itemprop="commentTime">2016-06-03 08:13</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>子の一覧のテンプレートの時点で<br>
+<a href="http://localhost:8000/cms/impression/1/" class="autolink" rel="nofollow noopener" target="_blank">http://localhost:8000/cms/impression/1/</a><br>
+にアクセスすると以下のようなエラーがでます。<br>
+どこを改善すれば良いでしょうか？</p>
+
+<hr>
+
+<p>NoReverseMatch at /cms/impression/1/<br>
+Reverse for 'impression_add' with arguments '()' and keyword arguments '{'book_id': 1}' not found. 0 pattern(s) tried: []<br>
+Request Method: GET<br>
+Request URL:    <a href="http://127.0.0.1:8000/cms/impression/1/" class="autolink" rel="nofollow noopener" target="_blank">http://127.0.0.1:8000/cms/impression/1/</a><br>
+Django Version: 1.9.6<br>
+Exception Type: NoReverseMatch<br>
+Exception Value:<br><br>
+Reverse for 'impression_add' with arguments '()' and keyword arguments '{'book_id': 1}' not found. 0 pattern(s) tried: []<br>
+Exception Location: /Users/myname/.pyenv/versions/3.5.1/lib/python3.5/site-packages/django/core/urlresolvers.py in _reverse_with_prefix, line 508<br>
+Python Executable:  /Users/myname/.pyenv/versions/3.5.1/bin/python<br>
+Python Version: 3.5.1</p>
+</div><!-- react-text: 218 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/kaki_k"><span title="kaki_k" itemprop="url" href="/kaki_k"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/1473691243"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/kaki_k">kaki_k</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">2097</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-39cc9c67885673c41a14"><time datetime="2016-06-03T08:47:33+09:00" itemprop="commentTime">2016-06-03 08:47</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>子の一覧のテンプレート、子のURLスキーム　を見比べて見て下さい。<br><br>
+* impression_add があるか</p>
+
+<p>どこかおかしいですね。</p>
+</div><!-- react-text: 242 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/horik"><span title="horik" itemprop="url" href="/horik"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/1473704391"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/horik">horik</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">1</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-092254b38691783da168"><time datetime="2016-06-03T11:57:20+09:00" itemprop="commentTime">2016-06-03 11:57</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">1</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>動きました。<br>
+(5)を全部やりきらないといけないんですね。<br>
+てっきり、そのつど実行できるものとばかり思ってました。</p>
+</div><!-- react-text: 266 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/yukkariiiiiiii"><span title="yukkariiiiiiii" itemprop="url" href="/yukkariiiiiiii"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/1478943734"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/yukkariiiiiiii">yukkariiiiiiii</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">0</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-57cc97f8b062b2848895"><time datetime="2016-11-12T18:50:46+09:00" itemprop="commentTime">2016-11-12 18:50</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>お世話になっております。</p>
+
+<p>コードを全てコピペしたのですが、「ImportError: cannot import name 'Book'」と出てしまいます。<br>
+ちなみに、開発環境はpycharmを使っておらず、テキストエディタで編集してそのまま実行しております。<br>
+また、Djangoのバージョンは1.10です。</p>
+
+<p>何か思い当たる問題点があれば、ご教授おねがいします。</p>
+</div><!-- react-text: 290 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/c-bata"><span title="c-bata" itemprop="url" href="/c-bata"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/1473685423"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/c-bata">c-bata</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">47</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-b542ec4b89949134c902"><time datetime="2016-11-13T14:01:13+09:00" itemprop="commentTime">2016-11-13 14:01</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p><a href="http://qiita.com/yukkariiiiiiii" class="user-mention js-hovercard" title="yukkariiiiiiii" data-hovercard-target-type="user" data-hovercard-target-name="yukkariiiiiiii">@yukkariiiiiiii</a> エラーのスタックトレース、貼れますか？<br>
+もしかしたら <code>cms/models.py</code> のところで <code>from cms.models import Book</code> が抜けてるかもしれません</p>
+</div><!-- react-text: 314 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/moriuchiryoko"><span title="moriuchiryoko" itemprop="url" href="/moriuchiryoko"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/1473703875"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/moriuchiryoko">moriuchiryoko</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">2</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-7d2d2bd48bca55eea96e"><time datetime="2017-04-11T10:30:47+09:00" itemprop="commentTime">2017-04-11 10:30</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>お世話になります<br>
+impression_list.htmlをそのままコピペしました。（4）までは順調にクリアできました。<br>
+しかし、impression_list.htmlを実行するとプロパティ―＄の値は未定義でFunction オブジェトではありませんとなります（ビルダーで確認しました）ローカルホストでもちろんエラーです</p>
+</div><!-- react-text: 338 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/YuoMamoru@github"><span title="YuoMamoru@github" itemprop="url" href="/YuoMamoru@github"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/6e3b7866567a45ecd37e0a4a1ee889df"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/YuoMamoru@github">YuoMamoru@github</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">0</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-175b28c8222a61dd7ac2"><time datetime="2017-04-17T10:12:54+09:00" itemprop="commentTime">2017-04-17 10:12</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p><a href="http://qiita.com/moriuchiryoko" class="user-mention js-hovercard" title="moriuchiryoko" data-hovercard-target-type="user" data-hovercard-target-name="moriuchiryoko">@moriuchiryoko</a> さん<br>
+jQueryのバージョンが誤っていませんか？<br>
+base.html に記載しているjQuery のバージョンとアプリに配置した jQuery のバージョンを確認してみてください。</p>
+</div><!-- react-text: 362 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/YuoMamoru@github"><span title="YuoMamoru@github" itemprop="url" href="/YuoMamoru@github"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (5) - Qiita_files/6e3b7866567a45ecd37e0a4a1ee889df"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/YuoMamoru@github">YuoMamoru@github</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">0</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#comment-280090753835b335d08d"><time datetime="2017-04-17T10:19:47+09:00" itemprop="commentTime">2017-04-17 10:19</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>大変わかりやすいチュートリアルで大変勉強になりました。</p>
+
+<p>1点、削除ボタンですが、「pk」「url」というHTMLで定義されていない属性を定義していますが、これではHTMLチェッカーにかけるとエラーになります。<br>
+「data-pk」「data-url」としたほうが良いように思います。<br>
+そうした場合、JavaScript側では以下のようにアクセスできます。</p>
+
+<div class="code-frame" data-lang="javascript"><div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">(</span><span class="s1">'#del_pk'</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">pk</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'#del_url'</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">'href'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+</pre></div></div>
+</div><!-- react-text: 386 --><!-- /react-text --></div></div></div></div>
+    
+</div></div></div></div></article><div class="js-report-form modal fade reportForm"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button name="button" type="submit" class="close" data-dismiss="modal">×</button><h4 class="modal-title">問題がある投稿を報告する</h4></div><div class="modal-body"><form action="http://qiita.com/reports" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="T9XTZgmMfuQdQ+prYODnscuCIoKOKCEdmwvlXhWJXwGexi1bjvrF0Wye+g1uakMpru915f4MBqT0b7C8o26E+Q=="><input type="hidden" name="redirect_path" id="redirect_path" value="/kaki_k/items/ebc8d8b07434e1721756"><input type="hidden" name="item_uuid" id="item_uuid" value="ebc8d8b07434e1721756"><p>この投稿にどのような問題がありますか？</p><br><div class="form-group"><ul class="list-unstyled"><li><label><input type="radio" name="report_type" id="report_type_spam" value="spam" required="required"> スパムです </label></li><li><label><input type="radio" name="report_type" id="report_type_harassment" value="harassment" required="required"> 攻撃的または迷惑な内容を含んでいます </label></li><li><label><input type="radio" name="report_type" id="report_type_inappropriate_content" value="inappropriate_content" required="required"> 不適切な内容を含んでいます </label></li></ul></div><div class="reportForm_submitButtonContainer"><button name="button" type="submit" class="btn btn-primary reportForm_submitButton"><i class="fa fa-send"></i> 送信</button></div></form></div></div></div></div><script id="js-item" type="application/json">{ "url": "http://qiita.com/kaki_k/items/ebc8d8b07434e1721756", "id": 99733, "uuid": "ebc8d8b07434e1721756" }</script><script class="js-user" type="application/json">{&quot;id&quot;:48136,&quot;url_name&quot;:&quot;kaki_k&quot;,&quot;profile_image_url&quot;:&quot;https://qiita-image-store.s3.amazonaws.com/0/48136/profile-images/1473691243&quot;}</script><script language="JavaScript" src="./Python Django入門 (5) - Qiita_files/qiita_bigmining.js" type="text/javascript"></script></div><script src="./Python Django入門 (5) - Qiita_files/adrequest.js"></script><footer class="footer"><div class="footer_inner"><div class="footer_container"><ul class="footer_links-left"><li class="footer_link"><a class="footer_copyright" href="http://increments.co.jp/">© 2011-2017 Increments Inc.</a></li><li class="footer_link"><a href="http://qiita.com/terms">利用規約</a></li><li class="footer_link"><a href="http://qiita.com/privacy">プライバシー</a></li><li class="footer_link"><a href="http://help.qiita.com/">ヘルプ</a></li><li class="footer_link"><a href="https://increments.zendesk.com/anonymous_requests/new">お問い合わせ</a></li></ul><ul class="footer_links-right"><li class="footer_link"><a href="http://qiita.com/about">Qiitaとは</a></li><li class="footer_link"><a href="http://qiita.com/users">ユーザー</a></li><li class="footer_link"><a href="http://qiita.com/tags">タグ</a></li><li class="footer_link"><a href="http://blog.qiita.com/">ブログ</a></li><li class="footer_link"><a href="http://qiita.com/api/v2/docs">API</a></li><li class="footer_link"><a href="https://teams.qiita.com/">Team</a></li><li class="footer_link"><a href="http://kobito.qiita.com/">Kobito</a></li><li class="footer_link"><a class="js-public-form-feedback-link" data-target=".js-feedback-form" data-toggle="modal" href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756"><i class="fa fa-heart"></i> ご意見 <i class="fa fa-caret-down"></i></a></li></ul></div></div></footer><div class="js-feedback-form modal fade feedbackForm"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button name="button" type="submit" class="close" data-dismiss="modal">×</button><h4 class="modal-title">ご意見</h4></div><div class="modal-body"><form class="js-feedback-form-form" action="http://qiita.com/feedbacks" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="T9XTZgmMfuQdQ+prYODnscuCIoKOKCEdmwvlXhWJXwGexi1bjvrF0Wye+g1uakMpru915f4MBqT0b7C8o26E+Q=="><input type="hidden" name="redirect_path" id="redirect_path" value="/kaki_k/items/ebc8d8b07434e1721756"><div class="form-group"><textarea name="feedback[message]" id="feedback_message" class="form-control js-feedback-form-text-area" placeholder="Qiitaについてのご意見をお聞かせください。" required="required" rows="5"></textarea></div><div class="feedbackForm_submitButtonContainer"><button name="button" type="submit" class="btn btn-primary feedbackForm_submitButton"><i class="fa fa-send"></i> 送信</button><p class="feedbackForm_note">いただいたご意見への返信は行っておりません。<br>返信の必要な内容については、<a href="https://increments.zendesk.com/anonymous_requests/new">こちら</a> からお問い合わせください。</p></div><div style="position:fixed;top:-99999px;opacity:0.0001;"><input name="feedback[name]" type="text"></div></form></div></div></div></div><script>// if (window.mixpanel instanceof Element) {
+//   window.mixpanel = [];
+// }
+// (function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+// for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);</script><script src="./Python Django入門 (5) - Qiita_files/public-ea9634d328dd01703100922f07784313.min.js"></script><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Python Django入門 (5) - Qiita_files/0F7S7QWJ0Ac.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Python Django入門 (5) - Qiita_files/0F7S7QWJ0Ac(1).html" style="border: none;"></iframe></div></div></div><script>
+  (function () {
+    var script = document.getElementsByTagName('script')[0];
+    var load = function (src, id) {
+      var el = document.createElement('script');
+      el.async = true;
+      el.src = src;
+      el.id = id;
+      script.parentNode.insertBefore(el, script);
+    };
+      // Optimizely
+      load('//cdn.optimizely.com/js/52738645.js', 'optimizely-jssdk');
+      // Google Analytics
+      window._gaq = window._gaq || [];
+      var isCareer = location.hostname.split('.')[0] == 'career';
+      if (isCareer) {
+        window._gaq.push(['_setAccount', 'UA-24675221-11']);
+        window._gaq.push(['_setDomainName', 'qiita.com']);
+      } else {
+        window._gaq.push(['_setAccount', 'UA-24675221-1']);
+      }
+      window._gaq.push(['_setCustomVar', 1, 'logged_in', 'false', 2]);
+      window._gaq.push(['_trackPageview']);
+      var src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      load(src, 'google-analytics-jssdk');
+    // Google Analytics - Universal Analytics
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-24675221-12', {
+          
+        });
+        ga('set', 'dimension1', 'false');
+        ga('set', 'dimension3', 'false');
+      ga('require', 'displayfeatures');
+      ga('set', 'forceSSL', true);
+      ga('send', 'pageview');
+    // Google Tag Manager
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-TBQWPN');
+  })();
+</script>
+<div class="ReactModalPortal"><div data-reactroot=""></div></div><script type="text/javascript" id="">var googletag=googletag||{};googletag.cmd=googletag.cmd||[];googletag.cmd.push(function(){googletag.defineSlot("/383564218/qiita.com_items-show_under-article-left",[336,280],"div-gpt-ad-1489567219879-0").addService(googletag.pubads());googletag.pubads().enableSingleRequest();googletag.pubads().collapseEmptyDivs();googletag.enableServices()});
+googletag.cmd.push(function(){googletag.defineSlot("/383564218/qiita.com_items-show_under-article-right",[336,280],"div-gpt-ad-1489568123856-0").addService(googletag.pubads());googletag.pubads().enableSingleRequest();googletag.pubads().collapseEmptyDivs();googletag.enableServices()});
+$(function(){var a=$("\x3cdiv\x3e").css("text-align","center").append("\x3cdiv style\x3d'display:inline-block;margin:10px;'\x3e\x3cdiv id\x3d'div-gpt-ad-1489567219879-0' style\x3d'height:280px; width:336px;'\x3e\x3c/div\x3e\x3c/div\x3e").append("\x3cdiv style\x3d'display:inline-block;margin:10px;'\x3e\x3cdiv id\x3d'div-gpt-ad-1489568123856-0' style\x3d'height:280px; width:336px;'\x3e\x3c/div\x3e\x3c/div\x3e");$(".ArticleFooter__menu").before(a);googletag.cmd.push(function(){googletag.display("div-gpt-ad-1489567219879-0")});
+googletag.cmd.push(function(){googletag.display("div-gpt-ad-1489568123856-0")})});</script>
+<script type="text/javascript" id="">var googletag=googletag||{};googletag.cmd=googletag.cmd||[];googletag.cmd.push(function(){googletag.defineSlot("/383564218/qiita.com_items-show_sidebar-top",[300,250],"div-gpt-ad-1493084685571-0").addService(googletag.pubads());googletag.pubads().enableSingleRequest();googletag.pubads().collapseEmptyDivs();googletag.enableServices()});</script>
+
+
+<script type="text/javascript" id="">$("#article-body-wrapper \x3e .col-sm-3").prepend("\x3cdiv id\x3d'div-gpt-ad-1493084685571-0' style\x3d'height:250px; width:300px; margin-bottom: 20px;'\x3e");googletag.cmd.push(function(){googletag.display("div-gpt-ad-1493084685571-0")});</script><script type="text/javascript" id="" src="./Python Django入門 (5) - Qiita_files/gpt.js"></script><img src="./Python Django入門 (5) - Qiita_files/adevent" width="0" height="0" style="display: none;"><iframe name="oauth2relay425986398" id="oauth2relay425986398" src="./Python Django入門 (5) - Qiita_files/postmessageRelay.html" tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe" src="./Python Django入門 (5) - Qiita_files/saved_resource(5).html"></iframe></body></html>

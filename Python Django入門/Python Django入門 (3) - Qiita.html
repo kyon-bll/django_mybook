@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://qiita.com/kaki_k/items/7b178ad39394a031b50d -->
+<html xmlns:og="http://ogp.me/ns#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Python Django入門 (3) - Qiita</title><meta content="width=device-width,initial-scale=1" name="viewport"><meta content="
+
+Djangoを始める
+
+
+ドキュメント
+
+日本語
+
+
+
+Django ドキュメント (DJANGOPROJECT.JP から 1.9 ドキュメントを参照して下さい)
+
+
+英語
+
+
+Django documentation
+
+
+日本語ドキュメントの 概要 と チュートリアル その１ 〜 その７ を一読するのがよいのですが、まずはこの講座を先にやってみてもよいでしょう。
+
+
+基本的にコピペでOKです。
+どう動くのか、なんとなくわかったら、公式のチュートリアルをやってみて..." name="description"><meta content="summary" name="twitter:card"><meta content="@Qiita" name="twitter:site"><meta content="kaki_k" name="twitter:creator"><meta content="Python Django入門 (3) - Qiita" property="og:title"><meta content="article" property="og:type"><meta content="http://qiita.com/kaki_k/items/7b178ad39394a031b50d" property="og:url"><meta content="http://cdn.qiita.com/assets/qiita-fb-2887e7b4aad86fd8c25cea84846f2236.png" property="og:image"><meta content="
+Djangoを始める
+--------------
+
+### ドキュメント
+
+日本語
+
+* [Django ドキュメント](http://djangoproject.jp/) (DJANGOPROJECT.JP から 1.9 ドキュ..." property="og:description"><meta content="Qiita" property="og:site_name"><meta content="564524038" property="fb:admins"><link rel="shortcut icon" type="image/x-icon" href="http://cdn.qiita.com/assets/favicons/public/production-4ff10c1e1e2b5fcb353ff9cafdd56c70.ico"><link rel="apple-touch-icon" type="image/png" href="http://cdn.qiita.com/assets/favicons/public/apple-touch-icon-f9a6afad761ec2306e10db2736187c8b.png"><link href="http://qiita.com/opensearch.xml" rel="search" title="Qiita" type="application/opensearchdescription+xml"><link rel="stylesheet" media="all" href="./Python Django入門 (3) - Qiita_files/public-c0679298dc61c14b0940b4ba03acab77.min.css"><meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="zgsKDXXWfOiL+zgBZa1ER6Gmz++23HSyMwwJ0omB2RsfGPQw8qDH3fomKGdrJ+DfxMuYiMb4UwtcaFwwP2YC4w=="><script src="./Python Django入門 (3) - Qiita_files/osd.js"></script><script src="./Python Django入門 (3) - Qiita_files/ads"></script><script src="./Python Django入門 (3) - Qiita_files/ads(1)"></script><script src="./Python Django入門 (3) - Qiita_files/cb=gapi.loaded_1" async=""></script><script src="./Python Django入門 (3) - Qiita_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" charset="utf-8" async="" src="./Python Django入門 (3) - Qiita_files/button.b731e6c82269f70f6fc53634e044a4c6.js"></script><script src="./Python Django入門 (3) - Qiita_files/pubads_impl_121.js" async=""></script></head><body class=" with-js"><noscript>&lt;iframe height="0" src="//www.googletagmanager.com/ns.html?id=GTM-TBQWPN" style="display:none;visibility:hidden" width="0"&gt;&lt;/iframe&gt;</noscript><script async="" src="./Python Django入門 (3) - Qiita_files/gtm.js"></script><script async="" src="./Python Django入門 (3) - Qiita_files/analytics.js"></script><script async="" src="./Python Django入門 (3) - Qiita_files/52738645.js" id="optimizely-jssdk"></script><script async="" src="./Python Django入門 (3) - Qiita_files/ga.js" id="google-analytics-jssdk"></script><script async="" src="./Python Django入門 (3) - Qiita_files/widgets.js" id="twitter-jssdk"></script><script async="" src="./Python Django入門 (3) - Qiita_files/all.js" id="facebook-jssdk"></script><script async="" src="./Python Django入門 (3) - Qiita_files/plusone.js" id="google-plusone-jssdk" gapi_processed="true"></script><script async="" src="./Python Django入門 (3) - Qiita_files/btn.js" id="pocket-btn-js"></script><script>
+  document.body.className = document.body.className.replace('without-js', '') + ' with-js';
+  window.Qiita = {"asset_host":"cdn.qiita.com","TLD":"com","controller_path":"public/items","controller_action":"public/items#show","controller":"items","action":"show","action_path":"public/items#show","env":"production","flash":{},"is_team_page":false,"request_parameters":{"controller":"public/items","action":"show","user_id":"kaki_k","type":"items","id":"7b178ad39394a031b50d"},"root_domain":"qiita.com","variant":null,"config":{"mixpanel":{"career":"dd35af27e959781713d63fd7ca898a8d","per_team":"c0a2116368b33b44b5029ebd2cc9b094","public":"be87616606b0e26a87689099aab2c4e5","team":"b7c0342acba2dbc8742484d98788efb3"},"default_locale":"ja","locale":"ja"},"team":null,"user":null,"GIT_BRANCH":null,"DEBUG":false};
+
+</script>
+<div class="headerContainer headerContainer-public" role="navigation"><script type="application/json" class="js-react-on-rails-component">{"component_name":"HeaderContainer","props":{"user":null,"team":null,"news":{"type":"News","content":"ストックの他に「いいね」が追加されました","url":"http://blog.qiita.com/post/153200849029/qiita-like-button"},"initial_unread_count":null,"siteid_image":"http://cdn.qiita.com/siteid-reverse.png","is_team_page":false,"on_team_setting":false,"show_post_menu":true,"show_search_menu":true,"is_fluid":false,"locale":"ja"},"trace":false,"dom_id":"HeaderContainer-react-component-49285af9-a58d-43c5-938b-cd9d1465da52"}</script>
+    <div id="HeaderContainer-react-component-49285af9-a58d-43c5-938b-cd9d1465da52"><header data-reactroot="" class="sharedHeader sharedHeader-public"><div class="sharedHeader_inner"><div class="sharedHeader_left"><span class="sharedHeader_logo open"><a class="sharedHeader_logo_main" href="http://qiita.com/"><span class="sharedHeader_logo_figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 26"><title>Qiita</title><path d="M24.6 12.2C24.6 6.2 20 0 12.2 0 6.2 0 0 4.6 0 12.4c0 6 4.6 12.2 12.4 12.2 2.5 0 5-.8 7.1-2.3l3.6 3.6 1.6-1.6-3.4-3.4c2.1-2.3 3.3-5.3 3.3-8.7zm-12.4-10c5.7 0 10.2 4.4 10.2 10.1 0 4.9-3.8 10.1-10.1 10.1s-10.1-5.1-10.1-10c0-6.4 5.1-10.2 10-10.2zM30.5 7.1h2.1v17h-2.1zM31.5 4.8c-1 0-1.8-.8-1.8-1.8s.8-1.8 1.8-1.8 1.8.8 1.8 1.8-.8 1.8-1.8 1.8zM40 4.8c-1 0-1.8-.8-1.8-1.8S39 1.2 40 1.2s1.8.8 1.8 1.8S41 4.8 40 4.8zM39 7.1h2.1v17H39zM53.7 24.4c-3.9 0-6.2-3-6.2-6v-16h2.1v4.7H57v2.1h-7.4v9.3c0 1.9 1.5 3.9 4.1 3.9.7 0 1.4-.2 2-.6l.2-.1 1 1.8-.2.1c-.9.5-2 .8-3 .8zM67.6 24.5c-5.7 0-9.1-4.5-9.1-8.9 0-5.7 4.5-9.1 8.9-9.1 2.3 0 4.1.8 5.4 2.3V7.1h2.1v17h-2.1v-1.9c-1.2 1.5-3 2.3-5.2 2.3zm-.2-15.9c-3.4 0-6.8 2.6-6.8 7 0 3.4 2.6 6.8 7 6.8 2 0 4-.9 5.3-2.5v-8.8c-1.4-1.6-3.3-2.5-5.5-2.5z"></path></svg></span></a></span><form class="navbar-form navbar-left searchForm" action="http://qiita.com/search" method="get"><div class="searchForm_queryWrapper"><input class="form-control searchForm_query" placeholder="キーワードを入力" autocomplete="off" name="q" value=""><div class="searchForm_wiseSearchButton"><i class="fa fa-caret-down"></i></div></div></form><div class="navbar-text headerNews hidden-xs hidden-sm"><div class="headerNews_label label label-warning">News</div><a class="navbar-link" target="_blank" href="http://blog.qiita.com/post/153200849029/qiita-like-button">ストックの他に「いいね」が追加されました</a></div></div><div class="sharedHeader_right"><div class="sharedHeader_registerUser"><a class="btn btn-warning navbar-btn navbar-right" href="http://qiita.com/signup?redirect_to=%2Fkaki_k%2Fitems%2F7b178ad39394a031b50d">ユーザ登録</a></div><div class="sharedHeader_loginUser"><a data-label="LoginButtonAtNavbar" href="http://qiita.com/login?redirect_to=%2Fkaki_k%2Fitems%2F7b178ad39394a031b50d">ログイン</a></div></div></div></header></div>
+    
+</div><div id="main"><script type="application/ld+json">{  "@context": "http://schema.org",  "@type": "BreadcrumbList",  "itemListElement": [    {      "@type": "ListItem",      "position": 1,      "item": {        "@id": "/",        "name": "Qiita"      }    },    {      "@type": "ListItem",      "position": 2,      "item": {        "@id": "/items",        "name": "投稿"      }    },    {      "@type": "ListItem",      "position": 3,      "item": {        "@id": "/tags/Python",        "name": "Python"      }    }  ]}</script><article itemscope="" itemtype="http://schema.org/Article"><div class="ArticleMainHeader "><div class="container"></div><div class="container"><div class="row s-flex-align-center"><div class="col-sm-9"><h1 class="ArticleMainHeader__title" itemprop="headline">Python Django入門 (3)</h1><ul class="TagList"><li class="TagList__item" data-count="11015"><a class="u-link-unstyled TagList__label" href="http://qiita.com/tags/Python"><img alt="Python" class="TagList__icon" src="./Python Django入門 (3) - Qiita_files/medium.jpg"><span>Python</span></a></li><li class="TagList__item" data-count="720"><a class="u-link-unstyled TagList__label" href="http://qiita.com/tags/Django"><img alt="Django" class="TagList__icon" src="./Python Django入門 (3) - Qiita_files/medium(1).jpg"><span>Django</span></a></li></ul></div><div class="col-sm-3"><div class="itemsShowHeaderStock"><ul class="list-unstyled itemsShowHeaderStock_statusList"><li><div class="itemsShowHeaderStock_count stock"><span class="fa fa-thumbs-up"></span><span class="js-likecount">242</span></div><div class="itemsShowHeaderStock_countText">いいね</div></li><li><div class="itemsShowHeaderStock_count" content="8 UserComments" itemprop="commentCount"><span class="fa fa-comment"></span>8</div><div class="itemsShowHeaderStock_countText">コメント</div></li></ul></div><div class="js-likebutton" data-props="{&quot;like_status&quot;:false,&quot;like_count&quot;:242,&quot;uuid&quot;:&quot;7b178ad39394a031b50d&quot;,&quot;likable_type&quot;:&quot;Article&quot;,&quot;position&quot;:&quot;article-header&quot;}"></div><ul class="list-inline ArticleMainHeader__users"><li class="js-hovercard" data-hovercard-target-name="EN-0"><a itemprop="url" href="http://qiita.com/EN-0"><img alt="EN-0" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1419966"></a></li><li class="js-hovercard" data-hovercard-target-name="ta7uwtaka"><a itemprop="url" href="http://qiita.com/ta7uwtaka"><img alt="ta7uwtaka" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/photo.jpg"></a></li><li class="js-hovercard" data-hovercard-target-name="asahara"><a itemprop="url" href="http://qiita.com/asahara"><img alt="asahara" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/photo(1).jpg"></a></li><li class="js-hovercard" data-hovercard-target-name="nbeat"><a itemprop="url" href="http://qiita.com/nbeat"><img alt="nbeat" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1494909240"></a></li><li class="js-hovercard" data-hovercard-target-name="4211111almomd"><a itemprop="url" href="http://qiita.com/4211111almomd"><img alt="4211111almomd" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473708308"></a></li><li class="js-hovercard" data-hovercard-target-name="maze1230"><a itemprop="url" href="http://qiita.com/maze1230"><img alt="maze1230" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473757845"></a></li><li class="js-hovercard" data-hovercard-target-name="muripo_life"><a itemprop="url" href="http://qiita.com/muripo_life"><img alt="muripo_life" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473708759"></a></li><li class="js-hovercard" data-hovercard-target-name="falcon0328"><a itemprop="url" href="http://qiita.com/falcon0328"><img alt="falcon0328" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/16684867"></a></li><li class="js-hovercard" data-hovercard-target-name="shoutrock2git"><a itemprop="url" href="http://qiita.com/shoutrock2git"><img alt="shoutrock2git" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473695691"></a></li><li class="js-hovercard" data-hovercard-target-name="akabei"><a itemprop="url" href="http://qiita.com/akabei"><img alt="akabei" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473711770"></a></li><li><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d/likers"><span class="fa fa-ellipsis-h"></span></a></li></ul></div></div></div></div><div class="ArticleAsideHeader"><div class="container"><div class="u-flex u-space-between"><div class="u-flex u-flex-wrap"><div class="u-flex u-align-center s-pdv-5 u-flex-wrap"><div class="ArticleAsideHeader__author"><a href="http://qiita.com/kaki_k"><img class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473691243" alt="1473691243"></a> <a class="u-link-unstyled" href="http://qiita.com/kaki_k">kaki_k</a> </div><div class="ArticleAsideHeader__date"><meta content="2014-07-27T00:22:31+09:00" itemprop="datePublished"><span data-toggle="tooltip" title="" data-original-title="2014年07月27日に投稿"><time datetime="2016-09-21T22:05:37+09:00" itemprop="dateModified">2016年09月21日</time>に更新</span></div></div><div class="u-flex u-align-center s-pdv-5 mobile-hidden"><div class="ArticleAsideHeader__revision"> <a data-toggle="tooltip" title="" href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d/revisions" data-original-title="編集履歴"><span class="fa fa-history"></span></a><span class="ArticleAsideHeader__revisionCount">23</span></div></div><div class="u-flex u-align-center s-pdv-5 mobile-hidden"><div class="ArticleAsideHeader__editRequest"><span class="fa fa-inbox"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d/patches">編集リクエスト</a><span class="ArticleAsideHeader__editRequestCount">2</span></div></div></div><div class="u-flex u-align-center s-flex-justiry-between s-pdv-5 u-shrink-0"><div class="ArticleAsideHeader__stock"><div class="js-stockbutton" data-position="top" data-props="{&quot;stock_status&quot;:false}"></div></div><div class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#"><span class="fa fa-ellipsis-h fa-lg"></span></a><ul class="dropdown-menu dropdown-menu-right"><li class="dropdown__item--mobile"><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d/revisions"><span class="fa fa-fw fa-history"></span> 編集履歴<span>(23)</span></a></li><li><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d.md"><span class="fa fa-fw fa-file-text-o"></span> Markdownで本文を見る</a></li><li class="dropdown__item--mobile"><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d/patches"><span class="fa fa-fw fa-inbox"></span> 編集リクエスト<span>(2)</span></a></li><li><a data-target=".js-report-form" data-toggle="modal" href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#"><span class="fa fa-fw fa-flag"></span> 問題がある投稿を報告する</a></li></ul></div></div></div></div></div><div class="container"><div class="row" id="article-body-wrapper" style="position: relative;"><div class="col-sm-9"><section class="markdownContent markdownContent-headingEnabled js-task-list-container clearfix position-relative" id="item-7b178ad39394a031b50d" itemprop="articleBody">
+<h2>
+<span id="djangoを始める" class="fragment"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#django%E3%82%92%E5%A7%8B%E3%82%81%E3%82%8B"><i class="fa fa-link"></i></a>Djangoを始める</h2>
+
+<h3>
+<span id="ドキュメント" class="fragment"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88"><i class="fa fa-link"></i></a>ドキュメント</h3>
+
+<p>日本語</p>
+
+<ul>
+<li>
+<a href="http://djangoproject.jp/" rel="nofollow noopener" target="_blank">Django ドキュメント</a> (DJANGOPROJECT.JP から 1.9 ドキュメントを参照して下さい)</li>
+</ul>
+
+<p>英語</p>
+
+<ul>
+<li><a href="https://docs.djangoproject.com/" rel="nofollow noopener" target="_blank">Django documentation</a></li>
+</ul>
+
+<p>日本語ドキュメントの <code>概要</code> と チュートリアル <code>その１</code> 〜 <code>その７</code> を一読するのがよいのですが、まずはこの講座を先にやってみてもよいでしょう。</p>
+
+<ul>
+<li>基本的にコピペでOKです。</li>
+<li>どう動くのか、なんとなくわかったら、公式のチュートリアルをやってみて、理解を深めましょう。</li>
+</ul>
+
+<h2>
+<span id="djangoで作ってみる" class="fragment"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#django%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B"><i class="fa fa-link"></i></a>Djangoで作ってみる</h2>
+
+<h3>
+<span id="プロジェクトの作成" class="fragment"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90"><i class="fa fa-link"></i></a>プロジェクトの作成</h3>
+
+<p>簡単な書籍を管理するアプリを作成してみます。</p>
+
+<p>まず、mybook というプロジェクトを作ります。これには <code>django-admin.py startproject mybook</code> というコマンドを使います。</p>
+
+<blockquote>
+<p>PyCharmで、お試しでプロジェクトを作ってみると、PycharmProjectsというフォルダができるようなので、その下に作ることにします</p>
+
+<p>(env1) の仮想環境にいることを確認して下さい。<br>
+既にいる場合は、以下のMacの <code>workon env1</code>、Windowsの <code>Scripts¥activate</code> は不要です。</p>
+</blockquote>
+
+<p>Macの方は、</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>workon env1
+
+<span class="o">(</span>env1<span class="o">)</span> <span class="nv">$ </span><span class="nb">cd</span> ~/PycharmProjects/
+<span class="o">(</span>env1<span class="o">)</span> <span class="nv">$ </span>django-admin.py startproject mybook
+</pre></div></div>
+
+<p>Windowsの方は、</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre>C:¥Users¥hoge&gt;cd Documents¥env1
+C:¥Users¥hoge¥Documents¥env1&gt; Scripts¥activate
+
+<span class="o">(</span>env1<span class="o">)</span> C:¥Users¥hoge¥Documents¥env1&gt; <span class="nb">cd </span>C:¥Users¥hoge¥PycharmProjects
+<span class="o">(</span>env1<span class="o">)</span> C:¥Users¥hoge¥PycharmProjects&gt; django-admin.py startproject mybook
+</pre></div></div>
+
+<p>ここから説明はMac前提に戻ります。<br>
+Windowsの方は、それぞれの環境に読み替えて下さい。</p>
+
+<p>~/PycharmProjects/ にできたファイル</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre>mybook/
+    manage.py
+    mybook/
+        __init__.py
+        settings.py
+        urls.py
+        wsgi.py
+</pre></div></div>
+
+<p>mybook ディレクトリの中に移動して下さい。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>mybook
+</pre></div></div>
+
+<h3>
+<span id="pycharmでプロジェクトを開く" class="fragment"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#pycharm%E3%81%A7%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E9%96%8B%E3%81%8F"><i class="fa fa-link"></i></a>PyCharmでプロジェクトを開く</h3>
+
+<p>生成したプロジェクトをPyCharmで開いてみます。</p>
+
+<p>1.Create New Project を選択します</p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/179917a3-6cde-1a7f-f127-bef99faf2014.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/179917a3-6cde-1a7f-f127-bef99faf2014.jpeg" alt="Welcome_to_PyCharm.jpg" title="Welcome_to_PyCharm.jpg"></a></p>
+
+<p>2.左側で Django を選択します。</p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/aa2e2285-e49b-8692-b8d2-0301687e11bc.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/aa2e2285-e49b-8692-b8d2-0301687e11bc.jpeg" alt="Welcome_to_PyCharm_01.jpg" title="Welcome_to_PyCharm_01.jpg"></a></p>
+
+<p>3.Location: の「...」をクリックして、先程生成した mybook フォルダを選択します。</p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/23e9121c-2acc-2aac-ebd2-39ef4ed5cbdf.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/23e9121c-2acc-2aac-ebd2-39ef4ed5cbdf.jpeg" alt="Welcome_to_PyCharm_02.jpg" title="Welcome_to_PyCharm_02.jpg"></a></p>
+
+<blockquote>
+<p>Windowsの場合は、C:¥Users¥hoge¥PycharmProjects¥mybook になります。</p>
+</blockquote>
+
+<p>4.Interpreter: の歯車アイコンをクリックして、Add Local を選択</p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/66d7be4f-6d38-ae1a-d7e8-d66accd04d4b.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/66d7be4f-6d38-ae1a-d7e8-d66accd04d4b.jpeg" alt="Welcome_to_PyCharm_03.jpg" title="Welcome_to_PyCharm_03.jpg"></a></p>
+
+<p>5.env1仮想環境のPython3を、Pythonインタープリターとして選択します</p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/dd0a5573-21e8-07b4-f141-3a3d845f36d6.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/dd0a5573-21e8-07b4-f141-3a3d845f36d6.jpeg" alt="Select_Python_Interpreter.jpg" title="Select_Python_Interpreter.jpg"></a></p>
+
+<blockquote>
+<p>Windowsの場合は、C:¥Users¥hoge¥Documents¥env1¥python.exe になります。</p>
+</blockquote>
+
+<p>6.Createボタンを押します（左が Djangoになっているかを再確認）</p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/d79ca10f-5066-4644-51a2-4cec3e0a94f6.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/d79ca10f-5066-4644-51a2-4cec3e0a94f6.jpeg" alt="Welcome_to_PyCharm_04.jpg" title="Welcome_to_PyCharm_04.jpg"></a></p>
+
+<p>7.既にあるけど、いいかと聞いてくるので、Yesと答えます</p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/cdb58dbd-8da1-1fa7-efa1-6e51dabcd275.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/cdb58dbd-8da1-1fa7-efa1-6e51dabcd275.jpeg" alt="This_should_not_be_shown.jpg" title="This_should_not_be_shown.jpg"></a></p>
+
+<p>8.このようにできたら成功です</p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/a58e1b98-0334-86d1-33f8-568470e7d840.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/a58e1b98-0334-86d1-33f8-568470e7d840.jpeg" alt="PycharmProjects_mybook_2.jpg" title="PycharmProjects_mybook_2.jpg"></a></p>
+
+<h3>
+<span id="データベースのセットアップ" class="fragment"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97"><i class="fa fa-link"></i></a>データベースのセットアップ</h3>
+
+<p>データベースの設定は、<code>mybook/settings.py</code> にありますが、標準では、SQlite3を使うよう設定済です。</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="c"># Build paths inside the project like this: os.path.join(BASE_DIR, ...)</span>
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">)))</span>
+
+    <span class="p">:</span>
+
+<span class="c"># Database</span>
+<span class="c"># https://docs.djangoproject.com/en/1.9/ref/settings/#databases</span>
+
+<span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'default'</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">'ENGINE'</span><span class="p">:</span> <span class="s">'django.db.backends.sqlite3'</span><span class="p">,</span>
+        <span class="s">'NAME'</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">'db.sqlite3'</span><span class="p">),</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></div>
+
+<p>データベースをマイグレートするコマンドを入れると、プロジェクト直下のディレクトリに <code>db.sqlite3</code> というファイルが作成されます。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre>
+<span class="nv">$ </span>python manage.py migrate
+Operations to perform:
+  Apply all migrations: sessions, admin, contenttypes, auth
+Running migrations:
+  Rendering model states... DONE
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying sessions.0001_initial... OK
+</pre></div></div>
+
+<p>以下のコマンドで、スーパーユーザーを作成します。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>python manage.py createsuperuser
+Username <span class="o">(</span>leave blank to use <span class="s1">'hoge'</span><span class="o">)</span>: admin
+Email address: admin@example.com
+Password: hogefuga
+Password <span class="o">(</span>again<span class="o">)</span>: hogefuga
+Superuser created successfully.
+</pre></div></div>
+
+<p>途中、以下の質問に答えます。</p>
+
+<ul>
+<li>ユーザー名: admin</li>
+<li>メールアドレス: <a href="mailto:admin@example.com" class="autolink">admin@example.com</a>  ※適当でいいです</li>
+<li>パスワード: hogefuga</li>
+<li>パスワード(再入力): hogefuga</li>
+</ul>
+
+<h3>
+<span id="開発用サーバの起動" class="fragment"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E9%96%8B%E7%99%BA%E7%94%A8%E3%82%B5%E3%83%BC%E3%83%90%E3%81%AE%E8%B5%B7%E5%8B%95"><i class="fa fa-link"></i></a>開発用サーバの起動</h3>
+
+<p>プロジェクトが動くかどうか、<code>python manage.py runserver</code> というコマンドで開発用サーバを起動します。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>python manage.py runserver
+
+Performing system checks...
+
+System check identified no issues <span class="o">(</span><span class="m">0</span> silenced<span class="o">)</span>.
+February 17, <span class="m">2016</span> - 12:01:16
+Django version 1.9.2, using settings <span class="s1">'mybook.settings'</span>
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+</pre></div></div>
+
+<p>ブラウザで <a href="http://127.0.0.1:8000/" class="autolink" rel="nofollow noopener" target="_blank">http://127.0.0.1:8000/</a> にアクセスしてみます。</p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/158992a7-6037-e871-4220-3459f88d0dc7.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/158992a7-6037-e871-4220-3459f88d0dc7.jpeg" alt="It_Worked.jpg" title="It_Worked.jpg"></a></p>
+
+<p>開発用サーバの終了は、<code>control + c</code> です。</p>
+
+<h3>
+<span id="pycharmでデバッグ実行する" class="fragment"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#pycharm%E3%81%A7%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B"><i class="fa fa-link"></i></a>PyCharmでデバッグ実行する</h3>
+
+<p>画面の右上の虫マークを押すだけです。<br>
+もしくは、メニューの Run &gt; Debug.. &gt; mybook を選択します。</p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/329d2dfc-e535-1046-d060-5940daa9d7cf.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/329d2dfc-e535-1046-d060-5940daa9d7cf.jpeg" alt="debug.jpg" title="debug.jpg"></a></p>
+
+<p>下にガバッと以下の様な表示が出ればOKです。<br>
+止めたい時は、赤い四角のボタンを押します。</p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/2345c54a-22b4-2f04-810b-ffcf8572e218.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/2345c54a-22b4-2f04-810b-ffcf8572e218.jpeg" alt="stop.jpg" title="stop.jpg"></a></p>
+
+<p>一般的なIDEのように、コードの行番号の右側あたりをクリックすることで、ブレークポイントの設定や、変数の確認ができます。</p>
+
+<p>止めたら、Debugウィンドウは邪魔なので、折り畳むボタンを押します。</p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/f8922cac-3e60-60c5-68ad-68aed303dbcb.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/f8922cac-3e60-60c5-68ad-68aed303dbcb.jpeg" alt="fold.jpg" title="fold.jpg"></a></p>
+
+<h3>
+<span id="アプリケーションの作成" class="fragment"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E4%BD%9C%E6%88%90"><i class="fa fa-link"></i></a>アプリケーションの作成</h3>
+
+<p>プロジェクトの下に cms というアプリケーションを作成してみます。</p>
+
+<p>cmsは、Contents management system、ようするにマスターメンテナンスのようなものとします。<br>
+アプリケーションは、プロジェクトを構成する機能の単位で、場合によっては再利用の対象とできる単位です。</p>
+
+<p>以下のコマンドで作成します。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ python manage.py startapp cms
+</pre></div></div>
+
+<p>mybook プロジェクトのディレクトリの下に、以下のファイルが作成されました。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre>mybook/
+    cms/
+        __init__.py
+        admin.py
+        apps.py
+        migrations/
+            __init__.py
+        models.py
+        tests.py
+        views.py
+    manage.py
+    mybook/
+       :
+       :
+</pre></div></div>
+
+<h3>
+<span id="モデルの作成" class="fragment"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BD%9C%E6%88%90"><i class="fa fa-link"></i></a>モデルの作成</h3>
+
+<p>データベースに定義したいデータ モデルを、<code>cms/models.py</code> に定義します。</p>
+
+<blockquote>
+<p>classの前は、2行開けないと、波線が出て警告されます。pep8というコードスタイルチェックの仕組みです。<br>
+同様に、コードの最後が改行のみで終わっていないと、また波線が出て怒られるので、気をつけましょう。</p>
+</blockquote>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+
+<span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">"""書籍"""</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s">'書籍名'</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
+    <span class="n">publisher</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s">'出版社'</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="s">'ページ数'</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+
+<span class="k">class</span> <span class="nc">Impression</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">"""感想"""</span>
+    <span class="n">book</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Book</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s">'書籍'</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">'impressions'</span><span class="p">)</span>
+    <span class="n">comment</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s">'コメント'</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">comment</span>
+
+</pre></div></div>
+
+<p><code>感想</code> は <code>書籍</code> に紐づく、子供のモデルとしています。</p>
+
+<h3>
+<span id="モデルを有効にする" class="fragment"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92%E6%9C%89%E5%8A%B9%E3%81%AB%E3%81%99%E3%82%8B"><i class="fa fa-link"></i></a>モデルを有効にする</h3>
+
+<p>cms アプリケーションをインストールしたことを、プロジェクトに教えてあげる必要があります。<br><br>
+<code>mybook/settings.py</code> の <code>INSTALLED_APPS</code> の最後に <code>cms</code> を追加します。</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s">'django.contrib.admin'</span><span class="p">,</span>
+    <span class="s">'django.contrib.auth'</span><span class="p">,</span>
+    <span class="s">'django.contrib.contenttypes'</span><span class="p">,</span>
+    <span class="s">'django.contrib.sessions'</span><span class="p">,</span>
+    <span class="s">'django.contrib.messages'</span><span class="p">,</span>
+    <span class="s">'django.contrib.staticfiles'</span><span class="p">,</span>
+    <span class="s">'cms'</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div></div>
+
+<p>ついでなので、言語とタイムゾーンを日本にします。</p>
+
+<blockquote>
+<p><code>#</code> はコメントアウトした行という意味です。コメントアウトするには、<br>
+Macの場合は、行に位置付けて（複数行の場合は、行を選択して） command ＋ / です。<br>
+Windowsの場合は Ctrl ＋ / です。<br>
+うーん便利。</p>
+</blockquote>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="c"># LANGUAGE_CODE = 'en-us'</span>
+<span class="n">LANGUAGE_CODE</span> <span class="o">=</span> <span class="s">'ja'</span>
+
+<span class="c"># TIME_ZONE = 'UTC'</span>
+<span class="n">TIME_ZONE</span> <span class="o">=</span> <span class="s">'Asia/Tokyo'</span>
+</pre></div></div>
+
+<p>以下のコマンドで、models.py の変更を拾って、マイグレートファイルを作成します。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>python manage.py makemigrations cms
+Migrations <span class="k">for</span> <span class="s1">'cms'</span>:
+  0001_initial.py:
+    - Create model Book
+    - Create model Impression
+</pre></div></div>
+
+<p>このマイグレートファイルが、どのような SQL になるか、以下のコマンドで確認できます。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>python manage.py sqlmigrate cms 0001
+BEGIN<span class="p">;</span>
+CREATE TABLE <span class="s2">"cms_book"</span> <span class="o">(</span><span class="s2">"id"</span> integer NOT NULL PRIMARY KEY AUTOINCREMENT, <span class="s2">"name"</span> varchar<span class="o">(</span>255<span class="o">)</span> NOT NULL, <span class="s2">"publisher"</span> varchar<span class="o">(</span>255<span class="o">)</span> NOT NULL, <span class="s2">"page"</span> integer NOT NULL<span class="o">)</span><span class="p">;</span>
+CREATE TABLE <span class="s2">"cms_impression"</span> <span class="o">(</span><span class="s2">"id"</span> integer NOT NULL PRIMARY KEY AUTOINCREMENT, <span class="s2">"comment"</span> text NOT NULL, <span class="s2">"book_id"</span> integer NOT NULL REFERENCES <span class="s2">"cms_book"</span> <span class="o">(</span><span class="s2">"id"</span><span class="o">))</span><span class="p">;</span>
+CREATE INDEX cms_impression_0a4572cc ON <span class="s2">"cms_impression"</span> <span class="o">(</span><span class="s2">"book_id"</span><span class="o">)</span><span class="p">;</span>
+
+COMMIT<span class="p">;</span>
+</pre></div></div>
+
+<p>まだデータベースに反映していないマイグレートファイルを、以下のコマンドでデータベースに反映します。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ python manage.py migrate
+
+Operations to perform:
+  Apply all migrations: cms, admin, auth, sessions, contenttypes
+Running migrations:
+  Applying cms.0001_initial... OK
+
+</pre></div></div>
+
+<blockquote>
+<p>Django 1.7 からデータベースのマイグレートツールが標準で取り込まれたので、たとえば新しいテーブルや、既存のテーブルの項目を追加／変更したい場合、日常のルーチンワークは以下のようになります。</p>
+
+<ol>
+<li>models.py を直す</li>
+<li>$ python manage.py makemigrations app名 … models.pyの変更を拾ってマイグレートファイルを作る</li>
+<li>$ python manage.py migrate … マイグレートファイルをデータベースに反映する</li>
+</ol>
+</blockquote>
+
+<h3>
+<span id="管理サイトの有効化" class="fragment"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E7%AE%A1%E7%90%86%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E6%9C%89%E5%8A%B9%E5%8C%96"><i class="fa fa-link"></i></a>管理サイトの有効化</h3>
+
+<p>ここからは Django のいいところです。</p>
+
+<p>Django には scaffold のようなアプリケーションのひな形生成、すなわち CRUD (Create、Read、Update、Delete) の自動生成はありません。<br>
+そのかわり、管理サイトというものがあって、ここからマスターメンテナンス的なデータ投入がすべてできてしまいます。</p>
+
+<p>管理サイトを表示させてみましょう。</p>
+
+<ol>
+<li><p><code>python manage.py runserver</code> で開発用サーバを起動します。</p></li>
+<li><p><code>http://127.0.0.1:8000/admin/</code> にブラウザでアクセスします。</p></li>
+<li><p>初回の <code>$ python manage.py createsuperuser</code>　で初期化したスーパーユーザー <code>admin/hogefuga</code> でログインします。</p></li>
+</ol>
+
+<blockquote>
+<p>ここからのスクリーンショットは、Djangoのバージョンが古い時に撮ったものなので、見た目が違っていても気にしないでください。<br>
+今はもっとフラットデザインで、洗練されてますね。</p>
+</blockquote>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/396f0cd9-eef6-3d29-2e9f-18c35b0c8264.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/396f0cd9-eef6-3d29-2e9f-18c35b0c8264.jpeg" alt="admin_login.jpg" title="admin_login.jpg"></a></p>
+
+<p>まだ、グループ、ユーザーしか見えていませんね。</p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/4d8596d9-0137-7f75-cca3-c4b811573e9f.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/4d8596d9-0137-7f75-cca3-c4b811573e9f.jpeg" alt="admin01.jpg" title="admin01.jpg"></a></p>
+
+<h3>
+<span id="cms-モデルを-admin-上で編集できるようにする" class="fragment"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#cms-%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92-admin-%E4%B8%8A%E3%81%A7%E7%B7%A8%E9%9B%86%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B"><i class="fa fa-link"></i></a>cms モデルを admin 上で編集できるようにする</h3>
+
+<p><code>cms/admin.py</code> に、管理サイトへ表示したいモデルを追加します。</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">cms.models</span> <span class="kn">import</span> <span class="n">Book</span><span class="p">,</span> <span class="n">Impression</span>
+
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Book</span><span class="p">)</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Impression</span><span class="p">)</span>
+</pre></div></div>
+
+<p>もう一度、<code>http://127.0.0.1:8000/admin/</code> を見てみましょう。</p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/4bb88133-0431-1c8e-c1d0-a282feed58c1.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/4bb88133-0431-1c8e-c1d0-a282feed58c1.jpeg" alt="admin02.jpg" title="admin02.jpg"></a></p>
+
+<p>ひととおり、データの追加、修正、削除を行ってみて下さい。</p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/c23baf06-1637-2a4f-e079-df5fe8a35a04.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/c23baf06-1637-2a4f-e079-df5fe8a35a04.jpeg" alt="admin03.jpg" title="admin03.jpg"></a></p>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/1ebbb9ec-7aa8-2ca3-f7fc-5b5e75ba1bd7.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/1ebbb9ec-7aa8-2ca3-f7fc-5b5e75ba1bd7.jpeg" alt="admin04.jpg" title="admin04.jpg"></a></p>
+
+<h3>
+<span id="管理サイトの一覧ページをカスタマイズする" class="fragment"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E7%AE%A1%E7%90%86%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E4%B8%80%E8%A6%A7%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA%E3%81%99%E3%82%8B"><i class="fa fa-link"></i></a>管理サイトの一覧ページをカスタマイズする</h3>
+
+<p>管理サイトの一覧を見た時、models.py の</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</pre></div></div>
+
+<p>で設定したものが、レコード名として見えています。</p>
+
+<p>もう少しレコードの項目全体が見えるよう、<code>cms/admin.py</code> を修正してみましょう。</p>
+
+<blockquote>
+<p>classの前は、2行開けないと、波線が出て警告されます。</p>
+</blockquote>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">cms.models</span> <span class="kn">import</span> <span class="n">Book</span><span class="p">,</span> <span class="n">Impression</span>
+
+<span class="c"># admin.site.register(Book)</span>
+<span class="c"># admin.site.register(Impression)</span>
+
+
+<span class="k">class</span> <span class="nc">BookAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s">'id'</span><span class="p">,</span> <span class="s">'name'</span><span class="p">,</span> <span class="s">'publisher'</span><span class="p">,</span> <span class="s">'page'</span><span class="p">,)</span>  <span class="c"># 一覧に出したい項目</span>
+    <span class="n">list_display_links</span> <span class="o">=</span> <span class="p">(</span><span class="s">'id'</span><span class="p">,</span> <span class="s">'name'</span><span class="p">,)</span>  <span class="c"># 修正リンクでクリックできる項目</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Book</span><span class="p">,</span> <span class="n">BookAdmin</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ImpressionAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s">'id'</span><span class="p">,</span> <span class="s">'comment'</span><span class="p">,)</span>
+    <span class="n">list_display_links</span> <span class="o">=</span> <span class="p">(</span><span class="s">'id'</span><span class="p">,</span> <span class="s">'comment'</span><span class="p">,)</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Impression</span><span class="p">,</span> <span class="n">ImpressionAdmin</span><span class="p">)</span>
+</pre></div></div>
+
+<p><a href="./Python Django入門 (3) - Qiita_files/c2998152-9763-5153-bd59-3ddbcc14ea38.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (3) - Qiita_files/c2998152-9763-5153-bd59-3ddbcc14ea38.jpeg" alt="admin05.jpg" title="admin05.jpg"></a></p>
+
+<p>どうでしょうか。</p>
+
+<p>モデルに追加したテーブルの一覧、登録、修正、削除が簡単にできました。<br><br>
+CRUDをどう作るかの説明はいらないですね？</p>
+
+<p>と言ってしまうと Django の解説にならないので、自分で CRUD を作る場合の説明をしましょう。</p>
+
+<p><a href="http://qiita.com/kaki_k/items/6e17597804437ef170ae" id="reference-d8a415cdd5eada1addb2">Python Django入門 (4)</a> に続きます</p>
+<div class="hidden"><form class="js-task-list-update" action="http://qiita.com/kaki_k/items/7b178ad39394a031b50d" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="zgsKDXXWfOiL+zgBZa1ER6Gmz++23HSyMwwJ0omB2RsfGPQw8qDH3fomKGdrJ+DfxMuYiMb4UwtcaFwwP2YC4w=="><input type="hidden" name="updated_at_confirmation_in_unixtime" id="updated_at_confirmation_in_unixtime" value="1474463137" class="js-task-list-updated-at"><textarea name="raw_body" id="raw_body" class="js-task-list-field">
+Djangoを始める
+--------------
+
+### ドキュメント
+
+日本語
+
+* [Django ドキュメント](http://djangoproject.jp/) (DJANGOPROJECT.JP から 1.9 ドキュメントを参照して下さい)
+
+英語
+
+* [Django documentation](https://docs.djangoproject.com/)
+
+
+日本語ドキュメントの `概要` と チュートリアル `その１` 〜 `その７` を一読するのがよいのですが、まずはこの講座を先にやってみてもよいでしょう。
+
+* 基本的にコピペでOKです。
+* どう動くのか、なんとなくわかったら、公式のチュートリアルをやってみて、理解を深めましょう。
+
+Djangoで作ってみる
+------------------
+
+### プロジェクトの作成
+
+簡単な書籍を管理するアプリを作成してみます。
+
+まず、mybook というプロジェクトを作ります。これには `django-admin.py startproject mybook` というコマンドを使います。
+
+&gt; PyCharmで、お試しでプロジェクトを作ってみると、PycharmProjectsというフォルダができるようなので、その下に作ることにします
+
+&gt; (env1) の仮想環境にいることを確認して下さい。
+&gt; 既にいる場合は、以下のMacの `workon env1`、Windowsの `Scripts¥activate` は不要です。
+
+Macの方は、
+
+```bash
+$ workon env1
+
+(env1) $ cd ~/PycharmProjects/
+(env1) $ django-admin.py startproject mybook
+```
+
+Windowsの方は、
+
+```bash
+C:¥Users¥hoge&gt;cd Documents¥env1
+C:¥Users¥hoge¥Documents¥env1&gt; Scripts¥activate
+
+(env1) C:¥Users¥hoge¥Documents¥env1&gt; cd C:¥Users¥hoge¥PycharmProjects
+(env1) C:¥Users¥hoge¥PycharmProjects&gt; django-admin.py startproject mybook
+```
+
+ここから説明はMac前提に戻ります。
+Windowsの方は、それぞれの環境に読み替えて下さい。
+
+~/PycharmProjects/ にできたファイル
+
+```bash
+mybook/
+    manage.py
+    mybook/
+        __init__.py
+        settings.py
+        urls.py
+        wsgi.py
+```
+
+mybook ディレクトリの中に移動して下さい。
+
+```bash
+$ cd mybook
+```
+
+### PyCharmでプロジェクトを開く
+
+生成したプロジェクトをPyCharmで開いてみます。
+
+1.Create New Project を選択します
+
+![Welcome_to_PyCharm.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/179917a3-6cde-1a7f-f127-bef99faf2014.jpeg "Welcome_to_PyCharm.jpg")
+
+2.左側で Django を選択します。
+
+![Welcome_to_PyCharm_01.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/aa2e2285-e49b-8692-b8d2-0301687e11bc.jpeg "Welcome_to_PyCharm_01.jpg")
+
+
+3.Location: の「...」をクリックして、先程生成した mybook フォルダを選択します。
+
+![Welcome_to_PyCharm_02.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/23e9121c-2acc-2aac-ebd2-39ef4ed5cbdf.jpeg "Welcome_to_PyCharm_02.jpg")
+
+&gt; Windowsの場合は、C:¥Users¥hoge¥PycharmProjects¥mybook になります。
+
+4.Interpreter: の歯車アイコンをクリックして、Add Local を選択
+
+![Welcome_to_PyCharm_03.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/66d7be4f-6d38-ae1a-d7e8-d66accd04d4b.jpeg "Welcome_to_PyCharm_03.jpg")
+
+
+5.env1仮想環境のPython3を、Pythonインタープリターとして選択します
+
+![Select_Python_Interpreter.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/dd0a5573-21e8-07b4-f141-3a3d845f36d6.jpeg "Select_Python_Interpreter.jpg")
+
+&gt; Windowsの場合は、C:¥Users¥hoge¥Documents¥env1¥python.exe になります。
+
+6.Createボタンを押します（左が Djangoになっているかを再確認）
+
+![Welcome_to_PyCharm_04.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/d79ca10f-5066-4644-51a2-4cec3e0a94f6.jpeg "Welcome_to_PyCharm_04.jpg")
+
+7.既にあるけど、いいかと聞いてくるので、Yesと答えます
+
+![This_should_not_be_shown.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/cdb58dbd-8da1-1fa7-efa1-6e51dabcd275.jpeg "This_should_not_be_shown.jpg")
+
+8.このようにできたら成功です
+
+![PycharmProjects_mybook_2.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/a58e1b98-0334-86d1-33f8-568470e7d840.jpeg "PycharmProjects_mybook_2.jpg")
+
+
+### データベースのセットアップ
+
+データベースの設定は、`mybook/settings.py` にありますが、標準では、SQlite3を使うよう設定済です。
+
+```python
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    :
+
+# Database
+# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+```
+
+データベースをマイグレートするコマンドを入れると、プロジェクト直下のディレクトリに `db.sqlite3` というファイルが作成されます。
+
+```bash
+
+$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: sessions, admin, contenttypes, auth
+Running migrations:
+  Rendering model states... DONE
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying sessions.0001_initial... OK
+```
+
+以下のコマンドで、スーパーユーザーを作成します。
+
+```bash
+$ python manage.py createsuperuser
+Username (leave blank to use 'hoge'): admin
+Email address: admin@example.com
+Password: hogefuga
+Password (again): hogefuga
+Superuser created successfully.
+```
+
+途中、以下の質問に答えます。
+
+* ユーザー名: admin
+* メールアドレス: admin@example.com  ※適当でいいです
+* パスワード: hogefuga
+* パスワード(再入力): hogefuga
+
+### 開発用サーバの起動
+
+プロジェクトが動くかどうか、`python manage.py runserver` というコマンドで開発用サーバを起動します。
+
+```bash
+$ python manage.py runserver
+
+Performing system checks...
+
+System check identified no issues (0 silenced).
+February 17, 2016 - 12:01:16
+Django version 1.9.2, using settings 'mybook.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+```
+
+ブラウザで http://127.0.0.1:8000/ にアクセスしてみます。
+
+![It_Worked.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/158992a7-6037-e871-4220-3459f88d0dc7.jpeg "It_Worked.jpg")
+
+
+開発用サーバの終了は、`control + c` です。
+
+### PyCharmでデバッグ実行する
+
+画面の右上の虫マークを押すだけです。
+もしくは、メニューの Run &gt; Debug.. &gt; mybook を選択します。
+
+![debug.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/329d2dfc-e535-1046-d060-5940daa9d7cf.jpeg "debug.jpg")
+
+下にガバッと以下の様な表示が出ればOKです。
+止めたい時は、赤い四角のボタンを押します。
+
+![stop.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/2345c54a-22b4-2f04-810b-ffcf8572e218.jpeg "stop.jpg")
+
+一般的なIDEのように、コードの行番号の右側あたりをクリックすることで、ブレークポイントの設定や、変数の確認ができます。
+
+止めたら、Debugウィンドウは邪魔なので、折り畳むボタンを押します。
+
+![fold.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/f8922cac-3e60-60c5-68ad-68aed303dbcb.jpeg "fold.jpg")
+
+
+
+### アプリケーションの作成
+
+プロジェクトの下に cms というアプリケーションを作成してみます。
+
+cmsは、Contents management system、ようするにマスターメンテナンスのようなものとします。
+アプリケーションは、プロジェクトを構成する機能の単位で、場合によっては再利用の対象とできる単位です。
+
+以下のコマンドで作成します。
+
+    $ python manage.py startapp cms
+
+
+mybook プロジェクトのディレクトリの下に、以下のファイルが作成されました。
+
+```bash
+mybook/
+    cms/
+        __init__.py
+        admin.py
+        apps.py
+        migrations/
+            __init__.py
+        models.py
+        tests.py
+        views.py
+    manage.py
+    mybook/
+       :
+       :
+```
+
+### モデルの作成
+
+データベースに定義したいデータ モデルを、`cms/models.py` に定義します。
+
+&gt; classの前は、2行開けないと、波線が出て警告されます。pep8というコードスタイルチェックの仕組みです。
+&gt; 同様に、コードの最後が改行のみで終わっていないと、また波線が出て怒られるので、気をつけましょう。
+
+```python
+from django.db import models
+
+
+class Book(models.Model):
+    """書籍"""
+    name = models.CharField('書籍名', max_length=255)
+    publisher = models.CharField('出版社', max_length=255, blank=True)
+    page = models.IntegerField('ページ数', blank=True, default=0)
+    
+    def __str__(self):
+        return self.name
+
+    
+class Impression(models.Model):
+    """感想"""
+    book = models.ForeignKey(Book, verbose_name='書籍', related_name='impressions')
+    comment = models.TextField('コメント', blank=True)
+    
+    def __str__(self):
+        return self.comment
+        
+```
+
+`感想` は `書籍` に紐づく、子供のモデルとしています。
+
+### モデルを有効にする
+
+cms アプリケーションをインストールしたことを、プロジェクトに教えてあげる必要があります。  
+`mybook/settings.py` の `INSTALLED_APPS` の最後に `cms` を追加します。
+
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'cms',
+]
+```
+
+ついでなので、言語とタイムゾーンを日本にします。
+
+&gt; `#` はコメントアウトした行という意味です。コメントアウトするには、
+&gt; Macの場合は、行に位置付けて（複数行の場合は、行を選択して） command ＋ / です。
+&gt; Windowsの場合は Ctrl ＋ / です。
+&gt; うーん便利。
+
+```python
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ja'
+
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tokyo'
+```
+
+以下のコマンドで、models.py の変更を拾って、マイグレートファイルを作成します。
+
+```bash
+$ python manage.py makemigrations cms
+Migrations for 'cms':
+  0001_initial.py:
+    - Create model Book
+    - Create model Impression
+```
+
+このマイグレートファイルが、どのような SQL になるか、以下のコマンドで確認できます。
+
+```bash
+$ python manage.py sqlmigrate cms 0001
+BEGIN;
+CREATE TABLE "cms_book" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(255) NOT NULL, "publisher" varchar(255) NOT NULL, "page" integer NOT NULL);
+CREATE TABLE "cms_impression" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "comment" text NOT NULL, "book_id" integer NOT NULL REFERENCES "cms_book" ("id"));
+CREATE INDEX cms_impression_0a4572cc ON "cms_impression" ("book_id");
+
+COMMIT;
+```
+
+まだデータベースに反映していないマイグレートファイルを、以下のコマンドでデータベースに反映します。
+
+```
+$ python manage.py migrate
+
+Operations to perform:
+  Apply all migrations: cms, admin, auth, sessions, contenttypes
+Running migrations:
+  Applying cms.0001_initial... OK
+
+```
+
+&gt; Django 1.7 からデータベースのマイグレートツールが標準で取り込まれたので、たとえば新しいテーブルや、既存のテーブルの項目を追加／変更したい場合、日常のルーチンワークは以下のようになります。
+&gt;
+&gt; 1. models.py を直す
+&gt; 2. $ python manage.py makemigrations app名 … models.pyの変更を拾ってマイグレートファイルを作る
+&gt; 3. $ python manage.py migrate … マイグレートファイルをデータベースに反映する
+
+
+### 管理サイトの有効化
+
+ここからは Django のいいところです。
+
+Django には scaffold のようなアプリケーションのひな形生成、すなわち CRUD (Create、Read、Update、Delete) の自動生成はありません。
+そのかわり、管理サイトというものがあって、ここからマスターメンテナンス的なデータ投入がすべてできてしまいます。
+
+管理サイトを表示させてみましょう。
+
+1. `python manage.py runserver` で開発用サーバを起動します。
+
+2. `http://127.0.0.1:8000/admin/` にブラウザでアクセスします。
+
+3. 初回の `$ python manage.py createsuperuser`　で初期化したスーパーユーザー `admin/hogefuga` でログインします。
+
+&gt; ここからのスクリーンショットは、Djangoのバージョンが古い時に撮ったものなので、見た目が違っていても気にしないでください。
+&gt; 今はもっとフラットデザインで、洗練されてますね。
+
+![admin_login.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/396f0cd9-eef6-3d29-2e9f-18c35b0c8264.jpeg "admin_login.jpg")
+
+
+まだ、グループ、ユーザーしか見えていませんね。
+
+![admin01.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/4d8596d9-0137-7f75-cca3-c4b811573e9f.jpeg "admin01.jpg")
+
+### cms モデルを admin 上で編集できるようにする
+
+`cms/admin.py` に、管理サイトへ表示したいモデルを追加します。
+
+```python
+from django.contrib import admin
+from cms.models import Book, Impression
+
+admin.site.register(Book)
+admin.site.register(Impression)
+```
+
+もう一度、`http://127.0.0.1:8000/admin/` を見てみましょう。
+
+![admin02.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/4bb88133-0431-1c8e-c1d0-a282feed58c1.jpeg "admin02.jpg")
+
+ひととおり、データの追加、修正、削除を行ってみて下さい。
+
+![admin03.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/c23baf06-1637-2a4f-e079-df5fe8a35a04.jpeg "admin03.jpg")
+
+![admin04.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/1ebbb9ec-7aa8-2ca3-f7fc-5b5e75ba1bd7.jpeg "admin04.jpg")
+
+
+### 管理サイトの一覧ページをカスタマイズする
+
+管理サイトの一覧を見た時、models.py の
+
+```python
+def __str__(self):
+```
+
+で設定したものが、レコード名として見えています。
+
+もう少しレコードの項目全体が見えるよう、`cms/admin.py` を修正してみましょう。
+
+&gt; classの前は、2行開けないと、波線が出て警告されます。
+
+```python
+from django.contrib import admin
+from cms.models import Book, Impression
+
+# admin.site.register(Book)
+# admin.site.register(Impression)
+
+
+class BookAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'publisher', 'page',)  # 一覧に出したい項目
+    list_display_links = ('id', 'name',)  # 修正リンクでクリックできる項目
+admin.site.register(Book, BookAdmin)
+
+
+class ImpressionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'comment',)
+    list_display_links = ('id', 'comment',)
+admin.site.register(Impression, ImpressionAdmin)
+```
+
+![admin05.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/c2998152-9763-5153-bd59-3ddbcc14ea38.jpeg "admin05.jpg")
+
+どうでしょうか。
+
+モデルに追加したテーブルの一覧、登録、修正、削除が簡単にできました。  
+CRUDをどう作るかの説明はいらないですね？
+
+と言ってしまうと Django の解説にならないので、自分で CRUD を作る場合の説明をしましょう。
+
+[Python Django入門 (4)](http://qiita.com/kaki_k/items/6e17597804437ef170ae) に続きます
+</textarea><input type="submit" name="commit" value="Save changes" data-disable-with="Save changes"></form></div></section></div><div class="col-sm-3"><div id="div-gpt-ad-1493084685571-0" style="height:250px; width:300px; margin-bottom: 20px;" data-google-query-id="CP_YiebZstQCFVakvQodPGgM5A"><div id="google_ads_iframe_/383564218/qiita.com_items-show_sidebar-top_0__container__" style="border: 0pt none; display: inline-block; width: 300px; height: 250px;"><iframe frameborder="0" src="./Python Django入門 (3) - Qiita_files/container.html" id="google_ads_iframe_/383564218/qiita.com_items-show_sidebar-top_0" title="3rd party ad content" name="1-0-9;6053;&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;&lt;body&gt;&lt;script src=&quot;https://tpc.googlesyndication.com/safeframe/1-0-9/js/ext.js&quot;&gt;&lt;/script&gt;&lt;script&gt;(function(){var g=this,l=function(a,b){var c=a.split(&quot;.&quot;),d=g;c[0]in d||!d.execScript||d.execScript(&quot;var &quot;+c[0]);for(var e;c.length&amp;&amp;(e=c.shift());)c.length||void 0===b?d=d[e]?d[e]:d[e]={}:d[e]=b},m=function(a,b,c){return a.call.apply(a.bind,arguments)},n=function(a,b,c){if(!a)throw Error();if(2&lt;arguments.length){var d=Array.prototype.slice.call(arguments,2);return function(){var c=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(c,d);return a.apply(b,c)}}return function(){return a.apply(b,arguments)}},p=function(a,b,c){p=Function.prototype.bind&amp;&amp;-1!=Function.prototype.bind.toString().indexOf(&quot;native code&quot;)?m:n;return p.apply(null,arguments)},q=Date.now||function(){return+new Date};var r=document,s=window;var t=function(a,b){for(var c in a)Object.prototype.hasOwnProperty.call(a,c)&amp;&amp;b.call(null,a[c],c,a)},w=function(a,b){a.google_image_requests||(a.google_image_requests=[]);var c=a.document.createElement(&quot;img&quot;);c.src=b;a.google_image_requests.push(c)};var x=function(a){return{visible:1,hidden:2,prerender:3,preview:4}[a.webkitVisibilityState||a.mozVisibilityState||a.visibilityState||&quot;&quot;]||0},y=function(a){var b;a.mozVisibilityState?b=&quot;mozvisibilitychange&quot;:a.webkitVisibilityState?b=&quot;webkitvisibilitychange&quot;:a.visibilityState&amp;&amp;(b=&quot;visibilitychange&quot;);return b};var C=function(){this.g=r;this.k=s;this.j=!1;this.i=null;this.h=[];this.o={};if(z)this.i=q();else if(3==x(this.g)){this.i=q();var a=p(this.q,this);A&amp;&amp;(a=A(&quot;di::vch&quot;,a));this.p=a;var b=this.g,c=y(this.g);b.addEventListener?b.addEventListener(c,a,!1):b.attachEvent&amp;&amp;b.attachEvent(&quot;on&quot;+c,a)}else B(this)},A;C.m=function(){return C.n?C.n:C.n=new C};var D=/^([^:]+:\/\/[^/]+)/m,G=/^\d*,(.+)$/m,z=!1,B=function(a){if(!a.j){a.j=!0;for(var b=0;b&lt;a.h.length;++b)a.l.apply(a,a.h[b]);a.h=[]}};C.prototype.s=function(a,b){var c=b.target.u();(c=G.exec(c))&amp;&amp;(this.o[a]=c[1])};C.prototype.l=function(a,b){this.k.rvdt=this.i?q()-this.i:0;var c;if(c=this.t)t:{try{var d=D.exec(this.k.location.href),e=D.exec(a);if(d&amp;&amp;e&amp;&amp;d[1]==e[1]&amp;&amp;b){var f=p(this.s,this,b);this.t(a,f);c=!0;break t}}catch(u){}c=!1}c||w(this.k,a)};C.prototype.q=function(){if(3!=x(this.g)){B(this);var a=this.g,b=y(this.g),c=this.p;a.removeEventListener?a.removeEventListener(b,c,!1):a.detachEvent&amp;&amp;a.detachEvent(&quot;on&quot;+b,c)}};var H=/^true$/.test(&quot;&quot;)?!0:!1;var I={},J=function(a){var b=a.toString();a.name&amp;&amp;-1==b.indexOf(a.name)&amp;&amp;(b+=&quot;: &quot;+a.name);a.message&amp;&amp;-1==b.indexOf(a.message)&amp;&amp;(b+=&quot;: &quot;+a.message);if(a.stack){a=a.stack;var c=b;try{-1==a.indexOf(c)&amp;&amp;(a=c+&quot;\n&quot;+a);for(var d;a!=d;)d=a,a=a.replace(/((https?:\/..*\/)[^\/:]*:\d+(?:.|\n)*)\2/,&quot;$1&quot;);b=a.replace(/\n */g,&quot;\n&quot;)}catch(e){b=c}}return b},M=function(a,b,c,d){var e=K,f,u=!0;try{f=b()}catch(h){try{var N=J(h);b=&quot;&quot;;h.fileName&amp;&amp;(b=h.fileName);var E=-1;h.lineNumber&amp;&amp;(E=h.lineNumber);var v;t:{try{v=c?c():&quot;&quot;;break t}catch(S){}v=&quot;&quot;}u=e(a,N,b,E,v)}catch(k){try{var O=J(k);a=&quot;&quot;;k.fileName&amp;&amp;(a=k.fileName);c=-1;k.lineNumber&amp;&amp;(c=k.lineNumber);K(&quot;pAR&quot;,O,a,c,void 0,void 0)}catch(F){L({context:&quot;mRE&quot;,msg:F.toString()+&quot;\n&quot;+(F.stack||&quot;&quot;)},void 0)}}if(!u)throw h;}finally{if(d)try{d()}catch(T){}}return f},K=function(a,b,c,d,e,f){a={context:a,msg:b.substring(0,512),eid:e&amp;&amp;e.substring(0,40),file:c,line:d.toString(),url:r.URL.substring(0,512),ref:r.referrer.substring(0,512)};P(a);L(a,f);return!0},L=function(a,b){try{if(Math.random()&lt;(b||.01)){var c=&quot;/pagead/gen_204?id=jserror&quot;+Q(a),d=&quot;http&quot;+(&quot;https:&quot;==s.location.protocol?&quot;s&quot;:&quot;&quot;)+&quot;://pagead2.googlesyndication.com&quot;+c,d=d.substring(0,2E3);w(s,d)}}catch(e){}},P=function(a){var b=a||{};t(I,function(a,d){b[d]=s[a]})},R=function(a,b,c,d,e){return function(){var f=arguments;return M(a,function(){return b.apply(c,f)},d,e)}},Q=function(a){var b=&quot;&quot;;t(a,function(a,d){if(0===a||a)b+=&quot;&amp;&quot;+d+&quot;=&quot;+(&quot;function&quot;==typeof encodeURIComponent?encodeURIComponent(a):escape(a))});return b};A=function(a,b,c,d){return R(a,b,void 0,c,d)};z=H;l(&quot;vu&quot;,R(&quot;vu&quot;,function(a,b){var c=a.replace(&quot;&amp;amp;&quot;,&quot;&amp;&quot;),d=/(google|doubleclick).*\/pagead\/adview/.test(c),e=C.m();if(d){d=&quot;&amp;vis=&quot;+x(e.g);b&amp;&amp;(d+=&quot;&amp;ve=1&quot;);var f=c.indexOf(&quot;&amp;adurl&quot;),c=-1==f?c+d:c.substring(0,f)+d+c.substring(f)}e.j?e.l(c,b):e.h.push([c,b])}));l(&quot;vv&quot;,R(&quot;vv&quot;,function(){z&amp;&amp;B(C.m())}));})();&lt;/script&gt;&lt;script&gt;vu(&quot;https://securepubads.g.doubleclick.net/pcs/view?xai\x3dAKAOjsuG-SJ3HdDA_O9h6fsJlkY7UQ34bHmOxSQyBCXZKWvWcHKcGDL00IGZJTTY_TOcjgXgrqHzO3njmYli58Bw1jSfKCrDOdPQh4kLPlqPUED6PsbchNZaRg86pqdEBVi_zbO9nVC9vJihMx3kh7EhYwVYbOZvy_30hOchL2fydz6XpyzyuJ39m3ZGwB08xsoX-crOaweW5kvJoVfaOOg-uFu5i02YJOifLtWksQd9T8XMQWljWQBqAFfBz_E1Ax4pE0NQne9eqKR28Rwh\x26sig\x3dCg0ArKJSzF2e5VPiw8gZEAE\x26urlfix\x3d1\x26adurl\x3d&quot;)&lt;/script&gt;&lt;script type=&quot;text/javascript&quot; src=&quot;//static.criteo.net/js/ld/publishertag.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+Criteo.DisplayAd({
+    &quot;zoneid&quot;: 760412,
+    &quot;async&quot;: false});
+&lt;/script&gt;&lt;script src=&quot;https://tpc.googlesyndication.com/pagead/js/r20170605/r20110914/activeview/osd_listener.js&quot;&gt;&lt;/script&gt;&lt;script type=&quot;text/javascript&quot;&gt;osdlfm(-1,&#39;&#39;,&#39;B7BArkZg7Wb_MH9bI9gW80LGgDgAAAAAQATgByAEJwAIC4AIA4AQBoAYW0ggFCIAhEAE&#39;,&#39;&#39;,4272615912,true,&#39;ud\x3d1\x26la\x3d0\x26alp\x3dxai\x26alh\x3d835657411\x26&#39;,3,&#39;CAASEuRo-PttoDLV-kZa6vXFVFpqxw&#39;,&#39;//pagead2.googlesyndication.com/activeview?avi\x3dB7BArkZg7Wb_MH9bI9gW80LGgDgAAAAAQATgByAEJwAIC4AIA4AQBoAYW0ggFCIAhEAE\x26cid\x3dCAASEuRo-PttoDLV-kZa6vXFVFpqxw&#39;);&lt;/script&gt;&lt;script&gt;if (window.top &amp;&amp; window.top.postMessage) {window.top.postMessage(&#39;{&quot;googMsgType&quot;:&quot;adpnt&quot;}&#39;,&#39;*&#39;);}&lt;/script&gt;&lt;div style=&quot;position:absolute;top:0;left:0;max-width:100%;max-height:100%;width:300px;height:250px;pointer-events:none;image-rendering:pixelated;z-index:2147483647;background-image:url(&#39;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAWBAMAAACrl3iAAAAABlBMVEUAAAD+AciWmZzWAAAAAnRSTlMAApidrBQAAAB9SURBVBjTbZABDsAwCALxB/z/tesUqSY1y2azKyLAu6LqNIhxAvMvwVP3FD+RqL75FgdW49OksOintmZbX066jMp3+UUq5r0YHN20E0y/aJxzQLEsWWnKycqM9MObmbbsxnuVcG9rD0698/Z09mUOGp6xEkQmmMrTCZwh8AF45gXq30IVagAAAABJRU5ErkJggg==&#39;);&quot;&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+{&quot;uid&quot;:1,&quot;hostPeerName&quot;:&quot;http://qiita.com&quot;,&quot;initialGeometry&quot;:&quot;{\&quot;windowCoords_t\&quot;:0,\&quot;windowCoords_r\&quot;:1130,\&quot;windowCoords_b\&quot;:878,\&quot;windowCoords_l\&quot;:0,\&quot;frameCoords_t\&quot;:266,\&quot;frameCoords_r\&quot;:1112.5,\&quot;frameCoords_b\&quot;:516,\&quot;frameCoords_l\&quot;:812.5,\&quot;styleZIndex\&quot;:\&quot;auto\&quot;,\&quot;allowedExpansion_t\&quot;:266,\&quot;allowedExpansion_r\&quot;:0,\&quot;allowedExpansion_b\&quot;:212,\&quot;allowedExpansion_l\&quot;:812.5,\&quot;xInView\&quot;:0.975,\&quot;yInView\&quot;:1}&quot;,&quot;permissions&quot;:&quot;{\&quot;expandByOverlay\&quot;:true,\&quot;expandByPush\&quot;:false,\&quot;readCookie\&quot;:false,\&quot;writeCookie\&quot;:false}&quot;,&quot;metadata&quot;:&quot;{\&quot;shared\&quot;:{\&quot;sf_ver\&quot;:\&quot;1-0-9\&quot;,\&quot;ck_on\&quot;:1,\&quot;flash_ver\&quot;:\&quot;25.0.0\&quot;}}&quot;,&quot;reportCreativeGeometry&quot;:false,&quot;isDifferentSourceWindow&quot;:false}" scrolling="no" marginwidth="0" marginheight="0" width="300" height="250" data-is-safeframe="true" style="border: 0px; vertical-align: bottom;"></iframe></div></div><div class="socialButtons"><div class="socialButtons_twitter"><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./Python Django入門 (3) - Qiita_files/tweet_button.7bf2b0e802ada47dae9548b7a1739fed.en.html" style="position: static; visibility: visible; width: 60px; height: 20px;" data-url="http://qiita.com/kaki_k/items/7b178ad39394a031b50d"></iframe></div><div class="socialButtons_hatebu"><iframe class="hatena-bookmark-button-frame" title="はてブに追加" frameborder="0" scrolling="no" width="47" height="20" src="javascript:false" style="width: 47px; height: 20px;" src="./Python Django入門 (3) - Qiita_files/saved_resource.html"></iframe><script async="async" charset="utf-8" src="./Python Django入門 (3) - Qiita_files/bookmark_button.js" type="text/javascript"></script></div><div class="socialButtons_googlePlus"><div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1497077904007" name="I0_1497077904007" src="./Python Django入門 (3) - Qiita_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div></div><div class="socialButtons_facebook"><div class="fb-like" data-action="like" data-href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d" data-layout="button_count" data-share="false" data-show-faces="false"></div></div><div class="socialButtons_pocket"><div class="pocket-btn"><iframe width="135" height="22" id="pocket-button-0" frameborder="0" allowtransparency="true" scrolling="NO" src="./Python Django入門 (3) - Qiita_files/button.html"></iframe></div></div></div><section class="itemsShowAuthorInfo" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="http://qiita.com/kaki_k"><img alt="" class="itemsShowAuthorInfo_userIcon" itemprop="image" src="./Python Django入門 (3) - Qiita_files/1473691243"></a><div class="itemsShowAuthorInfo_profileStats"><strong class="itemsShowAuthorInfo_userName" itemprop="name"><a itemprop="url" href="http://qiita.com/kaki_k">kaki_k</a></strong><div class="itemsShowAuthorInfo_contribution"><span class="itemsShowAuthorInfo_count">2097</span><span class="itemsShowAuthorInfo_unit">Contribution</span></div><script type="application/json" id="js-react-on-rails-context">null</script>
+<script type="application/json" class="js-react-on-rails-component">{"component_name":"UserFollowButton","props":{"initial_followed_by":false,"position":"author-info","size":"btn-xs","url_name":"kaki_k"},"trace":false,"dom_id":"UserFollowButton-react-component-4dda7f28-240a-47e2-abcc-12295a97deca"}</script>
+    <div id="UserFollowButton-react-component-4dda7f28-240a-47e2-abcc-12295a97deca"><span data-reactroot="" class="userFollowButton"><button class="btn btn-default btn-block userFollowButton_inner btn-xs"><i class="i fa fa-user-plus"></i><!-- react-text: 4 -->フォロー<!-- /react-text --></button></span></div>
+    
+</div><section class="itemsShowAuthorPopularItems"><h5 class="itemsShowAuthorPopularItems_sectionTitle">人気の投稿</h5><ul class="itemsShowAuthorPopularItems_posts list-unstyled"><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54">Python Django入門 (1)</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551">Python Django入門 (2) Mac編</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d">Python Django入門 (3)</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/6e17597804437ef170ae">Python Django入門 (4)</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c">Python Django入門 (6)</a></li></ul></section></section><div class="scroll-chaser"><div class="ad_frame_right_banner_1"><div class="bigmining_zone_16"><a href="http://dg-ads-adserver.bigmining.com/www/delivery/ck.php?oaparams=2__bannerid=476__zoneid=16__source=_cat%28Python%29_cat%28Django%29__OXLCA=1__cb=3a7bd9a991__oadest=http%3A%2F%2Fwww.find-job.net%2Fjob%2Fpickup.pl%3Futm_source%3Dads%26utm_medium%3Dqiita" target="_blank"><img src="./Python Django入門 (3) - Qiita_files/002____.png" width="300" height="250" alt="" title="" border="0"></a><div id="beacon_3a7bd9a991" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./Python Django入門 (3) - Qiita_files/lg.php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</div></div><script async="" charset="UTF-8" defer="" src="./Python Django入門 (3) - Qiita_files/adjs_set_pro.js" type="text/javascript"></script></div><script type="application/json" class="js-react-on-rails-component">{"component_name":"Toc","props":{"body":"\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#django%E3%82%92%E5%A7%8B%E3%82%81%E3%82%8B\"\u003eDjangoを始める\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88\"\u003eドキュメント\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#django%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B\"\u003eDjangoで作ってみる\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90\"\u003eプロジェクトの作成\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#pycharm%E3%81%A7%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E9%96%8B%E3%81%8F\"\u003ePyCharmでプロジェクトを開く\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97\"\u003eデータベースのセットアップ\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E9%96%8B%E7%99%BA%E7%94%A8%E3%82%B5%E3%83%BC%E3%83%90%E3%81%AE%E8%B5%B7%E5%8B%95\"\u003e開発用サーバの起動\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#pycharm%E3%81%A7%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B\"\u003ePyCharmでデバッグ実行する\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E4%BD%9C%E6%88%90\"\u003eアプリケーションの作成\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BD%9C%E6%88%90\"\u003eモデルの作成\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92%E6%9C%89%E5%8A%B9%E3%81%AB%E3%81%99%E3%82%8B\"\u003eモデルを有効にする\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E7%AE%A1%E7%90%86%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E6%9C%89%E5%8A%B9%E5%8C%96\"\u003e管理サイトの有効化\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#cms-%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92-admin-%E4%B8%8A%E3%81%A7%E7%B7%A8%E9%9B%86%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B\"\u003ecms モデルを admin 上で編集できるようにする\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E7%AE%A1%E7%90%86%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E4%B8%80%E8%A6%A7%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA%E3%81%99%E3%82%8B\"\u003e管理サイトの一覧ページをカスタマイズする\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n","wrapper":"#article-body-wrapper"},"trace":false,"dom_id":"Toc-react-component-407056bc-5c89-4655-a400-0a960f0f04ad"}</script>
+    <div id="Toc-react-component-407056bc-5c89-4655-a400-0a960f0f04ad"><div style="position: relative; top: 0px; height: 0px;"></div><div data-reactroot="" class="tocTree" style="width: 230px; position: absolute; top: 14677px;"><div class="tocTree_contents nav" style="max-height: 723px;"><ul>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#django%E3%82%92%E5%A7%8B%E3%82%81%E3%82%8B">Djangoを始める</a>
+<ul>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88">ドキュメント</a>
+</li>
+</ul>
+</li>
+<li class="active">
+<a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#django%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B">Djangoで作ってみる</a>
+<ul>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90">プロジェクトの作成</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#pycharm%E3%81%A7%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E9%96%8B%E3%81%8F">PyCharmでプロジェクトを開く</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97">データベースのセットアップ</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E9%96%8B%E7%99%BA%E7%94%A8%E3%82%B5%E3%83%BC%E3%83%90%E3%81%AE%E8%B5%B7%E5%8B%95">開発用サーバの起動</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#pycharm%E3%81%A7%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B">PyCharmでデバッグ実行する</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E4%BD%9C%E6%88%90">アプリケーションの作成</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E4%BD%9C%E6%88%90">モデルの作成</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92%E6%9C%89%E5%8A%B9%E3%81%AB%E3%81%99%E3%82%8B">モデルを有効にする</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E7%AE%A1%E7%90%86%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E6%9C%89%E5%8A%B9%E5%8C%96">管理サイトの有効化</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#cms-%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92-admin-%E4%B8%8A%E3%81%A7%E7%B7%A8%E9%9B%86%E3%81%A7%E3%81%8D%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B">cms モデルを admin 上で編集できるようにする</a>
+</li>
+<li class="active">
+<a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#%E7%AE%A1%E7%90%86%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E4%B8%80%E8%A6%A7%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA%E3%81%99%E3%82%8B">管理サイトの一覧ページをカスタマイズする</a>
+</li>
+</ul>
+</li>
+</ul>
+</div></div></div>
+    
+</div></div><div class="row"><div class="col-sm-9"><div style="text-align: center;"><div style="display:inline-block;margin:10px;"><div id="div-gpt-ad-1489567219879-0" style="height:280px; width:336px;"><div id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-left_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-left_0" title="3rd party ad content" name="google_ads_iframe_/383564218/qiita.com_items-show_under-article-left_0" width="336" height="280" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" src="./Python Django入門 (3) - Qiita_files/saved_resource(1).html"></iframe></div></div></div><div style="display:inline-block;margin:10px;"><div id="div-gpt-ad-1489568123856-0" style="height:280px; width:336px;"><div id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-right_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-right_0" title="3rd party ad content" name="google_ads_iframe_/383564218/qiita.com_items-show_under-article-right_0" width="336" height="280" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" src="./Python Django入門 (3) - Qiita_files/saved_resource(2).html"></iframe></div></div></div></div><div class="ArticleFooter__menu"><div class="s-flex-align-center"><div class="js-likebutton" data-props="{&quot;like_status&quot;:false,&quot;like_count&quot;:242,&quot;show_count&quot;:true,&quot;uuid&quot;:&quot;7b178ad39394a031b50d&quot;,&quot;likable_type&quot;:&quot;Article&quot;,&quot;position&quot;:&quot;article-footer&quot;}"></div><div class="ArticleFooter__userList"><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="akmiyoshi"><a itemprop="url" href="http://qiita.com/akmiyoshi"><img alt="akmiyoshi" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473685997"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="sys_cat"><a itemprop="url" href="http://qiita.com/sys_cat"><img alt="sys_cat" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473683977"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="kasumani"><a itemprop="url" href="http://qiita.com/kasumani"><img alt="kasumani" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473683087"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="task_woof"><a itemprop="url" href="http://qiita.com/task_woof"><img alt="task_woof" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473685166"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="opponitur"><a itemprop="url" href="http://qiita.com/opponitur"><img alt="opponitur" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473690970"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="goldarn_ring"><a itemprop="url" href="http://qiita.com/goldarn_ring"><img alt="goldarn_ring" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473684200"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="takaya1992"><a itemprop="url" href="http://qiita.com/takaya1992"><img alt="takaya1992" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473683311"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="takumigashira@github"><a itemprop="url" href="http://qiita.com/takumigashira@github"><img alt="takumigashira@github" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473683111"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="k-motoyan"><a itemprop="url" href="http://qiita.com/k-motoyan"><img alt="k-motoyan" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473685191"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="meer07"><a itemprop="url" href="http://qiita.com/meer07"><img alt="meer07" class="thumb thumb--xs" src="./Python Django入門 (3) - Qiita_files/1473687458"></a></div></div><div class="ArticleFooter__user"><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d/likers"><span class="fa fa-ellipsis-h"></span></a></div></div></div><div class="u-flex u-align-center"><div class="ArticleFooter__stock"><div class="js-stockbutton" data-position="footer_menu" data-props="{&quot;stock_status&quot;:false}"></div></div><div class="ArticleFooter__editRequest"><a class="u-link-no-underline" data-toggle="tooltip" title="" href="http://qiita.com/drafts/7b178ad39394a031b50d/edit" data-original-title="投稿者に記事をより良くするための提案ができます 💪"><span class="fa fa-send-o fa-lg"></span> <span>編集リクエスト</span></a></div><div class="dropdown ArticleFooter__dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#"><span class="fa fa-ellipsis-h"></span></a><ul class="dropdown-menu dropdown-menu-right"><li><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d.md"><span class="fa fa-fw fa-file-text-o"></span> Markdownで本文を見る</a></li><li><a data-target=".js-report-form" data-toggle="modal" href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#"><i class="fa fa-fw fa-flag"></i> 問題がある投稿を報告する</a></li></ul></div></div></div><ul class="references js-referencesView"><li class="references_header"><i class="fa fa-fw fa-link"></i> この記事は以下の記事からリンクされています</li><li class="references_reference js-reference"><a href="http://qiita.com/kaki_k/items/1fff7fefcf26dc4b69bc#_reference-01305c2ac2ee5809faf2"><img alt="" width="18" height="18" src="./Python Django入門 (3) - Qiita_files/1473691243">Python Django入門 (2) Win編</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2014-07-26T15:24:57+00:00">3年弱前</time></li><li class="references_reference js-reference"><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#_reference-dca99c189737de13b79e"><img alt="" width="18" height="18" src="./Python Django入門 (3) - Qiita_files/1473691243">Python Django入門 (2) Mac編</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2014-07-26T15:25:01+00:00">3年弱前</time></li><li class="references_reference js-reference"><a href="http://qiita.com/taisa831/items/9a8fea93c994bae3d97d#_reference-9a1498d5e8e3e96177db"><img alt="" width="18" height="18" src="./Python Django入門 (3) - Qiita_files/1482803710">Django 初期設定 Intellij Debug まで</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2015-04-16T11:54:50+00:00">約2年前</time></li><li class="references_reference js-reference"><a href="http://qiita.com/yoshikyoto/items/6feb70340941efeb3f29#_reference-45247930d726aeb77542"><img alt="" width="18" height="18" src="./Python Django入門 (3) - Qiita_files/1473685284">PythonのWebフレームワークDjangoを使ってみる(1) - 導入からサーバー起動まで</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2015-08-10T15:43:01+00:00">2年弱前</time></li></ul><div class="itemsShowBody_articleColumnFooter"><div class="socialButtons"><div class="socialButtons_twitter"><iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./Python Django入門 (3) - Qiita_files/tweet_button.7bf2b0e802ada47dae9548b7a1739fed.en(1).html" style="position: static; visibility: visible; width: 60px; height: 20px;" data-url="http://qiita.com/kaki_k/items/7b178ad39394a031b50d"></iframe></div><div class="socialButtons_hatebu"><iframe class="hatena-bookmark-button-frame" title="はてブに追加" frameborder="0" scrolling="no" width="47" height="20" src="javascript:false" style="width: 47px; height: 20px;" src="./Python Django入門 (3) - Qiita_files/saved_resource(3).html"></iframe><script async="async" charset="utf-8" src="./Python Django入門 (3) - Qiita_files/bookmark_button.js" type="text/javascript"></script></div><div class="socialButtons_googlePlus"><div id="___plusone_1" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I1_1497077904017" name="I1_1497077904017" src="./Python Django入門 (3) - Qiita_files/fastbutton(1).html" data-gapiattached="true" title="+1"></iframe></div></div><div class="socialButtons_facebook"><div class="fb-like" data-action="like" data-href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d" data-layout="button_count" data-share="false" data-show-faces="false"></div></div><div class="socialButtons_pocket"><div class="pocket-btn"><iframe width="135" height="22" id="pocket-button-1" frameborder="0" allowtransparency="true" scrolling="NO" src="./Python Django入門 (3) - Qiita_files/button(1).html"></iframe></div></div></div></div><div class="itemsShowComment_wrapper" id="comments"><script type="application/json" class="js-react-on-rails-component">{"component_name":"PublicCommentListContainer","props":{"currentUser":null,"initialComments":[{"banned":false,"body":"\u003cp\u003eフォルダ階層についてなのですが，\u003c/p\u003e\n\n\u003cdiv class=\"code-frame\" data-lang=\"text\"\u003e\u003cdiv class=\"highlight\"\u003e\u003cpre\u003e\nmybook/\n    mybook/\n    cms/\n\u003c/pre\u003e\u003c/div\u003e\u003c/div\u003e\n\n\u003cp\u003eなのか\u003c/p\u003e\n\n\u003cdiv class=\"code-frame\" data-lang=\"text\"\u003e\u003cdiv class=\"highlight\"\u003e\u003cpre\u003e\nmybook/\n    mybook/\n        cms/\n\u003c/pre\u003e\u003c/div\u003e\u003c/div\u003e\n\n\u003cp\u003eなのか分かりづらいです．\u003c/p\u003e\n","created_at":"2015-02-09T02:19:32+09:00","expanded_references":"","id":164742,"is_team":false,"item_id":99730,"item_type":"PublicDomainArticle","item_uuid":"7b178ad39394a031b50d","likable":false,"liked":false,"public_likes_count":0,"raw_body":"フォルダ階層についてなのですが，\n\n```\nmybook/\n    mybook/\n    cms/\n```\n\nなのか\n\n```\nmybook/\n    mybook/\n        cms/\n```\n\nなのか分かりづらいです．\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-fe1fb1213937b7d006aa","user":{"contribution":11,"created_at":"2013-05-30T22:16:14+09:00","id":25047,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/25047/profile-images/1473684247","suspended":false,"url_name":"yuntan_t"},"uuid":"fe1fb1213937b7d006aa","via_email":false},{"banned":false,"body":"\u003cp\u003e\u003ccode\u003eINSTALLED_APPS\u003c/code\u003e に \u003ccode\u003e'cms',\u003c/code\u003e とあるので，ディレクトリ構成は前者だと思われます．\u003c/p\u003e\n","created_at":"2015-03-30T17:03:37+09:00","expanded_references":"","id":201219,"is_team":false,"item_id":99730,"item_type":"PublicDomainArticle","item_uuid":"7b178ad39394a031b50d","likable":false,"liked":false,"public_likes_count":0,"raw_body":"`INSTALLED_APPS` に `'cms',` とあるので，ディレクトリ構成は前者だと思われます．\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-a089db862c59315f19d6","user":{"contribution":29,"created_at":"2015-03-30T17:03:03+09:00","id":73788,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/73788/profile-images/1473699621","suspended":false,"url_name":"chibiegg"},"uuid":"a089db862c59315f19d6","via_email":false},{"banned":false,"body":"\u003cp\u003e無事に実行できました。Windows7 x86-64です。ありがとうございました。\u003c/p\u003e\n","created_at":"2016-01-15T22:08:21+09:00","expanded_references":"","id":433606,"is_team":false,"item_id":99730,"item_type":"PublicDomainArticle","item_uuid":"7b178ad39394a031b50d","likable":false,"liked":false,"public_likes_count":0,"raw_body":"無事に実行できました。Windows7 x86-64です。ありがとうございました。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-c3d514cbc6f184955e50","user":{"contribution":453,"created_at":"2014-04-09T23:20:33+09:00","id":41479,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/41479/profile-images/1491498543","suspended":false,"url_name":"narupo"},"uuid":"c3d514cbc6f184955e50","via_email":false},{"banned":false,"body":"\u003cp\u003eお世話になります。\u003cbr\u003e\nwin10,Anaconda2を使っています\u003cbr\u003e\n下記のエラーが出ます\u003cbr\u003e\n原因は何なのでしょうか？お教えください\u003cbr\u003e\nC:\\Users\\mtg-1\\PycharmProjects\\mybook\u0026gt;python manage.py makemigrations cms\u003cbr\u003e\nTraceback (most recent call last):\u003cbr\u003e\n  File \"manage.py\", line 22, in \u003cbr\u003e\n    execute_from_command_line(sys.argv)\u003cbr\u003e\n  File \"C:\\Users\\mtg-1\\Anaconda2\\lib\\site-packages\\django\\core\\management_\u003cem\u003einit\u003c/em\u003e\u003cem\u003e.py\", line 367, in execute_from_command_line\u003cbr\u003e\n    utility.execute()\u003cbr\u003e\n  File \"C:\\Users\\mtg-1\\Anaconda2\\lib\\site-packages\\django\\core\\management__init\u003c/em\u003e\u003cem\u003e.py\", line 341, in execute\u003cbr\u003e\n    django.setup()\u003cbr\u003e\n  File \"C:\\Users\\mtg-1\\Anaconda2\\lib\\site-packages\\django__init\u003c/em\u003e\u003cem\u003e.py\", line 27, in setup\u003cbr\u003e\n    apps.populate(settings.INSTALLED_APPS)\u003cbr\u003e\n  File \"C:\\Users\\mtg-1\\Anaconda2\\lib\\site-packages\\django\\apps\\registry.py\", line 108, in populate\u003cbr\u003e\n    app_config.import_models(all_models)\u003cbr\u003e\n  File \"C:\\Users\\mtg-1\\Anaconda2\\lib\\site-packages\\django\\apps\\config.py\", line 199, in import_models\u003cbr\u003e\n    self.models_module = import_module(models_module_name)\u003cbr\u003e\n  File \"C:\\Users\\mtg-1\\Anaconda2\\lib\\importlib_\u003c/em\u003einit_\u003cem\u003e.py\", line 37, in import_module\u003cbr\u003e\n    __import\u003c/em\u003e_(name)\u003cbr\u003e\n  File \"C:\\Users\\mtg-1\\PycharmProjects\\mybook\\cms\\models.py\", line 7\u003cbr\u003e\nSyntaxError: Non-ASCII character '\\x8f' in file C:\\Users\\mtg-1\\PycharmProjects\\mybook\\cms\\models.py on line 7, but no encoding declared; see \u003ca href=\"http://python.org/dev/peps/pep-0263/\" class=\"autolink\" rel=\"nofollow noopener\" target=\"_blank\"\u003ehttp://python.org/dev/peps/pep-0263/\u003c/a\u003e for details\u003cbr\u003e\nどのように修正すればよろしいですか？\u003c/p\u003e\n","created_at":"2017-04-04T15:22:46+09:00","expanded_references":"","id":772000,"is_team":false,"item_id":99730,"item_type":"PublicDomainArticle","item_uuid":"7b178ad39394a031b50d","likable":false,"liked":false,"public_likes_count":0,"raw_body":"お世話になります。\nwin10,Anaconda2を使っています\n下記のエラーが出ます\n原因は何なのでしょうか？お教えください\nC:\\Users\\mtg-1\\PycharmProjects\\mybook\u003epython manage.py makemigrations cms\nTraceback (most recent call last):\n  File \"manage.py\", line 22, in \u003cmodule\u003e\n    execute_from_command_line(sys.argv)\n  File \"C:\\Users\\mtg-1\\Anaconda2\\lib\\site-packages\\django\\core\\management\\__init__.py\", line 367, in execute_from_command_line\n    utility.execute()\n  File \"C:\\Users\\mtg-1\\Anaconda2\\lib\\site-packages\\django\\core\\management\\__init__.py\", line 341, in execute\n    django.setup()\n  File \"C:\\Users\\mtg-1\\Anaconda2\\lib\\site-packages\\django\\__init__.py\", line 27, in setup\n    apps.populate(settings.INSTALLED_APPS)\n  File \"C:\\Users\\mtg-1\\Anaconda2\\lib\\site-packages\\django\\apps\\registry.py\", line 108, in populate\n    app_config.import_models(all_models)\n  File \"C:\\Users\\mtg-1\\Anaconda2\\lib\\site-packages\\django\\apps\\config.py\", line 199, in import_models\n    self.models_module = import_module(models_module_name)\n  File \"C:\\Users\\mtg-1\\Anaconda2\\lib\\importlib\\__init__.py\", line 37, in import_module\n    __import__(name)\n  File \"C:\\Users\\mtg-1\\PycharmProjects\\mybook\\cms\\models.py\", line 7\nSyntaxError: Non-ASCII character '\\x8f' in file C:\\Users\\mtg-1\\PycharmProjects\\mybook\\cms\\models.py on line 7, but no encoding declared; see http://python.org/dev/peps/pep-0263/ for details\nどのように修正すればよろしいですか？\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-2ef5fd0cb91b6cd2d176","user":{"contribution":2,"created_at":"2015-07-19T15:36:13+09:00","id":86833,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/86833/profile-images/1473703875","suspended":false,"url_name":"moriuchiryoko"},"uuid":"2ef5fd0cb91b6cd2d176","via_email":false},{"banned":false,"body":"\u003cp\u003eこの講座は、Python3向けに書かれているので、Anaconda2ではなくて、Python3のAnacondaでやってみていただけますでしょうか。\u003c/p\u003e\n","created_at":"2017-04-04T17:00:21+09:00","expanded_references":"","id":772073,"is_team":false,"item_id":99730,"item_type":"PublicDomainArticle","item_uuid":"7b178ad39394a031b50d","likable":false,"liked":false,"public_likes_count":0,"raw_body":"この講座は、Python3向けに書かれているので、Anaconda2ではなくて、Python3のAnacondaでやってみていただけますでしょうか。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-18a3060b720aedb587ac","user":{"contribution":2097,"created_at":"2014-07-05T22:42:17+09:00","id":48136,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/48136/profile-images/1473691243","suspended":false,"url_name":"kaki_k"},"uuid":"18a3060b720aedb587ac","via_email":false},{"banned":false,"body":"\u003cp\u003eわかりました。だからアナコンダ2ですと日本語の表示の問題が生じるのですねえ.Anaconda3でやり直してみます。日本語表示だけの問題ですかね。いずれにしても3系でやってみます。ありがとうございます。\u003c/p\u003e\n","created_at":"2017-04-04T19:07:54+09:00","expanded_references":"","id":772185,"is_team":false,"item_id":99730,"item_type":"PublicDomainArticle","item_uuid":"7b178ad39394a031b50d","likable":false,"liked":false,"public_likes_count":0,"raw_body":"わかりました。だからアナコンダ2ですと日本語の表示の問題が生じるのですねえ.Anaconda3でやり直してみます。日本語表示だけの問題ですかね。いずれにしても3系でやってみます。ありがとうございます。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-92f7cf9dda08e69f6eba","user":{"contribution":2,"created_at":"2015-07-19T15:36:13+09:00","id":86833,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/86833/profile-images/1473703875","suspended":false,"url_name":"moriuchiryoko"},"uuid":"92f7cf9dda08e69f6eba","via_email":false},{"banned":false,"body":"\u003cp\u003eお世話になります。Anaconda3で試しました\u003cbr\u003e\nしかし下記のエラーが出ます\u003cbr\u003e\nSyntaxError: Non-ASCII character '\\x8f' in file C:\\Users\\mtg-1\\PycharmProjects\\mybook\\cms\\models.py on line 7, but no encoding declared; see \u003ca href=\"http://python.org/dev/peps/pep-0263/\" class=\"autolink\" rel=\"nofollow noopener\" target=\"_blank\"\u003ehttp://python.org/dev/peps/pep-0263/\u003c/a\u003e for details \u003cbr\u003e\nどのように修正すればよろしいですか？（Anaconda2/3どちらでも出ますが２系は日本語の前にUが必要だと思いますが３系はそのことに注視しなくてもよい） \u003cbr\u003e\nちなみにC:\\Users\\mtg-1\\PycharmProjects\\mybook\\cms\\models.py on line 7, but no encoding declared;は下記のとおりです \u003cbr\u003e\n\u003ca href=\"https://photos.google.com/photo/AF1QipMV--EYANOfc-IofQ9I3LA95kxQw2puERB96W2l\" class=\"autolink\" rel=\"nofollow noopener\" target=\"_blank\"\u003ehttps://photos.google.com/photo/AF1QipMV--EYANOfc-IofQ9I3LA95kxQw2puERB96W2l\u003c/a\u003e\u003cbr\u003e\n時間が許すときにお教えください\u003c/p\u003e\n","created_at":"2017-04-05T12:36:47+09:00","expanded_references":"","id":772856,"is_team":false,"item_id":99730,"item_type":"PublicDomainArticle","item_uuid":"7b178ad39394a031b50d","likable":false,"liked":false,"public_likes_count":0,"raw_body":"お世話になります。Anaconda3で試しました\nしかし下記のエラーが出ます\nSyntaxError: Non-ASCII character '\\x8f' in file C:\\Users\\mtg-1\\PycharmProjects\\mybook\\cms\\models.py on line 7, but no encoding declared; see http://python.org/dev/peps/pep-0263/ for details \nどのように修正すればよろしいですか？（Anaconda2/3どちらでも出ますが２系は日本語の前にUが必要だと思いますが３系はそのことに注視しなくてもよい） \nちなみにC:\\Users\\mtg-1\\PycharmProjects\\mybook\\cms\\models.py on line 7, but no encoding declared;は下記のとおりです \nhttps://photos.google.com/photo/AF1QipMV--EYANOfc-IofQ9I3LA95kxQw2puERB96W2l\n時間が許すときにお教えください\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-c89297bcc59a2d22e10b","user":{"contribution":2,"created_at":"2015-07-19T15:36:13+09:00","id":86833,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/86833/profile-images/1473703875","suspended":false,"url_name":"moriuchiryoko"},"uuid":"c89297bcc59a2d22e10b","via_email":false},{"banned":false,"body":"\u003cp\u003e出来ました。このように変更しました\u003cbr\u003e\nfrom \u003cstrong\u003efuture\u003c/strong\u003eimport unicode_literalsを下記に変更しました\u003c/p\u003e\n\n\u003ch1\u003e\n\u003cspan id=\"---coding-utf-8---\" class=\"fragment\"\u003e\u003c/span\u003e\u003ca href=\"#---coding-utf-8---\"\u003e\u003ci class=\"fa fa-link\"\u003e\u003c/i\u003e\u003c/a\u003e-\u003cem\u003e- coding: utf-8 -\u003c/em\u003e-\u003c/h1\u003e\n\n\u003cp\u003efrom \u003cstrong\u003efuture\u003c/strong\u003e import division, print_function, absolute_import\u003c/p\u003e\n","created_at":"2017-04-05T13:04:10+09:00","expanded_references":"","id":772883,"is_team":false,"item_id":99730,"item_type":"PublicDomainArticle","item_uuid":"7b178ad39394a031b50d","likable":false,"liked":false,"public_likes_count":0,"raw_body":"出来ました。このように変更しました\nfrom __future__import unicode_literalsを下記に変更しました\n\n# -*- coding: utf-8 -*-\nfrom __future__ import division, print_function, absolute_import\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-1c5266b54852c4afaef0","user":{"contribution":2,"created_at":"2015-07-19T15:36:13+09:00","id":86833,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/86833/profile-images/1473703875","suspended":false,"url_name":"moriuchiryoko"},"uuid":"1c5266b54852c4afaef0","via_email":false}],"monthly_public_image_uploadable_size_limit":null,"total_uploaded_public_image_size_in_current_month":null,"item":{"id":99730,"uuid":"7b178ad39394a031b50d","suspended":false,"secret":false},"owner":{"url_name":"kaki_k"},"is_team":false,"is_project":false,"logged_in":false,"polling":false,"mention_candidates":[{"id":48136,"url_name":"kaki_k","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/48136/profile-images/1473691243"},{"id":25047,"url_name":"yuntan_t","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/25047/profile-images/1473684247"},{"id":73788,"url_name":"chibiegg","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/73788/profile-images/1473699621"},{"id":41479,"url_name":"narupo","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/41479/profile-images/1491498543"},{"id":86833,"url_name":"moriuchiryoko","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/86833/profile-images/1473703875"}]},"trace":false,"dom_id":"PublicCommentListContainer-react-component-a48044ff-42b4-4f64-9d3a-41f3816fbc18"}</script>
+    <div id="PublicCommentListContainer-react-component-a48044ff-42b4-4f64-9d3a-41f3816fbc18"><div data-reactroot="" class="commentList"><noscript></noscript><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/yuntan_t"><span title="yuntan_t" itemprop="url" href="/yuntan_t"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (3) - Qiita_files/1473684247"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/yuntan_t">yuntan_t</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">11</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-fe1fb1213937b7d006aa"><time datetime="2015-02-09T02:19:32+09:00" itemprop="commentTime">2015-02-09 02:19</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>フォルダ階層についてなのですが，</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>mybook/
+    mybook/
+    cms/
+</pre></div></div>
+
+<p>なのか</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>mybook/
+    mybook/
+        cms/
+</pre></div></div>
+
+<p>なのか分かりづらいです．</p>
+</div><!-- react-text: 26 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/chibiegg"><span title="chibiegg" itemprop="url" href="/chibiegg"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (3) - Qiita_files/1473699621"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/chibiegg">chibiegg</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">29</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-a089db862c59315f19d6"><time datetime="2015-03-30T17:03:37+09:00" itemprop="commentTime">2015-03-30 17:03</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p><code>INSTALLED_APPS</code> に <code>'cms',</code> とあるので，ディレクトリ構成は前者だと思われます．</p>
+</div><!-- react-text: 50 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/narupo"><span title="narupo" itemprop="url" href="/narupo"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (3) - Qiita_files/1491498543"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/narupo">narupo</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">453</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-c3d514cbc6f184955e50"><time datetime="2016-01-15T22:08:21+09:00" itemprop="commentTime">2016-01-15 22:08</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>無事に実行できました。Windows7 x86-64です。ありがとうございました。</p>
+</div><!-- react-text: 74 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/moriuchiryoko"><span title="moriuchiryoko" itemprop="url" href="/moriuchiryoko"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (3) - Qiita_files/1473703875"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/moriuchiryoko">moriuchiryoko</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">2</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-2ef5fd0cb91b6cd2d176"><time datetime="2017-04-04T15:22:46+09:00" itemprop="commentTime">2017-04-04 15:22</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>お世話になります。<br>
+win10,Anaconda2を使っています<br>
+下記のエラーが出ます<br>
+原因は何なのでしょうか？お教えください<br>
+C:\Users\mtg-1\PycharmProjects\mybook&gt;python manage.py makemigrations cms<br>
+Traceback (most recent call last):<br>
+  File "manage.py", line 22, in <br>
+    execute_from_command_line(sys.argv)<br>
+  File "C:\Users\mtg-1\Anaconda2\lib\site-packages\django\core\management_<em>init</em><em>.py", line 367, in execute_from_command_line<br>
+    utility.execute()<br>
+  File "C:\Users\mtg-1\Anaconda2\lib\site-packages\django\core\management__init</em><em>.py", line 341, in execute<br>
+    django.setup()<br>
+  File "C:\Users\mtg-1\Anaconda2\lib\site-packages\django__init</em><em>.py", line 27, in setup<br>
+    apps.populate(settings.INSTALLED_APPS)<br>
+  File "C:\Users\mtg-1\Anaconda2\lib\site-packages\django\apps\registry.py", line 108, in populate<br>
+    app_config.import_models(all_models)<br>
+  File "C:\Users\mtg-1\Anaconda2\lib\site-packages\django\apps\config.py", line 199, in import_models<br>
+    self.models_module = import_module(models_module_name)<br>
+  File "C:\Users\mtg-1\Anaconda2\lib\importlib_</em>init_<em>.py", line 37, in import_module<br>
+    __import</em>_(name)<br>
+  File "C:\Users\mtg-1\PycharmProjects\mybook\cms\models.py", line 7<br>
+SyntaxError: Non-ASCII character '\x8f' in file C:\Users\mtg-1\PycharmProjects\mybook\cms\models.py on line 7, but no encoding declared; see <a href="http://python.org/dev/peps/pep-0263/" class="autolink" rel="nofollow noopener" target="_blank">http://python.org/dev/peps/pep-0263/</a> for details<br>
+どのように修正すればよろしいですか？</p>
+</div><!-- react-text: 98 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/kaki_k"><span title="kaki_k" itemprop="url" href="/kaki_k"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (3) - Qiita_files/1473691243"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/kaki_k">kaki_k</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">2097</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-18a3060b720aedb587ac"><time datetime="2017-04-04T17:00:21+09:00" itemprop="commentTime">2017-04-04 17:00</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>この講座は、Python3向けに書かれているので、Anaconda2ではなくて、Python3のAnacondaでやってみていただけますでしょうか。</p>
+</div><!-- react-text: 122 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/moriuchiryoko"><span title="moriuchiryoko" itemprop="url" href="/moriuchiryoko"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (3) - Qiita_files/1473703875"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/moriuchiryoko">moriuchiryoko</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">2</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-92f7cf9dda08e69f6eba"><time datetime="2017-04-04T19:07:54+09:00" itemprop="commentTime">2017-04-04 19:07</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>わかりました。だからアナコンダ2ですと日本語の表示の問題が生じるのですねえ.Anaconda3でやり直してみます。日本語表示だけの問題ですかね。いずれにしても3系でやってみます。ありがとうございます。</p>
+</div><!-- react-text: 146 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/moriuchiryoko"><span title="moriuchiryoko" itemprop="url" href="/moriuchiryoko"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (3) - Qiita_files/1473703875"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/moriuchiryoko">moriuchiryoko</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">2</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-c89297bcc59a2d22e10b"><time datetime="2017-04-05T12:36:47+09:00" itemprop="commentTime">2017-04-05 12:36</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>お世話になります。Anaconda3で試しました<br>
+しかし下記のエラーが出ます<br>
+SyntaxError: Non-ASCII character '\x8f' in file C:\Users\mtg-1\PycharmProjects\mybook\cms\models.py on line 7, but no encoding declared; see <a href="http://python.org/dev/peps/pep-0263/" class="autolink" rel="nofollow noopener" target="_blank">http://python.org/dev/peps/pep-0263/</a> for details <br>
+どのように修正すればよろしいですか？（Anaconda2/3どちらでも出ますが２系は日本語の前にUが必要だと思いますが３系はそのことに注視しなくてもよい） <br>
+ちなみにC:\Users\mtg-1\PycharmProjects\mybook\cms\models.py on line 7, but no encoding declared;は下記のとおりです <br>
+<a href="https://photos.google.com/photo/AF1QipMV--EYANOfc-IofQ9I3LA95kxQw2puERB96W2l" class="autolink" rel="nofollow noopener" target="_blank">https://photos.google.com/photo/AF1QipMV--EYANOfc-IofQ9I3LA95kxQw2puERB96W2l</a><br>
+時間が許すときにお教えください</p>
+</div><!-- react-text: 170 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/moriuchiryoko"><span title="moriuchiryoko" itemprop="url" href="/moriuchiryoko"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (3) - Qiita_files/1473703875"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/moriuchiryoko">moriuchiryoko</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">2</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#comment-1c5266b54852c4afaef0"><time datetime="2017-04-05T13:04:10+09:00" itemprop="commentTime">2017-04-05 13:04</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>出来ました。このように変更しました<br>
+from <strong>future</strong>import unicode_literalsを下記に変更しました</p>
+
+<h1>
+<span id="---coding-utf-8---" class="fragment"></span><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d#---coding-utf-8---"><i class="fa fa-link"></i></a>-<em>- coding: utf-8 -</em>-</h1>
+
+<p>from <strong>future</strong> import division, print_function, absolute_import</p>
+</div><!-- react-text: 194 --><!-- /react-text --></div></div></div></div>
+    
+</div></div></div></div></article><div class="js-report-form modal fade reportForm"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button name="button" type="submit" class="close" data-dismiss="modal">×</button><h4 class="modal-title">問題がある投稿を報告する</h4></div><div class="modal-body"><form action="http://qiita.com/reports" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="zgsKDXXWfOiL+zgBZa1ER6Gmz++23HSyMwwJ0omB2RsfGPQw8qDH3fomKGdrJ+DfxMuYiMb4UwtcaFwwP2YC4w=="><input type="hidden" name="redirect_path" id="redirect_path" value="/kaki_k/items/7b178ad39394a031b50d"><input type="hidden" name="item_uuid" id="item_uuid" value="7b178ad39394a031b50d"><p>この投稿にどのような問題がありますか？</p><br><div class="form-group"><ul class="list-unstyled"><li><label><input type="radio" name="report_type" id="report_type_spam" value="spam" required="required"> スパムです </label></li><li><label><input type="radio" name="report_type" id="report_type_harassment" value="harassment" required="required"> 攻撃的または迷惑な内容を含んでいます </label></li><li><label><input type="radio" name="report_type" id="report_type_inappropriate_content" value="inappropriate_content" required="required"> 不適切な内容を含んでいます </label></li></ul></div><div class="reportForm_submitButtonContainer"><button name="button" type="submit" class="btn btn-primary reportForm_submitButton"><i class="fa fa-send"></i> 送信</button></div></form></div></div></div></div><script id="js-item" type="application/json">{ "url": "http://qiita.com/kaki_k/items/7b178ad39394a031b50d", "id": 99730, "uuid": "7b178ad39394a031b50d" }</script><script class="js-user" type="application/json">{&quot;id&quot;:48136,&quot;url_name&quot;:&quot;kaki_k&quot;,&quot;profile_image_url&quot;:&quot;https://qiita-image-store.s3.amazonaws.com/0/48136/profile-images/1473691243&quot;}</script><script language="JavaScript" src="./Python Django入門 (3) - Qiita_files/qiita_bigmining.js" type="text/javascript"></script></div><script src="./Python Django入門 (3) - Qiita_files/adrequest.js"></script><footer class="footer"><div class="footer_inner"><div class="footer_container"><ul class="footer_links-left"><li class="footer_link"><a class="footer_copyright" href="http://increments.co.jp/">© 2011-2017 Increments Inc.</a></li><li class="footer_link"><a href="http://qiita.com/terms">利用規約</a></li><li class="footer_link"><a href="http://qiita.com/privacy">プライバシー</a></li><li class="footer_link"><a href="http://help.qiita.com/">ヘルプ</a></li><li class="footer_link"><a href="https://increments.zendesk.com/anonymous_requests/new">お問い合わせ</a></li></ul><ul class="footer_links-right"><li class="footer_link"><a href="http://qiita.com/about">Qiitaとは</a></li><li class="footer_link"><a href="http://qiita.com/users">ユーザー</a></li><li class="footer_link"><a href="http://qiita.com/tags">タグ</a></li><li class="footer_link"><a href="http://blog.qiita.com/">ブログ</a></li><li class="footer_link"><a href="http://qiita.com/api/v2/docs">API</a></li><li class="footer_link"><a href="https://teams.qiita.com/">Team</a></li><li class="footer_link"><a href="http://kobito.qiita.com/">Kobito</a></li><li class="footer_link"><a class="js-public-form-feedback-link" data-target=".js-feedback-form" data-toggle="modal" href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d"><i class="fa fa-heart"></i> ご意見 <i class="fa fa-caret-down"></i></a></li></ul></div></div></footer><div class="js-feedback-form modal fade feedbackForm"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button name="button" type="submit" class="close" data-dismiss="modal">×</button><h4 class="modal-title">ご意見</h4></div><div class="modal-body"><form class="js-feedback-form-form" action="http://qiita.com/feedbacks" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="zgsKDXXWfOiL+zgBZa1ER6Gmz++23HSyMwwJ0omB2RsfGPQw8qDH3fomKGdrJ+DfxMuYiMb4UwtcaFwwP2YC4w=="><input type="hidden" name="redirect_path" id="redirect_path" value="/kaki_k/items/7b178ad39394a031b50d"><div class="form-group"><textarea name="feedback[message]" id="feedback_message" class="form-control js-feedback-form-text-area" placeholder="Qiitaについてのご意見をお聞かせください。" required="required" rows="5"></textarea></div><div class="feedbackForm_submitButtonContainer"><button name="button" type="submit" class="btn btn-primary feedbackForm_submitButton"><i class="fa fa-send"></i> 送信</button><p class="feedbackForm_note">いただいたご意見への返信は行っておりません。<br>返信の必要な内容については、<a href="https://increments.zendesk.com/anonymous_requests/new">こちら</a> からお問い合わせください。</p></div><div style="position:fixed;top:-99999px;opacity:0.0001;"><input name="feedback[name]" type="text"></div></form></div></div></div></div><script>// if (window.mixpanel instanceof Element) {
+//   window.mixpanel = [];
+// }
+// (function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+// for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);</script><script src="./Python Django入門 (3) - Qiita_files/public-ea9634d328dd01703100922f07784313.min.js"></script><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Python Django入門 (3) - Qiita_files/0F7S7QWJ0Ac.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Python Django入門 (3) - Qiita_files/0F7S7QWJ0Ac(1).html" style="border: none;"></iframe></div></div></div><script>
+  (function () {
+    var script = document.getElementsByTagName('script')[0];
+    var load = function (src, id) {
+      var el = document.createElement('script');
+      el.async = true;
+      el.src = src;
+      el.id = id;
+      script.parentNode.insertBefore(el, script);
+    };
+      // Optimizely
+      load('//cdn.optimizely.com/js/52738645.js', 'optimizely-jssdk');
+      // Google Analytics
+      window._gaq = window._gaq || [];
+      var isCareer = location.hostname.split('.')[0] == 'career';
+      if (isCareer) {
+        window._gaq.push(['_setAccount', 'UA-24675221-11']);
+        window._gaq.push(['_setDomainName', 'qiita.com']);
+      } else {
+        window._gaq.push(['_setAccount', 'UA-24675221-1']);
+      }
+      window._gaq.push(['_setCustomVar', 1, 'logged_in', 'false', 2]);
+      window._gaq.push(['_trackPageview']);
+      var src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      load(src, 'google-analytics-jssdk');
+    // Google Analytics - Universal Analytics
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-24675221-12', {
+          
+        });
+        ga('set', 'dimension1', 'false');
+        ga('set', 'dimension3', 'false');
+      ga('require', 'displayfeatures');
+      ga('set', 'forceSSL', true);
+      ga('send', 'pageview');
+    // Google Tag Manager
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-TBQWPN');
+  })();
+</script>
+<div class="ReactModalPortal"><div data-reactroot=""></div></div><img src="./Python Django入門 (3) - Qiita_files/adevent" width="0" height="0" style="display: none;"><script type="text/javascript" id="">var googletag=googletag||{};googletag.cmd=googletag.cmd||[];googletag.cmd.push(function(){googletag.defineSlot("/383564218/qiita.com_items-show_under-article-left",[336,280],"div-gpt-ad-1489567219879-0").addService(googletag.pubads());googletag.pubads().enableSingleRequest();googletag.pubads().collapseEmptyDivs();googletag.enableServices()});
+googletag.cmd.push(function(){googletag.defineSlot("/383564218/qiita.com_items-show_under-article-right",[336,280],"div-gpt-ad-1489568123856-0").addService(googletag.pubads());googletag.pubads().enableSingleRequest();googletag.pubads().collapseEmptyDivs();googletag.enableServices()});
+$(function(){var a=$("\x3cdiv\x3e").css("text-align","center").append("\x3cdiv style\x3d'display:inline-block;margin:10px;'\x3e\x3cdiv id\x3d'div-gpt-ad-1489567219879-0' style\x3d'height:280px; width:336px;'\x3e\x3c/div\x3e\x3c/div\x3e").append("\x3cdiv style\x3d'display:inline-block;margin:10px;'\x3e\x3cdiv id\x3d'div-gpt-ad-1489568123856-0' style\x3d'height:280px; width:336px;'\x3e\x3c/div\x3e\x3c/div\x3e");$(".ArticleFooter__menu").before(a);googletag.cmd.push(function(){googletag.display("div-gpt-ad-1489567219879-0")});
+googletag.cmd.push(function(){googletag.display("div-gpt-ad-1489568123856-0")})});</script>
+<script type="text/javascript" id="">var googletag=googletag||{};googletag.cmd=googletag.cmd||[];googletag.cmd.push(function(){googletag.defineSlot("/383564218/qiita.com_items-show_sidebar-top",[300,250],"div-gpt-ad-1493084685571-0").addService(googletag.pubads());googletag.pubads().enableSingleRequest();googletag.pubads().collapseEmptyDivs();googletag.enableServices()});</script>
+
+
+<script type="text/javascript" id="">$("#article-body-wrapper \x3e .col-sm-3").prepend("\x3cdiv id\x3d'div-gpt-ad-1493084685571-0' style\x3d'height:250px; width:300px; margin-bottom: 20px;'\x3e");googletag.cmd.push(function(){googletag.display("div-gpt-ad-1493084685571-0")});</script><script type="text/javascript" id="" src="./Python Django入門 (3) - Qiita_files/gpt.js"></script><iframe name="oauth2relay590189953" id="oauth2relay590189953" src="./Python Django入門 (3) - Qiita_files/postmessageRelay.html" tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe" src="./Python Django入門 (3) - Qiita_files/saved_resource(4).html"></iframe></body></html>

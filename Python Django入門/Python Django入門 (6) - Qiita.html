@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c -->
+<html xmlns:og="http://ogp.me/ns#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Python Django入門 (6) - Qiita</title><meta content="width=device-width,initial-scale=1" name="viewport"><meta content="
+
+スマホAPIを作る
+
+ここまで、HTMLのレスポンスを返す、Webアプリケーションの例を見てきました。
+
+次に、iOS/AndroidアプリのバックエンドとしてJSONを返す例を作ってみます。
+Django REST frameworkのように、REST APIを作るモジュールを導入することもできますが、まずは自分で書いてみることにします。
+
+
+apiアプリケーションの作成
+
+mybook プロジェクトの下に api というアプリケーションを作成します。
+
+
+$ p..." name="description"><meta content="summary" name="twitter:card"><meta content="@Qiita" name="twitter:site"><meta content="kaki_k" name="twitter:creator"><meta content="Python Django入門 (6) - Qiita" property="og:title"><meta content="article" property="og:type"><meta content="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c" property="og:url"><meta content="http://cdn.qiita.com/assets/qiita-fb-2887e7b4aad86fd8c25cea84846f2236.png" property="og:image"><meta content="
+スマホAPIを作る
+--------------
+
+ここまで、HTMLのレスポンスを返す、Webアプリケーションの例を見てきました。
+
+次に、iOS/AndroidアプリのバックエンドとしてJSONを返す例を作ってみます。  
+[D..." property="og:description"><meta content="Qiita" property="og:site_name"><meta content="564524038" property="fb:admins"><link rel="shortcut icon" type="image/x-icon" href="http://cdn.qiita.com/assets/favicons/public/production-4ff10c1e1e2b5fcb353ff9cafdd56c70.ico"><link rel="apple-touch-icon" type="image/png" href="http://cdn.qiita.com/assets/favicons/public/apple-touch-icon-f9a6afad761ec2306e10db2736187c8b.png"><link href="http://qiita.com/opensearch.xml" rel="search" title="Qiita" type="application/opensearchdescription+xml"><link rel="stylesheet" media="all" href="./Python Django入門 (6) - Qiita_files/public-c0679298dc61c14b0940b4ba03acab77.min.css"><meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="gR0k7Z7Wn2ZtPuxFPnLqlKZFlneKiCrL9NilPt9U9FhQDtrQGaAkUxzj/CMw+E4MwyjBEPqsDXKbvPDcabMvoA=="><script src="./Python Django入門 (6) - Qiita_files/cb=gapi.loaded_1" async=""></script><script src="./Python Django入門 (6) - Qiita_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" charset="utf-8" async="" src="./Python Django入門 (6) - Qiita_files/button.b731e6c82269f70f6fc53634e044a4c6.js"></script></head><body class=" with-js"><noscript>&lt;iframe height="0" src="//www.googletagmanager.com/ns.html?id=GTM-TBQWPN" style="display:none;visibility:hidden" width="0"&gt;&lt;/iframe&gt;</noscript><script async="" src="./Python Django入門 (6) - Qiita_files/gtm.js"></script><script async="" src="./Python Django入門 (6) - Qiita_files/analytics.js"></script><script async="" src="./Python Django入門 (6) - Qiita_files/52738645.js" id="optimizely-jssdk"></script><script async="" src="./Python Django入門 (6) - Qiita_files/ga.js" id="google-analytics-jssdk"></script><script async="" src="./Python Django入門 (6) - Qiita_files/widgets.js" id="twitter-jssdk"></script><script async="" src="./Python Django入門 (6) - Qiita_files/all.js" id="facebook-jssdk"></script><script async="" src="./Python Django入門 (6) - Qiita_files/plusone.js" id="google-plusone-jssdk" gapi_processed="true"></script><script async="" src="./Python Django入門 (6) - Qiita_files/btn.js" id="pocket-btn-js"></script><script>
+  document.body.className = document.body.className.replace('without-js', '') + ' with-js';
+  window.Qiita = {"asset_host":"cdn.qiita.com","TLD":"com","controller_path":"public/items","controller_action":"public/items#show","controller":"items","action":"show","action_path":"public/items#show","env":"production","flash":{},"is_team_page":false,"request_parameters":{"controller":"public/items","action":"show","user_id":"kaki_k","type":"items","id":"b76acaeab8a9d935c35c"},"root_domain":"qiita.com","variant":null,"config":{"mixpanel":{"career":"dd35af27e959781713d63fd7ca898a8d","per_team":"c0a2116368b33b44b5029ebd2cc9b094","public":"be87616606b0e26a87689099aab2c4e5","team":"b7c0342acba2dbc8742484d98788efb3"},"default_locale":"ja","locale":"ja"},"team":null,"user":null,"GIT_BRANCH":null,"DEBUG":false};
+
+</script>
+<div class="headerContainer headerContainer-public" role="navigation"><script type="application/json" class="js-react-on-rails-component">{"component_name":"HeaderContainer","props":{"user":null,"team":null,"news":{"type":"募集","content":"QiitaやQiita:Teamを良くしたいエンジニア","url":"http://increments.co.jp/jobs/engineers?utm_source=qiita\u0026utm_medium=header_news"},"initial_unread_count":null,"siteid_image":"http://cdn.qiita.com/siteid-reverse.png","is_team_page":false,"on_team_setting":false,"show_post_menu":true,"show_search_menu":true,"is_fluid":false,"locale":"ja"},"trace":false,"dom_id":"HeaderContainer-react-component-befa95ae-5da1-4baf-af16-a127969247d1"}</script>
+    <div id="HeaderContainer-react-component-befa95ae-5da1-4baf-af16-a127969247d1"><header data-reactroot="" class="sharedHeader sharedHeader-public"><div class="sharedHeader_inner"><div class="sharedHeader_left"><span class="sharedHeader_logo open"><a class="sharedHeader_logo_main" href="http://qiita.com/"><span class="sharedHeader_logo_figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 26"><title>Qiita</title><path d="M24.6 12.2C24.6 6.2 20 0 12.2 0 6.2 0 0 4.6 0 12.4c0 6 4.6 12.2 12.4 12.2 2.5 0 5-.8 7.1-2.3l3.6 3.6 1.6-1.6-3.4-3.4c2.1-2.3 3.3-5.3 3.3-8.7zm-12.4-10c5.7 0 10.2 4.4 10.2 10.1 0 4.9-3.8 10.1-10.1 10.1s-10.1-5.1-10.1-10c0-6.4 5.1-10.2 10-10.2zM30.5 7.1h2.1v17h-2.1zM31.5 4.8c-1 0-1.8-.8-1.8-1.8s.8-1.8 1.8-1.8 1.8.8 1.8 1.8-.8 1.8-1.8 1.8zM40 4.8c-1 0-1.8-.8-1.8-1.8S39 1.2 40 1.2s1.8.8 1.8 1.8S41 4.8 40 4.8zM39 7.1h2.1v17H39zM53.7 24.4c-3.9 0-6.2-3-6.2-6v-16h2.1v4.7H57v2.1h-7.4v9.3c0 1.9 1.5 3.9 4.1 3.9.7 0 1.4-.2 2-.6l.2-.1 1 1.8-.2.1c-.9.5-2 .8-3 .8zM67.6 24.5c-5.7 0-9.1-4.5-9.1-8.9 0-5.7 4.5-9.1 8.9-9.1 2.3 0 4.1.8 5.4 2.3V7.1h2.1v17h-2.1v-1.9c-1.2 1.5-3 2.3-5.2 2.3zm-.2-15.9c-3.4 0-6.8 2.6-6.8 7 0 3.4 2.6 6.8 7 6.8 2 0 4-.9 5.3-2.5v-8.8c-1.4-1.6-3.3-2.5-5.5-2.5z"></path></svg></span></a></span><form class="navbar-form navbar-left searchForm" action="http://qiita.com/search" method="get"><div class="searchForm_queryWrapper"><input class="form-control searchForm_query" placeholder="キーワードを入力" autocomplete="off" name="q" value=""><div class="searchForm_wiseSearchButton"><i class="fa fa-caret-down"></i></div></div></form><div class="navbar-text headerNews hidden-xs hidden-sm"><div class="headerNews_label label label-warning">募集</div><a class="navbar-link" target="_blank" href="http://increments.co.jp/jobs/engineers?utm_source=qiita&amp;utm_medium=header_news">QiitaやQiita:Teamを良くしたいエンジニア</a></div></div><div class="sharedHeader_right"><div class="sharedHeader_registerUser"><a class="btn btn-warning navbar-btn navbar-right" href="http://qiita.com/signup?redirect_to=%2Fkaki_k%2Fitems%2Fb76acaeab8a9d935c35c">ユーザ登録</a></div><div class="sharedHeader_loginUser"><a data-label="LoginButtonAtNavbar" href="http://qiita.com/login?redirect_to=%2Fkaki_k%2Fitems%2Fb76acaeab8a9d935c35c">ログイン</a></div></div></div></header></div>
+    
+</div><div id="main"><script type="application/ld+json">{  "@context": "http://schema.org",  "@type": "BreadcrumbList",  "itemListElement": [    {      "@type": "ListItem",      "position": 1,      "item": {        "@id": "/",        "name": "Qiita"      }    },    {      "@type": "ListItem",      "position": 2,      "item": {        "@id": "/items",        "name": "投稿"      }    },    {      "@type": "ListItem",      "position": 3,      "item": {        "@id": "/tags/Python",        "name": "Python"      }    }  ]}</script><article itemscope="" itemtype="http://schema.org/Article"><div class="ArticleMainHeader "><div class="container"></div><div class="container"><div class="row s-flex-align-center"><div class="col-sm-9"><h1 class="ArticleMainHeader__title" itemprop="headline">Python Django入門 (6)</h1><ul class="TagList"><li class="TagList__item" data-count="11015"><a class="u-link-unstyled TagList__label" href="http://qiita.com/tags/Python"><img alt="Python" class="TagList__icon" src="./Python Django入門 (6) - Qiita_files/medium.jpg"><span>Python</span></a></li><li class="TagList__item" data-count="720"><a class="u-link-unstyled TagList__label" href="http://qiita.com/tags/Django"><img alt="Django" class="TagList__icon" src="./Python Django入門 (6) - Qiita_files/medium(1).jpg"><span>Django</span></a></li></ul></div><div class="col-sm-3"><div class="itemsShowHeaderStock"><ul class="list-unstyled itemsShowHeaderStock_statusList"><li><div class="itemsShowHeaderStock_count stock"><span class="fa fa-thumbs-up"></span><span class="js-likecount">146</span></div><div class="itemsShowHeaderStock_countText">いいね</div></li><li><div class="itemsShowHeaderStock_count" content="1 UserComments" itemprop="commentCount"><span class="fa fa-comment"></span>1</div><div class="itemsShowHeaderStock_countText">コメント</div></li></ul></div><div class="js-likebutton" data-props="{&quot;like_status&quot;:false,&quot;like_count&quot;:146,&quot;uuid&quot;:&quot;b76acaeab8a9d935c35c&quot;,&quot;likable_type&quot;:&quot;Article&quot;,&quot;position&quot;:&quot;article-header&quot;}"></div><ul class="list-inline ArticleMainHeader__users"><li class="js-hovercard" data-hovercard-target-name="ta7uwtaka"><a itemprop="url" href="http://qiita.com/ta7uwtaka"><img alt="ta7uwtaka" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/photo.jpg"></a></li><li class="js-hovercard" data-hovercard-target-name="muripo_life"><a itemprop="url" href="http://qiita.com/muripo_life"><img alt="muripo_life" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473708759"></a></li><li class="js-hovercard" data-hovercard-target-name="rntrkmkw"><a itemprop="url" href="http://qiita.com/rntrkmkw"><img alt="rntrkmkw" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473701832"></a></li><li class="js-hovercard" data-hovercard-target-name="hanakayui0628"><a itemprop="url" href="http://qiita.com/hanakayui0628"><img alt="hanakayui0628" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1487564174"></a></li><li class="js-hovercard" data-hovercard-target-name="tasuku"><a itemprop="url" href="http://qiita.com/tasuku"><img alt="tasuku" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473693073"></a></li><li class="js-hovercard" data-hovercard-target-name="unagi_pie"><a itemprop="url" href="http://qiita.com/unagi_pie"><img alt="unagi_pie" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473757619"></a></li><li class="js-hovercard" data-hovercard-target-name="synia"><a itemprop="url" href="http://qiita.com/synia"><img alt="synia" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1481428318"></a></li><li class="js-hovercard" data-hovercard-target-name="TMats"><a itemprop="url" href="http://qiita.com/TMats"><img alt="TMats" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473717817"></a></li><li class="js-hovercard" data-hovercard-target-name="rikky0611"><a itemprop="url" href="http://qiita.com/rikky0611"><img alt="rikky0611" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473703593"></a></li><li class="js-hovercard" data-hovercard-target-name="Codei_P"><a itemprop="url" href="http://qiita.com/Codei_P"><img alt="Codei_P" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473688127"></a></li><li><a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c/likers"><span class="fa fa-ellipsis-h"></span></a></li></ul></div></div></div></div><div class="ArticleAsideHeader"><div class="container"><div class="u-flex u-space-between"><div class="u-flex u-flex-wrap"><div class="u-flex u-align-center s-pdv-5 u-flex-wrap"><div class="ArticleAsideHeader__author"><a href="http://qiita.com/kaki_k"><img class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473691243" alt="1473691243"></a> <a class="u-link-unstyled" href="http://qiita.com/kaki_k">kaki_k</a> </div><div class="ArticleAsideHeader__date"><meta content="2014-07-27T00:23:21+09:00" itemprop="datePublished"><span data-toggle="tooltip" title="" data-original-title="2014年07月27日に投稿"><time datetime="2016-09-21T22:05:42+09:00" itemprop="dateModified">2016年09月21日</time>に更新</span></div></div><div class="u-flex u-align-center s-pdv-5 mobile-hidden"><div class="ArticleAsideHeader__revision"> <a data-toggle="tooltip" title="" href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c/revisions" data-original-title="編集履歴"><span class="fa fa-history"></span></a><span class="ArticleAsideHeader__revisionCount">8</span></div></div><div class="u-flex u-align-center s-pdv-5 mobile-hidden"></div></div><div class="u-flex u-align-center s-flex-justiry-between s-pdv-5 u-shrink-0"><div class="ArticleAsideHeader__stock"><div class="js-stockbutton" data-position="top" data-props="{&quot;stock_status&quot;:false}"></div></div><div class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#"><span class="fa fa-ellipsis-h fa-lg"></span></a><ul class="dropdown-menu dropdown-menu-right"><li class="dropdown__item--mobile"><a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c/revisions"><span class="fa fa-fw fa-history"></span> 編集履歴<span>(8)</span></a></li><li><a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c.md"><span class="fa fa-fw fa-file-text-o"></span> Markdownで本文を見る</a></li><li><a data-target=".js-report-form" data-toggle="modal" href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#"><span class="fa fa-fw fa-flag"></span> 問題がある投稿を報告する</a></li></ul></div></div></div></div></div><div class="container"><div class="row" id="article-body-wrapper" style="position: relative;"><div class="col-sm-9"><section class="markdownContent markdownContent-headingEnabled js-task-list-container clearfix position-relative" id="item-b76acaeab8a9d935c35c" itemprop="articleBody">
+<h2>
+<span id="スマホapiを作る" class="fragment"></span><a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#%E3%82%B9%E3%83%9E%E3%83%9Bapi%E3%82%92%E4%BD%9C%E3%82%8B"><i class="fa fa-link"></i></a>スマホAPIを作る</h2>
+
+<p>ここまで、HTMLのレスポンスを返す、Webアプリケーションの例を見てきました。</p>
+
+<p>次に、iOS/AndroidアプリのバックエンドとしてJSONを返す例を作ってみます。<br><br>
+<a href="http://www.django-rest-framework.org/" rel="nofollow noopener" target="_blank">Django REST framework</a>のように、REST APIを作るモジュールを導入することもできますが、まずは自分で書いてみることにします。</p>
+
+<h3>
+<span id="apiアプリケーションの作成" class="fragment"></span><a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#api%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E4%BD%9C%E6%88%90"><i class="fa fa-link"></i></a>apiアプリケーションの作成</h3>
+
+<p>mybook プロジェクトの下に api というアプリケーションを作成します。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>python manage.py startapp api
+</pre></div></div>
+
+<p>mybook プロジェクトのディレクトリの下に、以下のファイルが作成されました。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre>mybook/
+    api/
+        __init__.py
+        admin.py
+        apps.py
+        migrations/
+            __init__.py
+        models.py
+        tests.py
+        views.py
+</pre></div></div>
+
+<h3>
+<span id="jsonを返すビュー" class="fragment"></span><a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#json%E3%82%92%E8%BF%94%E3%81%99%E3%83%93%E3%83%A5%E3%83%BC"><i class="fa fa-link"></i></a>JSONを返すビュー</h3>
+
+<p>基本は、jsonモジュールを使って、Python辞書オブジェクトをJSONに変換します。</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'id'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'name'</span><span class="p">:</span> <span class="s">'hoge'</span><span class="p">}</span>
+<span class="n">json_str</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div></div>
+
+<ul>
+<li>ensure_ascii=False  # 日本語が含まれる時、このように指定。</li>
+<li>indent=2  # 空白2個で整形する場合。省略すると整形しない。</li>
+</ul>
+
+<p>ただし、Python辞書は順不同になるため、JSONの中身も順不同となってしまいます。</p>
+
+<p>そこで、collections.OrderedDict 順序付き辞書を使います。</p>
+
+<blockquote>
+<p>なお、OrderedDictが使えるのは、Python 2.7 からなので、サーバ環境によって Python 2.6 以下の場合は、<a href="https://pypi.python.org/pypi/ordereddict" rel="nofollow noopener" target="_blank">orderddict</a>を使います。</p>
+</blockquote>
+
+<p><code>api/views.py</code> は以下のようになります。</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">cms.models</span> <span class="kn">import</span> <span class="n">Book</span>
+
+
+<span class="k">def</span> <span class="nf">render_json_response</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">"""response を JSON で返却"""</span>
+    <span class="n">json_str</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">callback</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'callback'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">callback</span><span class="p">:</span>
+        <span class="n">callback</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'callback'</span><span class="p">)</span>  <span class="c"># POSTでJSONPの場合</span>
+    <span class="k">if</span> <span class="n">callback</span><span class="p">:</span>
+        <span class="n">json_str</span> <span class="o">=</span> <span class="s">"</span><span class="si">%s</span><span class="s">(</span><span class="si">%s</span><span class="s">)"</span> <span class="o">%</span> <span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="n">json_str</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">json_str</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="s">'application/javascript; charset=UTF-8'</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">json_str</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="s">'application/json; charset=UTF-8'</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span>
+
+
+<span class="k">def</span> <span class="nf">book_list</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">"""書籍と感想のJSONを返す"""</span>
+    <span class="n">books</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">'id'</span><span class="p">):</span>
+
+        <span class="n">impressions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">impression</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">impressions</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">'id'</span><span class="p">):</span>
+            <span class="n">impression_dict</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">([</span>
+                <span class="p">(</span><span class="s">'id'</span><span class="p">,</span> <span class="n">impression</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">'comment'</span><span class="p">,</span> <span class="n">impression</span><span class="o">.</span><span class="n">comment</span><span class="p">),</span>
+            <span class="p">])</span>
+            <span class="n">impressions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">impression_dict</span><span class="p">)</span>
+
+        <span class="n">book_dict</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">([</span>
+            <span class="p">(</span><span class="s">'id'</span><span class="p">,</span> <span class="n">book</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+            <span class="p">(</span><span class="s">'name'</span><span class="p">,</span> <span class="n">book</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
+            <span class="p">(</span><span class="s">'publisher'</span><span class="p">,</span> <span class="n">book</span><span class="o">.</span><span class="n">publisher</span><span class="p">),</span>
+            <span class="p">(</span><span class="s">'page'</span><span class="p">,</span> <span class="n">book</span><span class="o">.</span><span class="n">page</span><span class="p">),</span>
+            <span class="p">(</span><span class="s">'impressions'</span><span class="p">,</span> <span class="n">impressions</span><span class="p">)</span>
+        <span class="p">])</span>
+        <span class="n">books</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">book_dict</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">([</span> <span class="p">(</span><span class="s">'books'</span><span class="p">,</span> <span class="n">books</span><span class="p">)</span> <span class="p">])</span>
+    <span class="k">return</span> <span class="n">render_json_response</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre></div></div>
+
+<p>render_json_response() はJSONP にも対応しています。 <br>
+スマホのAPIだけでなく、JavascriptのAjaxでJSONを取得する場合にも応用できます。 </p>
+
+<h3>
+<span id="jsonを返すurl" class="fragment"></span><a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#json%E3%82%92%E8%BF%94%E3%81%99url"><i class="fa fa-link"></i></a>JSONを返すURL</h3>
+
+<p><code>api/urls.py</code> というファイルを新規作成し、以下のように記述します。</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
+<span class="kn">from</span> <span class="nn">api</span> <span class="kn">import</span> <span class="n">views</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c"># 書籍</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r'^v1/books/$'</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">book_list</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'book_list'</span><span class="p">),</span>     <span class="c"># 一覧</span>
+<span class="p">]</span>
+</pre></div></div>
+
+<p>この <code>api/urls.py</code> を、プロジェクトの <code>mybook/urls.py</code> で include します。</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span><span class="p">,</span> <span class="n">include</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r'^admin/'</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r'^cms/'</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">'cms.urls'</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s">'cms'</span><span class="p">)),</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r'^api/'</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">'api.urls'</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s">'api'</span><span class="p">)),</span>  <span class="c"># ここを追加</span>
+<span class="p">]</span>
+</pre></div></div>
+
+<h3>
+<span id="結果の確認" class="fragment"></span><a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#%E7%B5%90%E6%9E%9C%E3%81%AE%E7%A2%BA%E8%AA%8D"><i class="fa fa-link"></i></a>結果の確認</h3>
+
+<p>それでは、ブラウザで以下のURLを開いて下さい。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre>http://127.0.0.1:8000/api/v1/books/
+</pre></div></div>
+
+<p>結果は以下のようになります。</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>{
+  "books": [
+    {
+      "id": 1, 
+      "name": "Django入門", 
+      "publisher": "GeekLab Nagano", 
+      "page": 10, 
+      "impressions": [
+        {
+          "id": 1, 
+          "comment": "途中で\r\n眠くなった。"
+        }, 
+        {
+          "id": 2, 
+          "comment": "ああ"
+        }, 
+        {
+          "id": 3, 
+          "comment": "いい"
+        }
+      ]
+    }, 
+    {
+      "id": 2, 
+      "name": "Raspberry Pi 入門", 
+      "publisher": "GeekLab Nagano", 
+      "page": 15, 
+      "impressions": []
+    }
+  ]
+}
+</pre></div></div>
+
+<h3>
+<span id="iosandroidアプリからのデータの受信" class="fragment"></span><a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#iosandroid%E3%82%A2%E3%83%97%E3%83%AA%E3%81%8B%E3%82%89%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%97%E4%BF%A1"><i class="fa fa-link"></i></a>iOS/Androidアプリからのデータの受信</h3>
+
+<p>iOS/Androidアプリに対してデータを送信する場合は JSON でよいですが、データを受信したい場合はどうするのでしょうか。</p>
+
+<ul>
+<li>簡単なデータの場合は、Webアプリのフォーム受信と同じものを書いて、スマホ側では http form post を模倣してもらいます。
+
+<ul>
+<li>こうすることによって、データのエラーチェックは、フォームのバリデーションの仕組みが使えます。</li>
+<li>正常かエラーかは、JSONで結果を返すようにします。</li>
+</ul>
+</li>
+<li>繰り返しがある複雑なデータは、スマホ側からJSONをPOSTしてもらい、json.loads() でデコードします。</li>
+</ul>
+
+<p>JSONで受信する場合、request の raw_post_data からJSON文字列を取り出せます。</p>
+
+<div class="code-frame" data-lang="python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="k">def</span> <span class="nf">xxxx_post</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">python_obj</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">raw_post_data</span><span class="p">)</span>  <span class="c"># RequestのBodyが直接JSON文字列となるようPOSTしてもらう</span>
+      <span class="p">:</span>
+</pre></div></div>
+
+<h3>
+<span id="スマホapiのまとめ" class="fragment"></span><a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#%E3%82%B9%E3%83%9E%E3%83%9Bapi%E3%81%AE%E3%81%BE%E3%81%A8%E3%82%81"><i class="fa fa-link"></i></a>スマホAPIのまとめ</h3>
+
+<p>スマホAPIだけを作るのであれば、データ投入は Django の管理サイトの機能を使い、API部分だけを書く、といったことも可能です。<br><br>
+簡単にスマホのバックエンドを作成することができます。</p>
+
+<p>なお、本格的にAPIを作成する場合は、<a href="http://www.django-rest-framework.org/" rel="nofollow noopener" target="_blank">Django REST framework</a>の導入も検討してください。</p>
+
+<h2>
+<span id="最後に" class="fragment"></span><a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#%E6%9C%80%E5%BE%8C%E3%81%AB"><i class="fa fa-link"></i></a>最後に</h2>
+
+<p>ここまでで、この講座は終了です。</p>
+
+<p>この講座の後に、公式チュートリアル その1〜7 をやってみることによって、さらに理解が深まると思います。</p>
+
+<ul>
+<li><p><a href="http://djangoproject.jp/" rel="nofollow noopener" target="_blank">Django ドキュメント</a> (DJANGOPROJECT.JP から 1.9 ドキュメントを参照して下さい)</p></li>
+<li><p><a href="https://docs.djangoproject.com/" rel="nofollow noopener" target="_blank">Django documentation</a></p></li>
+</ul>
+<div class="hidden"><form class="js-task-list-update" action="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="gR0k7Z7Wn2ZtPuxFPnLqlKZFlneKiCrL9NilPt9U9FhQDtrQGaAkUxzj/CMw+E4MwyjBEPqsDXKbvPDcabMvoA=="><input type="hidden" name="updated_at_confirmation_in_unixtime" id="updated_at_confirmation_in_unixtime" value="1474463142" class="js-task-list-updated-at"><textarea name="raw_body" id="raw_body" class="js-task-list-field">
+スマホAPIを作る
+--------------
+
+ここまで、HTMLのレスポンスを返す、Webアプリケーションの例を見てきました。
+
+次に、iOS/AndroidアプリのバックエンドとしてJSONを返す例を作ってみます。  
+[Django REST framework](http://www.django-rest-framework.org/)のように、REST APIを作るモジュールを導入することもできますが、まずは自分で書いてみることにします。
+
+### apiアプリケーションの作成
+
+mybook プロジェクトの下に api というアプリケーションを作成します。
+
+```bash
+$ python manage.py startapp api
+```
+
+mybook プロジェクトのディレクトリの下に、以下のファイルが作成されました。
+
+```bash
+mybook/
+    api/
+        __init__.py
+        admin.py
+        apps.py
+        migrations/
+            __init__.py
+        models.py
+        tests.py
+        views.py
+```
+
+### JSONを返すビュー
+
+基本は、jsonモジュールを使って、Python辞書オブジェクトをJSONに変換します。
+
+```python
+import json
+
+data = {'id': 1, 'name': 'hoge'}
+json_str = json.dumps(data, ensure_ascii=False, indent=2)
+```
+
+* ensure_ascii=False  # 日本語が含まれる時、このように指定。
+* indent=2  # 空白2個で整形する場合。省略すると整形しない。
+
+ただし、Python辞書は順不同になるため、JSONの中身も順不同となってしまいます。
+
+そこで、collections.OrderedDict 順序付き辞書を使います。
+
+&gt; なお、OrderedDictが使えるのは、Python 2.7 からなので、サーバ環境によって Python 2.6 以下の場合は、[orderddict](https://pypi.python.org/pypi/ordereddict)を使います。
+
+`api/views.py` は以下のようになります。
+
+```python
+import json
+from collections import OrderedDict
+from django.http import HttpResponse
+from cms.models import Book
+
+
+def render_json_response(request, data, status=None):
+    """response を JSON で返却"""
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
+    callback = request.GET.get('callback')
+    if not callback:
+        callback = request.POST.get('callback')  # POSTでJSONPの場合
+    if callback:
+        json_str = "%s(%s)" % (callback, json_str)
+        response = HttpResponse(json_str, content_type='application/javascript; charset=UTF-8', status=status)
+    else:
+        response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=status)
+    return response
+
+
+def book_list(request):
+    """書籍と感想のJSONを返す"""
+    books = []
+    for book in Book.objects.all().order_by('id'):
+        
+        impressions = []
+        for impression in book.impressions.order_by('id'):
+            impression_dict = OrderedDict([
+                ('id', impression.id),
+                ('comment', impression.comment),
+            ])
+            impressions.append(impression_dict)
+        
+        book_dict = OrderedDict([
+            ('id', book.id),
+            ('name', book.name),
+            ('publisher', book.publisher),
+            ('page', book.page),
+            ('impressions', impressions)
+        ])
+        books.append(book_dict)
+    
+    data = OrderedDict([ ('books', books) ])
+    return render_json_response(request, data)
+```
+
+render_json_response() はJSONP にも対応しています。 
+スマホのAPIだけでなく、JavascriptのAjaxでJSONを取得する場合にも応用できます。 
+
+### JSONを返すURL
+
+`api/urls.py` というファイルを新規作成し、以下のように記述します。
+
+```python
+from django.conf.urls import url
+from api import views
+
+urlpatterns = [
+    # 書籍
+    url(r'^v1/books/$', views.book_list, name='book_list'),     # 一覧
+]
+```
+
+この `api/urls.py` を、プロジェクトの `mybook/urls.py` で include します。
+
+```python
+from django.conf.urls import url, include
+from django.contrib import admin
+
+urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^cms/', include('cms.urls', namespace='cms')),
+    url(r'^api/', include('api.urls', namespace='api')),  # ここを追加
+]
+```
+
+### 結果の確認
+
+それでは、ブラウザで以下のURLを開いて下さい。
+
+```bash
+http://127.0.0.1:8000/api/v1/books/
+```
+
+結果は以下のようになります。
+
+```
+{
+  "books": [
+    {
+      "id": 1, 
+      "name": "Django入門", 
+      "publisher": "GeekLab Nagano", 
+      "page": 10, 
+      "impressions": [
+        {
+          "id": 1, 
+          "comment": "途中で\r\n眠くなった。"
+        }, 
+        {
+          "id": 2, 
+          "comment": "ああ"
+        }, 
+        {
+          "id": 3, 
+          "comment": "いい"
+        }
+      ]
+    }, 
+    {
+      "id": 2, 
+      "name": "Raspberry Pi 入門", 
+      "publisher": "GeekLab Nagano", 
+      "page": 15, 
+      "impressions": []
+    }
+  ]
+}
+```
+
+### iOS/Androidアプリからのデータの受信
+
+iOS/Androidアプリに対してデータを送信する場合は JSON でよいですが、データを受信したい場合はどうするのでしょうか。
+
+* 簡単なデータの場合は、Webアプリのフォーム受信と同じものを書いて、スマホ側では http form post を模倣してもらいます。
+    - こうすることによって、データのエラーチェックは、フォームのバリデーションの仕組みが使えます。
+    - 正常かエラーかは、JSONで結果を返すようにします。
+* 繰り返しがある複雑なデータは、スマホ側からJSONをPOSTしてもらい、json.loads() でデコードします。
+
+JSONで受信する場合、request の raw_post_data からJSON文字列を取り出せます。
+
+```python
+import json
+
+def xxxx_post(request):
+    python_obj = json.loads(request.raw_post_data)  # RequestのBodyが直接JSON文字列となるようPOSTしてもらう
+      :
+```
+
+### スマホAPIのまとめ
+
+スマホAPIだけを作るのであれば、データ投入は Django の管理サイトの機能を使い、API部分だけを書く、といったことも可能です。  
+簡単にスマホのバックエンドを作成することができます。
+
+なお、本格的にAPIを作成する場合は、[Django REST framework](http://www.django-rest-framework.org/)の導入も検討してください。
+
+最後に
+-----
+
+ここまでで、この講座は終了です。
+
+この講座の後に、公式チュートリアル その1〜7 をやってみることによって、さらに理解が深まると思います。
+
+* [Django ドキュメント](http://djangoproject.jp/) (DJANGOPROJECT.JP から 1.9 ドキュメントを参照して下さい)
+
+* [Django documentation](https://docs.djangoproject.com/)
+</textarea><input type="submit" name="commit" value="Save changes" data-disable-with="Save changes"></form></div></section></div><div class="col-sm-3"><div id="div-gpt-ad-1493084685571-0" style="height:250px; width:300px; margin-bottom: 20px;"></div><div class="socialButtons"><div class="socialButtons_twitter"><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./Python Django入門 (6) - Qiita_files/tweet_button.7bf2b0e802ada47dae9548b7a1739fed.en.html" style="position: absolute; visibility: hidden; width: 0px; height: 0px;"></iframe><a class="twitter-share-button" data-text="Python Django入門 (6) by @kaki_k on @Qiita" data-url="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c" href="https://twitter.com/share" data-twitter-extracted-i1497077958279126358="true">ツイート</a></div><div class="socialButtons_hatebu"><iframe class="hatena-bookmark-button-frame" title="はてブに追加" frameborder="0" scrolling="no" width="47" height="20" src="javascript:false" style="width: 47px; height: 20px;" src="./Python Django入門 (6) - Qiita_files/saved_resource.html"></iframe><script async="async" charset="utf-8" src="./Python Django入門 (6) - Qiita_files/bookmark_button.js" type="text/javascript"></script></div><div class="socialButtons_googlePlus"><div id="___plusone_0" style="position: absolute; width: 450px; left: -10000px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position:absolute;top:-10000px;width:450px;margin:0px;border-style:none" tabindex="0" vspace="0" width="100%" id="I0_1497077958469" name="I0_1497077958469" src="./Python Django入門 (6) - Qiita_files/fastbutton.html" data-gapiattached="true"></iframe></div><div class="g-plusone" data-href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c" data-size="medium" data-gapiscan="true" data-onload="true" data-gapistub="true"></div></div><div class="socialButtons_facebook"><div class="fb-like" data-action="like" data-href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c" data-layout="button_count" data-share="false" data-show-faces="false"></div></div><div class="socialButtons_pocket"><div class="pocket-btn"><iframe width="135" height="22" id="pocket-button-0" frameborder="0" allowtransparency="true" scrolling="NO" src="./Python Django入門 (6) - Qiita_files/button.html"></iframe></div></div></div><section class="itemsShowAuthorInfo" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="http://qiita.com/kaki_k"><img alt="" class="itemsShowAuthorInfo_userIcon" itemprop="image" src="./Python Django入門 (6) - Qiita_files/1473691243"></a><div class="itemsShowAuthorInfo_profileStats"><strong class="itemsShowAuthorInfo_userName" itemprop="name"><a itemprop="url" href="http://qiita.com/kaki_k">kaki_k</a></strong><div class="itemsShowAuthorInfo_contribution"><span class="itemsShowAuthorInfo_count">2097</span><span class="itemsShowAuthorInfo_unit">Contribution</span></div><script type="application/json" id="js-react-on-rails-context">null</script>
+<script type="application/json" class="js-react-on-rails-component">{"component_name":"UserFollowButton","props":{"initial_followed_by":false,"position":"author-info","size":"btn-xs","url_name":"kaki_k"},"trace":false,"dom_id":"UserFollowButton-react-component-2a906033-68bd-4941-b948-84a46e8b190a"}</script>
+    <div id="UserFollowButton-react-component-2a906033-68bd-4941-b948-84a46e8b190a"><span data-reactroot="" class="userFollowButton"><button class="btn btn-default btn-block userFollowButton_inner btn-xs"><i class="i fa fa-user-plus"></i><!-- react-text: 4 -->フォロー<!-- /react-text --></button></span></div>
+    
+</div><section class="itemsShowAuthorPopularItems"><h5 class="itemsShowAuthorPopularItems_sectionTitle">人気の投稿</h5><ul class="itemsShowAuthorPopularItems_posts list-unstyled"><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54">Python Django入門 (1)</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551">Python Django入門 (2) Mac編</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d">Python Django入門 (3)</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/6e17597804437ef170ae">Python Django入門 (4)</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c">Python Django入門 (6)</a></li></ul></section></section><div class="scroll-chaser"><div class="ad_frame_right_banner_1"></div><script async="" charset="UTF-8" defer="" src="./Python Django入門 (6) - Qiita_files/adjs_set_pro.js" type="text/javascript"></script></div><script type="application/json" class="js-react-on-rails-component">{"component_name":"Toc","props":{"body":"\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%82%B9%E3%83%9E%E3%83%9Bapi%E3%82%92%E4%BD%9C%E3%82%8B\"\u003eスマホAPIを作る\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#api%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E4%BD%9C%E6%88%90\"\u003eapiアプリケーションの作成\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#json%E3%82%92%E8%BF%94%E3%81%99%E3%83%93%E3%83%A5%E3%83%BC\"\u003eJSONを返すビュー\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#json%E3%82%92%E8%BF%94%E3%81%99url\"\u003eJSONを返すURL\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E7%B5%90%E6%9E%9C%E3%81%AE%E7%A2%BA%E8%AA%8D\"\u003e結果の確認\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#iosandroid%E3%82%A2%E3%83%97%E3%83%AA%E3%81%8B%E3%82%89%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%97%E4%BF%A1\"\u003eiOS/Androidアプリからのデータの受信\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%82%B9%E3%83%9E%E3%83%9Bapi%E3%81%AE%E3%81%BE%E3%81%A8%E3%82%81\"\u003eスマホAPIのまとめ\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E6%9C%80%E5%BE%8C%E3%81%AB\"\u003e最後に\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n","wrapper":"#article-body-wrapper"},"trace":false,"dom_id":"Toc-react-component-0ae1a33c-27cc-4003-bd54-041e74361693"}</script>
+    <div id="Toc-react-component-0ae1a33c-27cc-4003-bd54-041e74361693"><div style="position: relative; top: 0px; height: 0px;"></div><div data-reactroot="" class="tocTree" style="width: 230px; position: relative; top: 0px;"><div class="tocTree_contents nav" style="max-height: 723px;"><ul>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#%E3%82%B9%E3%83%9E%E3%83%9Bapi%E3%82%92%E4%BD%9C%E3%82%8B">スマホAPIを作る</a>
+<ul>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#api%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E4%BD%9C%E6%88%90">apiアプリケーションの作成</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#json%E3%82%92%E8%BF%94%E3%81%99%E3%83%93%E3%83%A5%E3%83%BC">JSONを返すビュー</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#json%E3%82%92%E8%BF%94%E3%81%99url">JSONを返すURL</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#%E7%B5%90%E6%9E%9C%E3%81%AE%E7%A2%BA%E8%AA%8D">結果の確認</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#iosandroid%E3%82%A2%E3%83%97%E3%83%AA%E3%81%8B%E3%82%89%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%97%E4%BF%A1">iOS/Androidアプリからのデータの受信</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#%E3%82%B9%E3%83%9E%E3%83%9Bapi%E3%81%AE%E3%81%BE%E3%81%A8%E3%82%81">スマホAPIのまとめ</a>
+</li>
+</ul>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#%E6%9C%80%E5%BE%8C%E3%81%AB">最後に</a>
+</li>
+</ul>
+</div></div></div>
+    
+</div></div><div class="row"><div class="col-sm-9"><div style="text-align: center;"><div style="display:inline-block;margin:10px;"><div id="div-gpt-ad-1489567219879-0" style="height:280px; width:336px;"></div></div><div style="display:inline-block;margin:10px;"><div id="div-gpt-ad-1489568123856-0" style="height:280px; width:336px;"></div></div></div><div class="ArticleFooter__menu"><div class="s-flex-align-center"><div class="js-likebutton" data-props="{&quot;like_status&quot;:false,&quot;like_count&quot;:146,&quot;show_count&quot;:true,&quot;uuid&quot;:&quot;b76acaeab8a9d935c35c&quot;,&quot;likable_type&quot;:&quot;Article&quot;,&quot;position&quot;:&quot;article-footer&quot;}"></div><div class="ArticleFooter__userList"><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="akmiyoshi"><a itemprop="url" href="http://qiita.com/akmiyoshi"><img alt="akmiyoshi" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473685997"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="sys_cat"><a itemprop="url" href="http://qiita.com/sys_cat"><img alt="sys_cat" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473683977"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="kasumani"><a itemprop="url" href="http://qiita.com/kasumani"><img alt="kasumani" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473683087"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="pianodistance"><a itemprop="url" href="http://qiita.com/pianodistance"><img alt="pianodistance" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473687735"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="task_woof"><a itemprop="url" href="http://qiita.com/task_woof"><img alt="task_woof" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473685166"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="opponitur"><a itemprop="url" href="http://qiita.com/opponitur"><img alt="opponitur" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473690970"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="romancek@github"><a itemprop="url" href="http://qiita.com/romancek@github"><img alt="romancek@github" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/c8ad8051326243623ab010d72c154fa7"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="kawasan"><a itemprop="url" href="http://qiita.com/kawasan"><img alt="kawasan" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473691492"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="goldarn_ring"><a itemprop="url" href="http://qiita.com/goldarn_ring"><img alt="goldarn_ring" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473684200"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="k-motoyan"><a itemprop="url" href="http://qiita.com/k-motoyan"><img alt="k-motoyan" class="thumb thumb--xs" src="./Python Django入門 (6) - Qiita_files/1473685191"></a></div></div><div class="ArticleFooter__user"><a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c/likers"><span class="fa fa-ellipsis-h"></span></a></div></div></div><div class="u-flex u-align-center"><div class="ArticleFooter__stock"><div class="js-stockbutton" data-position="footer_menu" data-props="{&quot;stock_status&quot;:false}"></div></div><div class="ArticleFooter__editRequest"><a class="u-link-no-underline" data-toggle="tooltip" title="" href="http://qiita.com/drafts/b76acaeab8a9d935c35c/edit" data-original-title="投稿者に記事をより良くするための提案ができます 💪"><span class="fa fa-send-o fa-lg"></span> <span>編集リクエスト</span></a></div><div class="dropdown ArticleFooter__dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#"><span class="fa fa-ellipsis-h"></span></a><ul class="dropdown-menu dropdown-menu-right"><li><a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c.md"><span class="fa fa-fw fa-file-text-o"></span> Markdownで本文を見る</a></li><li><a data-target=".js-report-form" data-toggle="modal" href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#"><i class="fa fa-fw fa-flag"></i> 問題がある投稿を報告する</a></li></ul></div></div></div><ul class="references js-referencesView"><li class="references_header"><i class="fa fa-fw fa-link"></i> この記事は以下の記事からリンクされています</li><li class="references_reference js-reference"><a href="http://qiita.com/kaki_k/items/ebc8d8b07434e1721756#_reference-1f3c4ad73efaedbec482"><img alt="" width="18" height="18" src="./Python Django入門 (6) - Qiita_files/1473691243">Python Django入門 (5)</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2014-07-26T15:28:10+00:00">3年弱前</time></li><li class="references_reference js-reference"><a href="http://qiita.com/zaburo/items/0e15f6c150caa13ca34c#_reference-7603f14947bbbdf00f93"><img alt="" width="18" height="18" src="./Python Django入門 (6) - Qiita_files/1482700268">Djangoでの開発 ダイジェスト</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2017-05-02T06:52:23+00:00">約1ヶ月前</time></li></ul><div class="itemsShowBody_articleColumnFooter"><div class="socialButtons"><div class="socialButtons_twitter"><iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./Python Django入門 (6) - Qiita_files/tweet_button.7bf2b0e802ada47dae9548b7a1739fed.en(1).html" style="position: absolute; visibility: hidden; width: 0px; height: 0px;"></iframe><a class="twitter-share-button" data-text="Python Django入門 (6) by @kaki_k on @Qiita" data-url="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c" href="https://twitter.com/share" data-twitter-extracted-i1497077958279126358="true">ツイート</a></div><div class="socialButtons_hatebu"><iframe class="hatena-bookmark-button-frame" title="はてブに追加" frameborder="0" scrolling="no" width="47" height="20" src="javascript:false" style="width: 47px; height: 20px;" src="./Python Django入門 (6) - Qiita_files/saved_resource(1).html"></iframe><script async="async" charset="utf-8" src="./Python Django入門 (6) - Qiita_files/bookmark_button.js" type="text/javascript"></script></div><div class="socialButtons_googlePlus"><div id="___plusone_1" style="position: absolute; width: 450px; left: -10000px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position:absolute;top:-10000px;width:450px;margin:0px;border-style:none" tabindex="0" vspace="0" width="100%" id="I1_1497077958477" name="I1_1497077958477" src="./Python Django入門 (6) - Qiita_files/fastbutton(1).html" data-gapiattached="true"></iframe></div><div class="g-plusone" data-href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c" data-size="medium" data-gapiscan="true" data-onload="true" data-gapistub="true"></div></div><div class="socialButtons_facebook"><div class="fb-like" data-action="like" data-href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c" data-layout="button_count" data-share="false" data-show-faces="false"></div></div><div class="socialButtons_pocket"><div class="pocket-btn"><iframe width="135" height="22" id="pocket-button-1" frameborder="0" allowtransparency="true" scrolling="NO" src="./Python Django入門 (6) - Qiita_files/button(1).html"></iframe></div></div></div></div><div class="itemsShowComment_wrapper" id="comments"><script type="application/json" class="js-react-on-rails-component">{"component_name":"PublicCommentListContainer","props":{"currentUser":null,"initialComments":[{"banned":false,"body":"\u003cp\u003e分かりやすい説明、ありがとうございました。\u003cbr\u003e\nDjangoへのとっかかりとして大変役に立ちました。\u003c/p\u003e\n\n\u003cp\u003e続きとして、認証の部分を取り上げていただけないでしょうか?\u003cbr\u003e\nこちらを参考にしたのですが、\u003cbr\u003e\n\u003ca href=\"http://qiita.com/maueki/items/d28fd2a170d42e745376\" class=\"autolink\" id=\"reference-3a02048e5488da29b53e\"\u003ehttp://qiita.com/maueki/items/d28fd2a170d42e745376\u003c/a\u003e\u003cbr\u003e\nうまく適合できませんでした。\u003c/p\u003e\n\n\u003cp\u003eご一考いただけると幸甚です。\u003c/p\u003e\n\n\u003cp\u003eよろしくお願いします。\u003c/p\u003e\n","created_at":"2017-01-18T08:46:30+09:00","expanded_references":"","id":718187,"is_team":false,"item_id":99734,"item_type":"PublicDomainArticle","item_uuid":"b76acaeab8a9d935c35c","likable":false,"liked":false,"public_likes_count":0,"raw_body":"分かりやすい説明、ありがとうございました。\nDjangoへのとっかかりとして大変役に立ちました。\n\n続きとして、認証の部分を取り上げていただけないでしょうか?\nこちらを参考にしたのですが、\nhttp://qiita.com/maueki/items/d28fd2a170d42e745376\nうまく適合できませんでした。\n\nご一考いただけると幸甚です。\n\nよろしくお願いします。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#comment-e4792f4eb210535ff752","user":{"contribution":0,"created_at":"2016-12-26T09:16:04+09:00","id":156757,"is_admin":false,"profile_image_url":"https://avatars.githubusercontent.com/u/2653657?v=3","suspended":false,"url_name":"ooo_6502"},"uuid":"e4792f4eb210535ff752","via_email":false}],"monthly_public_image_uploadable_size_limit":null,"total_uploaded_public_image_size_in_current_month":null,"item":{"id":99734,"uuid":"b76acaeab8a9d935c35c","suspended":false,"secret":false},"owner":{"url_name":"kaki_k"},"is_team":false,"is_project":false,"logged_in":false,"polling":false,"mention_candidates":[{"id":48136,"url_name":"kaki_k","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/48136/profile-images/1473691243"},{"id":156757,"url_name":"ooo_6502","profile_image_url":"https://avatars.githubusercontent.com/u/2653657?v=3"}]},"trace":false,"dom_id":"PublicCommentListContainer-react-component-e020ed50-3c1b-4a74-8495-659c3acf6cee"}</script>
+    <div id="PublicCommentListContainer-react-component-e020ed50-3c1b-4a74-8495-659c3acf6cee"><div data-reactroot="" class="commentList"><noscript></noscript><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/ooo_6502"><span title="ooo_6502" itemprop="url" href="/ooo_6502"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (6) - Qiita_files/2653657"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/ooo_6502">ooo_6502</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">0</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c#comment-e4792f4eb210535ff752"><time datetime="2017-01-18T08:46:30+09:00" itemprop="commentTime">2017-01-18 08:46</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>分かりやすい説明、ありがとうございました。<br>
+Djangoへのとっかかりとして大変役に立ちました。</p>
+
+<p>続きとして、認証の部分を取り上げていただけないでしょうか?<br>
+こちらを参考にしたのですが、<br>
+<a href="http://qiita.com/maueki/items/d28fd2a170d42e745376" class="autolink" id="reference-3a02048e5488da29b53e">http://qiita.com/maueki/items/d28fd2a170d42e745376</a><br>
+うまく適合できませんでした。</p>
+
+<p>ご一考いただけると幸甚です。</p>
+
+<p>よろしくお願いします。</p>
+</div><!-- react-text: 26 --><!-- /react-text --></div></div></div></div>
+    
+</div></div></div></div></article><div class="js-report-form modal fade reportForm"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button name="button" type="submit" class="close" data-dismiss="modal">×</button><h4 class="modal-title">問題がある投稿を報告する</h4></div><div class="modal-body"><form action="http://qiita.com/reports" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="gR0k7Z7Wn2ZtPuxFPnLqlKZFlneKiCrL9NilPt9U9FhQDtrQGaAkUxzj/CMw+E4MwyjBEPqsDXKbvPDcabMvoA=="><input type="hidden" name="redirect_path" id="redirect_path" value="/kaki_k/items/b76acaeab8a9d935c35c"><input type="hidden" name="item_uuid" id="item_uuid" value="b76acaeab8a9d935c35c"><p>この投稿にどのような問題がありますか？</p><br><div class="form-group"><ul class="list-unstyled"><li><label><input type="radio" name="report_type" id="report_type_spam" value="spam" required="required"> スパムです </label></li><li><label><input type="radio" name="report_type" id="report_type_harassment" value="harassment" required="required"> 攻撃的または迷惑な内容を含んでいます </label></li><li><label><input type="radio" name="report_type" id="report_type_inappropriate_content" value="inappropriate_content" required="required"> 不適切な内容を含んでいます </label></li></ul></div><div class="reportForm_submitButtonContainer"><button name="button" type="submit" class="btn btn-primary reportForm_submitButton"><i class="fa fa-send"></i> 送信</button></div></form></div></div></div></div><script id="js-item" type="application/json">{ "url": "http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c", "id": 99734, "uuid": "b76acaeab8a9d935c35c" }</script><script class="js-user" type="application/json">{&quot;id&quot;:48136,&quot;url_name&quot;:&quot;kaki_k&quot;,&quot;profile_image_url&quot;:&quot;https://qiita-image-store.s3.amazonaws.com/0/48136/profile-images/1473691243&quot;}</script><script language="JavaScript" src="./Python Django入門 (6) - Qiita_files/qiita_bigmining.js" type="text/javascript"></script></div><script src="./Python Django入門 (6) - Qiita_files/adrequest.js"></script><footer class="footer"><div class="footer_inner"><div class="footer_container"><ul class="footer_links-left"><li class="footer_link"><a class="footer_copyright" href="http://increments.co.jp/">© 2011-2017 Increments Inc.</a></li><li class="footer_link"><a href="http://qiita.com/terms">利用規約</a></li><li class="footer_link"><a href="http://qiita.com/privacy">プライバシー</a></li><li class="footer_link"><a href="http://help.qiita.com/">ヘルプ</a></li><li class="footer_link"><a href="https://increments.zendesk.com/anonymous_requests/new">お問い合わせ</a></li></ul><ul class="footer_links-right"><li class="footer_link"><a href="http://qiita.com/about">Qiitaとは</a></li><li class="footer_link"><a href="http://qiita.com/users">ユーザー</a></li><li class="footer_link"><a href="http://qiita.com/tags">タグ</a></li><li class="footer_link"><a href="http://blog.qiita.com/">ブログ</a></li><li class="footer_link"><a href="http://qiita.com/api/v2/docs">API</a></li><li class="footer_link"><a href="https://teams.qiita.com/">Team</a></li><li class="footer_link"><a href="http://kobito.qiita.com/">Kobito</a></li><li class="footer_link"><a class="js-public-form-feedback-link" data-target=".js-feedback-form" data-toggle="modal" href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c"><i class="fa fa-heart"></i> ご意見 <i class="fa fa-caret-down"></i></a></li></ul></div></div></footer><div class="js-feedback-form modal fade feedbackForm"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button name="button" type="submit" class="close" data-dismiss="modal">×</button><h4 class="modal-title">ご意見</h4></div><div class="modal-body"><form class="js-feedback-form-form" action="http://qiita.com/feedbacks" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="gR0k7Z7Wn2ZtPuxFPnLqlKZFlneKiCrL9NilPt9U9FhQDtrQGaAkUxzj/CMw+E4MwyjBEPqsDXKbvPDcabMvoA=="><input type="hidden" name="redirect_path" id="redirect_path" value="/kaki_k/items/b76acaeab8a9d935c35c"><div class="form-group"><textarea name="feedback[message]" id="feedback_message" class="form-control js-feedback-form-text-area" placeholder="Qiitaについてのご意見をお聞かせください。" required="required" rows="5"></textarea></div><div class="feedbackForm_submitButtonContainer"><button name="button" type="submit" class="btn btn-primary feedbackForm_submitButton"><i class="fa fa-send"></i> 送信</button><p class="feedbackForm_note">いただいたご意見への返信は行っておりません。<br>返信の必要な内容については、<a href="https://increments.zendesk.com/anonymous_requests/new">こちら</a> からお問い合わせください。</p></div><div style="position:fixed;top:-99999px;opacity:0.0001;"><input name="feedback[name]" type="text"></div></form></div></div></div></div><script>// if (window.mixpanel instanceof Element) {
+//   window.mixpanel = [];
+// }
+// (function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+// for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);</script><script src="./Python Django入門 (6) - Qiita_files/public-ea9634d328dd01703100922f07784313.min.js"></script><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Python Django入門 (6) - Qiita_files/0F7S7QWJ0Ac.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Python Django入門 (6) - Qiita_files/0F7S7QWJ0Ac(1).html" style="border: none;"></iframe></div></div></div><script>
+  (function () {
+    var script = document.getElementsByTagName('script')[0];
+    var load = function (src, id) {
+      var el = document.createElement('script');
+      el.async = true;
+      el.src = src;
+      el.id = id;
+      script.parentNode.insertBefore(el, script);
+    };
+      // Optimizely
+      load('//cdn.optimizely.com/js/52738645.js', 'optimizely-jssdk');
+      // Google Analytics
+      window._gaq = window._gaq || [];
+      var isCareer = location.hostname.split('.')[0] == 'career';
+      if (isCareer) {
+        window._gaq.push(['_setAccount', 'UA-24675221-11']);
+        window._gaq.push(['_setDomainName', 'qiita.com']);
+      } else {
+        window._gaq.push(['_setAccount', 'UA-24675221-1']);
+      }
+      window._gaq.push(['_setCustomVar', 1, 'logged_in', 'false', 2]);
+      window._gaq.push(['_trackPageview']);
+      var src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      load(src, 'google-analytics-jssdk');
+    // Google Analytics - Universal Analytics
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-24675221-12', {
+          
+        });
+        ga('set', 'dimension1', 'false');
+        ga('set', 'dimension3', 'false');
+      ga('require', 'displayfeatures');
+      ga('set', 'forceSSL', true);
+      ga('send', 'pageview');
+    // Google Tag Manager
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-TBQWPN');
+  })();
+</script>
+<div class="ReactModalPortal"><div data-reactroot=""></div></div><script type="text/javascript" id="">var googletag=googletag||{};googletag.cmd=googletag.cmd||[];googletag.cmd.push(function(){googletag.defineSlot("/383564218/qiita.com_items-show_under-article-left",[336,280],"div-gpt-ad-1489567219879-0").addService(googletag.pubads());googletag.pubads().enableSingleRequest();googletag.pubads().collapseEmptyDivs();googletag.enableServices()});
+googletag.cmd.push(function(){googletag.defineSlot("/383564218/qiita.com_items-show_under-article-right",[336,280],"div-gpt-ad-1489568123856-0").addService(googletag.pubads());googletag.pubads().enableSingleRequest();googletag.pubads().collapseEmptyDivs();googletag.enableServices()});
+$(function(){var a=$("\x3cdiv\x3e").css("text-align","center").append("\x3cdiv style\x3d'display:inline-block;margin:10px;'\x3e\x3cdiv id\x3d'div-gpt-ad-1489567219879-0' style\x3d'height:280px; width:336px;'\x3e\x3c/div\x3e\x3c/div\x3e").append("\x3cdiv style\x3d'display:inline-block;margin:10px;'\x3e\x3cdiv id\x3d'div-gpt-ad-1489568123856-0' style\x3d'height:280px; width:336px;'\x3e\x3c/div\x3e\x3c/div\x3e");$(".ArticleFooter__menu").before(a);googletag.cmd.push(function(){googletag.display("div-gpt-ad-1489567219879-0")});
+googletag.cmd.push(function(){googletag.display("div-gpt-ad-1489568123856-0")})});</script>
+<script type="text/javascript" id="">var googletag=googletag||{};googletag.cmd=googletag.cmd||[];googletag.cmd.push(function(){googletag.defineSlot("/383564218/qiita.com_items-show_sidebar-top",[300,250],"div-gpt-ad-1493084685571-0").addService(googletag.pubads());googletag.pubads().enableSingleRequest();googletag.pubads().collapseEmptyDivs();googletag.enableServices()});</script>
+
+
+<script type="text/javascript" id="">$("#article-body-wrapper \x3e .col-sm-3").prepend("\x3cdiv id\x3d'div-gpt-ad-1493084685571-0' style\x3d'height:250px; width:300px; margin-bottom: 20px;'\x3e");googletag.cmd.push(function(){googletag.display("div-gpt-ad-1493084685571-0")});</script><script type="text/javascript" id="" src="./Python Django入門 (6) - Qiita_files/gpt.js"></script><iframe name="oauth2relay601495876" id="oauth2relay601495876" src="./Python Django入門 (6) - Qiita_files/postmessageRelay.html" tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe"></iframe></body></html>

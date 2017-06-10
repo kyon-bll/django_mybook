@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://qiita.com/kaki_k/items/e824cfcf089e75d43551 -->
+<html xmlns:og="http://ogp.me/ns#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Python Django入門 (2) Mac編 - Qiita</title><meta content="width=device-width,initial-scale=1" name="viewport"><meta content="MacでのPython、Djangoの開発環境構築について説明します。
+
+
+Xcode、Command Line Tools
+
+Mac OS X 10.11 (El Catitan) で開発する上では、iPhoneアプリの開発予定がなくても
+Xcode および Command Line Tools を入れておいた方がいいでしょう。
+
+Xcode は App Storeのアイコンから。
+Command Line Tools は
+
+
+$ xcode-select --ins..." name="description"><meta content="summary" name="twitter:card"><meta content="@Qiita" name="twitter:site"><meta content="kaki_k" name="twitter:creator"><meta content="Python Django入門 (2) Mac編 - Qiita" property="og:title"><meta content="article" property="og:type"><meta content="http://qiita.com/kaki_k/items/e824cfcf089e75d43551" property="og:url"><meta content="http://cdn.qiita.com/assets/qiita-fb-2887e7b4aad86fd8c25cea84846f2236.png" property="og:image"><meta content="
+MacでのPython、Djangoの開発環境構築について説明します。
+
+## Xcode、Command Line Tools
+
+Mac OS X 10.11 (El Catitan) で開発する上では、iPhoneアプリの開発予..." property="og:description"><meta content="Qiita" property="og:site_name"><meta content="564524038" property="fb:admins"><link rel="shortcut icon" type="image/x-icon" href="http://cdn.qiita.com/assets/favicons/public/production-4ff10c1e1e2b5fcb353ff9cafdd56c70.ico"><link rel="apple-touch-icon" type="image/png" href="http://cdn.qiita.com/assets/favicons/public/apple-touch-icon-f9a6afad761ec2306e10db2736187c8b.png"><link href="http://qiita.com/opensearch.xml" rel="search" title="Qiita" type="application/opensearchdescription+xml"><link rel="stylesheet" media="all" href="./Python Django入門 (2) Mac編 - Qiita_files/public-c0679298dc61c14b0940b4ba03acab77.min.css"><meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="EBpoAMxWHpMbA57wpUGIKicqYSV+LRLNNQi6oOWNdGnBCZY9SyClpmrejparyyyyQkc2Qg4JNXRabO9CU2qvkQ=="><script src="./Python Django入門 (2) Mac編 - Qiita_files/rum.js"></script><script async="" src="./Python Django入門 (2) Mac編 - Qiita_files/gtm.js"></script><script src="./Python Django入門 (2) Mac編 - Qiita_files/osd.js"></script><script src="./Python Django入門 (2) Mac編 - Qiita_files/ads"></script><script src="./Python Django入門 (2) Mac編 - Qiita_files/ads(1)"></script><script type="text/javascript" charset="utf-8" async="" src="./Python Django入門 (2) Mac編 - Qiita_files/button.b731e6c82269f70f6fc53634e044a4c6.js"></script><script src="./Python Django入門 (2) Mac編 - Qiita_files/pubads_impl_121.js" async=""></script><script type="text/x-mathjax-config">MathJax.Hub.Config({ skipStartupTypeset: true, showProcessingMessages: false, tex2jax: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']], processEscapes: true, processEnvironments: false, processRefs: false, skipTags: ['script','noscript','style','textarea','pre','code','a','h1','h2','h3','h4','h5','h6'] } })</script><script src="./Python Django入門 (2) Mac編 - Qiita_files/MathJax.js"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_loader{background-color:#f6f7f9;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;bottom:0;left:0;right:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29487d;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f9;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(http://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head><body class=" with-js"><noscript>&lt;iframe height="0" src="//www.googletagmanager.com/ns.html?id=GTM-TBQWPN" style="display:none;visibility:hidden" width="0"&gt;&lt;/iframe&gt;</noscript><script src="./Python Django入門 (2) Mac編 - Qiita_files/cb=gapi.loaded_1" async=""></script><script src="./Python Django入門 (2) Mac編 - Qiita_files/cb=gapi.loaded_0" async=""></script><script async="" src="./Python Django入門 (2) Mac編 - Qiita_files/gtm(1).js"></script><script async="" src="./Python Django入門 (2) Mac編 - Qiita_files/analytics.js"></script><script async="" src="./Python Django入門 (2) Mac編 - Qiita_files/52738645.js" id="optimizely-jssdk"></script><script async="" src="./Python Django入門 (2) Mac編 - Qiita_files/ga.js" id="google-analytics-jssdk"></script><script async="" src="./Python Django入門 (2) Mac編 - Qiita_files/widgets.js" id="twitter-jssdk"></script><script async="" src="./Python Django入門 (2) Mac編 - Qiita_files/all.js" id="facebook-jssdk"></script><script async="" src="./Python Django入門 (2) Mac編 - Qiita_files/plusone.js" id="google-plusone-jssdk" gapi_processed="true"></script><script async="" src="./Python Django入門 (2) Mac編 - Qiita_files/btn.js" id="pocket-btn-js"></script><script>
+  document.body.className = document.body.className.replace('without-js', '') + ' with-js';
+  window.Qiita = {"asset_host":"cdn.qiita.com","TLD":"com","controller_path":"public/items","controller_action":"public/items#show","controller":"items","action":"show","action_path":"public/items#show","env":"production","flash":{},"is_team_page":false,"request_parameters":{"controller":"public/items","action":"show","user_id":"kaki_k","type":"items","id":"e824cfcf089e75d43551"},"root_domain":"qiita.com","variant":null,"config":{"mixpanel":{"career":"dd35af27e959781713d63fd7ca898a8d","per_team":"c0a2116368b33b44b5029ebd2cc9b094","public":"be87616606b0e26a87689099aab2c4e5","team":"b7c0342acba2dbc8742484d98788efb3"},"default_locale":"ja","locale":"ja"},"team":null,"user":null,"GIT_BRANCH":null,"DEBUG":false};
+
+</script>
+<div class="headerContainer headerContainer-public" role="navigation"><script type="application/json" class="js-react-on-rails-component">{"component_name":"HeaderContainer","props":{"user":null,"team":null,"news":{"type":"News","content":"ストックの他に「いいね」が追加されました","url":"http://blog.qiita.com/post/153200849029/qiita-like-button"},"initial_unread_count":null,"siteid_image":"http://cdn.qiita.com/siteid-reverse.png","is_team_page":false,"on_team_setting":false,"show_post_menu":true,"show_search_menu":true,"is_fluid":false,"locale":"ja"},"trace":false,"dom_id":"HeaderContainer-react-component-0d677f69-0450-40dd-848f-63decc02dbb7"}</script>
+    <div id="HeaderContainer-react-component-0d677f69-0450-40dd-848f-63decc02dbb7"><header data-reactroot="" class="sharedHeader sharedHeader-public"><div class="sharedHeader_inner"><div class="sharedHeader_left"><span class="sharedHeader_logo open"><a class="sharedHeader_logo_main" href="http://qiita.com/"><span class="sharedHeader_logo_figure"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 26"><title>Qiita</title><path d="M24.6 12.2C24.6 6.2 20 0 12.2 0 6.2 0 0 4.6 0 12.4c0 6 4.6 12.2 12.4 12.2 2.5 0 5-.8 7.1-2.3l3.6 3.6 1.6-1.6-3.4-3.4c2.1-2.3 3.3-5.3 3.3-8.7zm-12.4-10c5.7 0 10.2 4.4 10.2 10.1 0 4.9-3.8 10.1-10.1 10.1s-10.1-5.1-10.1-10c0-6.4 5.1-10.2 10-10.2zM30.5 7.1h2.1v17h-2.1zM31.5 4.8c-1 0-1.8-.8-1.8-1.8s.8-1.8 1.8-1.8 1.8.8 1.8 1.8-.8 1.8-1.8 1.8zM40 4.8c-1 0-1.8-.8-1.8-1.8S39 1.2 40 1.2s1.8.8 1.8 1.8S41 4.8 40 4.8zM39 7.1h2.1v17H39zM53.7 24.4c-3.9 0-6.2-3-6.2-6v-16h2.1v4.7H57v2.1h-7.4v9.3c0 1.9 1.5 3.9 4.1 3.9.7 0 1.4-.2 2-.6l.2-.1 1 1.8-.2.1c-.9.5-2 .8-3 .8zM67.6 24.5c-5.7 0-9.1-4.5-9.1-8.9 0-5.7 4.5-9.1 8.9-9.1 2.3 0 4.1.8 5.4 2.3V7.1h2.1v17h-2.1v-1.9c-1.2 1.5-3 2.3-5.2 2.3zm-.2-15.9c-3.4 0-6.8 2.6-6.8 7 0 3.4 2.6 6.8 7 6.8 2 0 4-.9 5.3-2.5v-8.8c-1.4-1.6-3.3-2.5-5.5-2.5z"></path></svg></span></a></span><form class="navbar-form navbar-left searchForm" action="http://qiita.com/search" method="get"><div class="searchForm_queryWrapper"><input class="form-control searchForm_query" placeholder="キーワードを入力" autocomplete="off" name="q" value=""><div class="searchForm_wiseSearchButton"><i class="fa fa-caret-down"></i></div></div></form><div class="navbar-text headerNews hidden-xs hidden-sm"><div class="headerNews_label label label-warning">News</div><a class="navbar-link" target="_blank" href="http://blog.qiita.com/post/153200849029/qiita-like-button">ストックの他に「いいね」が追加されました</a></div></div><div class="sharedHeader_right"><div class="sharedHeader_registerUser"><a class="btn btn-warning navbar-btn navbar-right" href="http://qiita.com/signup?redirect_to=%2Fkaki_k%2Fitems%2Fe824cfcf089e75d43551">ユーザ登録</a></div><div class="sharedHeader_loginUser"><a data-label="LoginButtonAtNavbar" href="http://qiita.com/login?redirect_to=%2Fkaki_k%2Fitems%2Fe824cfcf089e75d43551">ログイン</a></div></div></div></header></div>
+    
+</div><div id="main"><script type="application/ld+json">{  "@context": "http://schema.org",  "@type": "BreadcrumbList",  "itemListElement": [    {      "@type": "ListItem",      "position": 1,      "item": {        "@id": "/",        "name": "Qiita"      }    },    {      "@type": "ListItem",      "position": 2,      "item": {        "@id": "/items",        "name": "投稿"      }    },    {      "@type": "ListItem",      "position": 3,      "item": {        "@id": "/tags/Python",        "name": "Python"      }    }  ]}</script><article itemscope="" itemtype="http://schema.org/Article"><div class="ArticleMainHeader "><div class="container"></div><div class="container"><div class="row s-flex-align-center"><div class="col-sm-9"><h1 class="ArticleMainHeader__title" itemprop="headline">Python Django入門 (2) Mac編</h1><ul class="TagList"><li class="TagList__item" data-count="11015"><a class="u-link-unstyled TagList__label" href="http://qiita.com/tags/Python"><img alt="Python" class="TagList__icon" src="./Python Django入門 (2) Mac編 - Qiita_files/medium.jpg"><span>Python</span></a></li><li class="TagList__item" data-count="720"><a class="u-link-unstyled TagList__label" href="http://qiita.com/tags/Django"><img alt="Django" class="TagList__icon" src="./Python Django入門 (2) Mac編 - Qiita_files/medium(1).jpg"><span>Django</span></a></li></ul></div><div class="col-sm-3"><div class="itemsShowHeaderStock"><ul class="list-unstyled itemsShowHeaderStock_statusList"><li><div class="itemsShowHeaderStock_count stock"><span class="fa fa-thumbs-up"></span><span class="js-likecount">278</span></div><div class="itemsShowHeaderStock_countText">いいね</div></li><li><div class="itemsShowHeaderStock_count" content="11 UserComments" itemprop="commentCount"><span class="fa fa-comment"></span>11</div><div class="itemsShowHeaderStock_countText">コメント</div></li></ul></div><div class="js-likebutton" data-props="{&quot;like_status&quot;:false,&quot;like_count&quot;:278,&quot;uuid&quot;:&quot;e824cfcf089e75d43551&quot;,&quot;likable_type&quot;:&quot;Article&quot;,&quot;position&quot;:&quot;article-header&quot;}"><div data-reactroot="" class="LikeButton"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button></div></div><ul class="list-inline ArticleMainHeader__users"><li class="js-hovercard" data-hovercard-target-name="zeals_corp"><a itemprop="url" href="http://qiita.com/zeals_corp"><img alt="zeals_corp" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/25512308c002a3751919b509824cf9b0"></a></li><li class="js-hovercard" data-hovercard-target-name="JumpeiYoshimura"><a itemprop="url" href="http://qiita.com/JumpeiYoshimura"><img alt="JumpeiYoshimura" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1493705943"></a></li><li class="js-hovercard" data-hovercard-target-name="haruki515"><a itemprop="url" href="http://qiita.com/haruki515"><img alt="haruki515" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1473696493"></a></li><li class="js-hovercard" data-hovercard-target-name="ta7uwtaka"><a itemprop="url" href="http://qiita.com/ta7uwtaka"><img alt="ta7uwtaka" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/photo.jpg"></a></li><li class="js-hovercard" data-hovercard-target-name="lasershow"><a itemprop="url" href="http://qiita.com/lasershow"><img alt="lasershow" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1473702769"></a></li><li class="js-hovercard" data-hovercard-target-name="yusuke_konishi"><a itemprop="url" href="http://qiita.com/yusuke_konishi"><img alt="yusuke_konishi" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1473720253"></a></li><li class="js-hovercard" data-hovercard-target-name="sakuraya"><a itemprop="url" href="http://qiita.com/sakuraya"><img alt="sakuraya" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1481600452"></a></li><li class="js-hovercard" data-hovercard-target-name="guitar_char"><a itemprop="url" href="http://qiita.com/guitar_char"><img alt="guitar_char" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1473712681"></a></li><li class="js-hovercard" data-hovercard-target-name="isoyan1"><a itemprop="url" href="http://qiita.com/isoyan1"><img alt="isoyan1" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1473718770"></a></li><li class="js-hovercard" data-hovercard-target-name="ymtm_jp"><a itemprop="url" href="http://qiita.com/ymtm_jp"><img alt="ymtm_jp" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1473714266"></a></li><li><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551/likers"><span class="fa fa-ellipsis-h"></span></a></li></ul></div></div></div></div><div class="ArticleAsideHeader"><div class="container"><div class="u-flex u-space-between"><div class="u-flex u-flex-wrap"><div class="u-flex u-align-center s-pdv-5 u-flex-wrap"><div class="ArticleAsideHeader__author"><a href="http://qiita.com/kaki_k"><img class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1473691243" alt="1473691243"></a> <a class="u-link-unstyled" href="http://qiita.com/kaki_k">kaki_k</a> </div><div class="ArticleAsideHeader__date"><meta content="2014-07-27T00:20:26+09:00" itemprop="datePublished"><span data-toggle="tooltip" title="" data-original-title="2014年07月27日に投稿"><time datetime="2016-12-01T22:23:19+09:00" itemprop="dateModified">2016年12月01日</time>に更新</span></div></div><div class="u-flex u-align-center s-pdv-5 mobile-hidden"><div class="ArticleAsideHeader__revision"> <a data-toggle="tooltip" title="" href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551/revisions" data-original-title="編集履歴"><span class="fa fa-history"></span></a><span class="ArticleAsideHeader__revisionCount">16</span></div></div><div class="u-flex u-align-center s-pdv-5 mobile-hidden"></div></div><div class="u-flex u-align-center s-flex-justiry-between s-pdv-5 u-shrink-0"><div class="ArticleAsideHeader__stock"><div class="js-stockbutton" data-position="top" data-props="{&quot;stock_status&quot;:false}"><div data-reactroot="" class="StockButton"><button><div class="StockButton__stock"><div class="fa-stack"><span class="fa fa-folder-open fa-stack-1x unstock"></span></div><!-- react-text: 6 -->&nbsp;<!-- /react-text --><span class="StockButton__label">ストック</span></div></button></div></div></div><div class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#"><span class="fa fa-ellipsis-h fa-lg"></span></a><ul class="dropdown-menu dropdown-menu-right"><li class="dropdown__item--mobile"><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551/revisions"><span class="fa fa-fw fa-history"></span> 編集履歴<span>(16)</span></a></li><li><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551.md"><span class="fa fa-fw fa-file-text-o"></span> Markdownで本文を見る</a></li><li><a data-target=".js-report-form" data-toggle="modal" href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#"><span class="fa fa-fw fa-flag"></span> 問題がある投稿を報告する</a></li></ul></div></div></div></div></div><div class="container"><div class="row" id="article-body-wrapper" style="position: relative;"><div class="col-sm-9"><section class="markdownContent markdownContent-headingEnabled js-task-list-container clearfix position-relative" id="item-e824cfcf089e75d43551" itemprop="articleBody"><p>MacでのPython、Djangoの開発環境構築について説明します。</p>
+
+<h2>
+<span id="xcodecommand-line-tools" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#xcodecommand-line-tools"><i class="fa fa-link"></i></a>Xcode、Command Line Tools</h2>
+
+<p>Mac OS X 10.11 (El Catitan) で開発する上では、iPhoneアプリの開発予定がなくても<br>
+Xcode および Command Line Tools を入れておいた方がいいでしょう。</p>
+
+<p>Xcode は App Storeのアイコンから。<br><br>
+Command Line Tools は</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>xcode-select --install
+</pre></div></div>
+
+<p>にてインストールします。</p>
+
+<h2>
+<span id="python3のインストール" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#python3%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><i class="fa fa-link"></i></a>Python3のインストール</h2>
+
+<p>Python2はMac OS Xに入っていますが、これから新規に学習するのであれば、Python3を学習した方がいいでしょう。</p>
+
+<h3>
+<span id="homebrewのインストール" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#homebrew%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><i class="fa fa-link"></i></a>HomeBrewのインストール</h3>
+
+<p><a href="http://brew.sh/" rel="nofollow noopener" target="_blank">HomeBrew</a> はMacのパッケージ管理ツールです。</p>
+
+<p>既に導入済みの人は読み飛ばして下さい。<br>
+MacPorts派の方は、以降のPython3導入を自力でお願いします。</p>
+
+<p>インストールは公式サイトのとおり、ターミナルを開いて、以下のコマンドを実行します。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>ruby -e <span class="s2">"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</span>
+</pre></div></div>
+
+<h3>
+<span id="python3のインストール-1" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#python3%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB-1"><i class="fa fa-link"></i></a>Python3のインストール</h3>
+
+<p>HomeBrewを最新にアップデートし、<br>
+python3 の情報を見る</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>brew update
+<span class="nv">$ </span>brew info python3
+python3: stable 3.5.1 <span class="o">(</span>bottled<span class="o">)</span>, HEAD
+</pre></div></div>
+
+<p>Python 3.5 が入るようです。インストールします。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>brew install python3
+</pre></div></div>
+
+<p>Python 2 と 3 は両立できます。バージョンを見てみます。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>python -V
+Python 2.7.10
+
+<span class="nv">$ </span>python3 -V
+Python 3.5.1
+</pre></div></div>
+
+<h2>
+<span id="virtualenvvirtualenvwrapperのインストール" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#virtualenvvirtualenvwrapper%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><i class="fa fa-link"></i></a>virtualenv、virtualenvwrapperのインストール</h2>
+
+<p><a href="https://pypi.python.org/pypi/virtualenv" rel="nofollow noopener" target="_blank">virtualenv</a> は Python の仮想環境を作るツールです。<br>
+プロジェクトごとに、</p>
+
+<ul>
+<li>Pythonのバージョン</li>
+<li>使用する Pythonパッケージ、およびそのバージョン</li>
+</ul>
+
+<p>を固定した仮想環境を構築します。</p>
+
+<p><a href="https://pypi.python.org/pypi/virtualenvwrapper" rel="nofollow noopener" target="_blank">virtualenvwrapper</a> は、virtualenvによる仮想環境の作成、削除をもう少し楽にするラッパーです。</p>
+
+<p>Python3 の標準で <a href="http://docs.python.jp/3/library/venv.html" rel="nofollow noopener" target="_blank">venv</a> という仮想環境を作るコマンドもありますが、こちらの方を使います。</p>
+
+<h3>
+<span id="python2側で-pipを入れる" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#python2%E5%81%B4%E3%81%A7-pip%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B"><i class="fa fa-link"></i></a>python2側で pipを入れる</h3>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ sudo easy_install pip
+</pre></div></div>
+
+<h3>
+<span id="python2側で-virtualenvvirtualenvwrapper-を入れる" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#python2%E5%81%B4%E3%81%A7-virtualenvvirtualenvwrapper-%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B"><i class="fa fa-link"></i></a>Python2側で virtualenv、virtualenvwrapper を入れる</h3>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ sudo pip install virtualenv virtualenvwrapper --ignore-installed six
+</pre></div></div>
+
+<blockquote>
+<p>Python2、Python3に両対応した virtualenv virtualenvwrapperが入ります。</p>
+</blockquote>
+
+<h3>
+<span id="virtualenv-virtualenvwrapperのセットアップ手順" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#virtualenv-virtualenvwrapper%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86"><i class="fa fa-link"></i></a>virtualenv virtualenvwrapperのセットアップ手順</h3>
+
+<p>１．仮想環境のディレクトリを作ります</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ cd ~
+$ mkdir ~/.virtualenvs
+</pre></div></div>
+
+<p>２． テキストエディタなどで、.bashrc ファイルを作成します。</p>
+
+<div class="code-frame" data-lang="bash">
+<div class="code-lang"><span class="bold">.bashrc</span></div>
+<div class="highlight"><pre><span class="nb">export </span><span class="nv">WORKON_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/.virtualenvs
+<span class="nb">source</span> /usr/local/bin/virtualenvwrapper.sh
+</pre></div>
+</div>
+
+<ul>
+<li>自分のホーム ディレクトリで、そのまま作業します。</li>
+<li>viが使える人は、viでやりましょう。</li>
+<li>普通のテキストエディタでも、なんとか「.bashrc」の新規保存はできます。</li>
+</ul>
+
+<p>３． テキストエディタなどで、.bash_profile の最後の行に、以下の行を追記します。</p>
+
+<div class="code-frame" data-lang="bash">
+<div class="code-lang"><span class="bold">.bash_profile</span></div>
+<div class="highlight"><pre>    :
+    :
+<span class="k">if</span> <span class="o">[</span> -f ~/.bashrc <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    . ~/.bashrc
+<span class="k">fi</span>
+</pre></div>
+</div>
+
+<ul>
+<li>普通のテキストエディタでは、ドットで始まる隠しファイルの「.bash_profile」を開くことは至難の業のようです。（出てこない）</li>
+<li>viができる人に手伝ってもらって下さい。またはviを覚えましょう。</li>
+</ul>
+
+<p>４． ターミナルが開きっぱなしであれば、編集した .bash_profile を取り込みます。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">source</span> .bash_profile
+</pre></div></div>
+
+<h2>
+<span id="仮想環境の構築" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#%E4%BB%AE%E6%83%B3%E7%92%B0%E5%A2%83%E3%81%AE%E6%A7%8B%E7%AF%89"><i class="fa fa-link"></i></a>仮想環境の構築</h2>
+
+<p>env1 という名前の仮想環境を作る</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>mkvirtualenv --no-site-package --python /usr/local/bin/python3 env1
+</pre></div></div>
+
+<p>--no-site-packageは、ベースとなるpythonのsite-packageを受け継がないようにする指定です<br>
+-p か --python オプションで使用するインタプリタを指定することができるので、python3 を指定します。</p>
+
+<h2>
+<span id="仮想環境に移動する" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#%E4%BB%AE%E6%83%B3%E7%92%B0%E5%A2%83%E3%81%AB%E7%A7%BB%E5%8B%95%E3%81%99%E3%82%8B"><i class="fa fa-link"></i></a>仮想環境に移動する</h2>
+
+<p>mkvirtualenv で仮想環境を作った直後は、コマンドプロンプトが以下のようになっています。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="o">(</span>env1<span class="o">)</span> <span class="err">$</span>
+</pre></div></div>
+
+<p>(env1) と出ていれば仮想環境にいます。<br>
+ターミナルを終了して、開き直した場合などは、以下のコマンドで仮想環境 env1 に移動できます。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>workon env1
+</pre></div></div>
+
+<h3>
+<span id="その他仮想環境を扱うコマンド" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#%E3%81%9D%E3%81%AE%E4%BB%96%E4%BB%AE%E6%83%B3%E7%92%B0%E5%A2%83%E3%82%92%E6%89%B1%E3%81%86%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89"><i class="fa fa-link"></i></a>その他、仮想環境を扱うコマンド</h3>
+
+<p>env1 はこの後に使うので、以下のコマンドは叩かないで、知識として覚えておいて下さい。</p>
+
+<p>現在の仮想環境の一覧を見る</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ workon
+env1
+</pre></div></div>
+
+<p>env1に切り替える</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ workon env1
+</pre></div></div>
+
+<p>仮想環境を無効にする(グローバル環境に戻る)</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ deactivate
+</pre></div></div>
+
+<p>不要な仮想環境を削除する(deactivateしてからです。pipで仮想環境に入れたパッケージごと削除されます。)</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>$ deactivate
+$ rmvirtualenv env1
+</pre></div></div>
+
+<h2>
+<span id="djangoをインストールする" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#django%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B"><i class="fa fa-link"></i></a>Djangoをインストールする</h2>
+
+<p>DjangoもPythonモジュールの一つです。<br>
+仮想環境 env1 の中にインストールします。</p>
+
+<p>今回は、この講座のためにDjangoのバージョンを明記してインストールします。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>workon env1
+<span class="nv">$ </span>pip install <span class="nv">django</span><span class="o">==</span>1.9.2
+Downloading/unpacking django
+  Downloading Django-1.9.2-py2.py3-none-any.whl <span class="o">(</span>6.6MB<span class="o">)</span>: 6.6MB downloaded
+Installing collected packages: django
+Successfully installed django
+Cleaning up...
+</pre></div></div>
+
+<h3>
+<span id="バージョンを確認する" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B"><i class="fa fa-link"></i></a>バージョンを確認する</h3>
+
+<p>仮想環境にインストールされたパッケージを確認します。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre><span class="nv">$ </span>pip freeze -l
+<span class="nv">Django</span><span class="o">==</span>1.9.2
+</pre></div></div>
+
+<h2>
+<span id="ide-統合開発環境のインストール" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#ide-%E7%B5%B1%E5%90%88%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><i class="fa fa-link"></i></a>IDE 統合開発環境のインストール</h2>
+
+<p>Djangoのコードを書くにあたって、どのようなテキストエディタを使ってもかまいませんが、IDEとして<a href="https://www.jetbrains.com/pycharm/" rel="nofollow noopener" target="_blank">PyCharm Professional</a>を導入することをお薦めします。</p>
+
+<blockquote>
+<p>以前は <a href="https://www.eclipse.org/downloads/" rel="nofollow noopener" target="_blank">eclipse</a> ＋  <a href="http://mergedoc.sourceforge.jp/" rel="nofollow noopener" target="_blank">Pleiades</a>による日本語化 ＋ <a href="http://www.aptana.com/products/studio3/download" rel="nofollow noopener" target="_blank">Aptana Studio 3</a>のPyDev の導入を説明していたのですが、最近は使わなくなってしまったため、PyCharmの説明に取り替えます。</p>
+</blockquote>
+
+<h3>
+<span id="pycharmの特徴" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#pycharm%E3%81%AE%E7%89%B9%E5%BE%B4"><i class="fa fa-link"></i></a>PyCharmの特徴</h3>
+
+<ul>
+<li>Pythonエンジニアは、ほぼこれを使っていると言っても過言ではありません。</li>
+<li>２種類ありまして、
+
+<ul>
+<li>Professional版
+
+<ul>
+<li>Djangoのプロジェクトを開くことができ、こちらの方を使います。</li>
+<li>有償ですが 30日の試用ができます。</li>
+<li>この講座も 30日あれば終わるのではないでしょうか。</li>
+<li>気に入った場合は、購入しましょう。</li>
+</ul>
+</li>
+<li>Community版
+
+<ul>
+<li>無償ですが、Djangoプロジェクトを開くことはできません。</li>
+<li>どうしても無償の方がよくて、単にPythonのエディタとして使いたいだけであれば、こちらでもよいかもしれません。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>UIは英語です。eclipseの時のように日本語化することは考えません。特に問題ないと思いましょう。</li>
+<li>黒背景に白文字のテーマが目に優しくて、かっこいいです。いかにも俺コード書いてるという気分になります。UIサンプルは<a href="https://www.jetbrains.com/pycharm/" rel="nofollow noopener" target="_blank">こちら</a>をご覧ください。</li>
+</ul>
+
+<h3>
+<span id="pycharm-professional-のインストール" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#pycharm-professional-%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><i class="fa fa-link"></i></a>PyCharm Professional のインストール</h3>
+
+<ol>
+<li>
+<a href="https://www.jetbrains.com/pycharm/download/" rel="nofollow noopener" target="_blank">Download PyCharm</a>のページから、Professionalの方をダウンロードします。</li>
+<li>ダウンロードした .dmgファイルを開きます。</li>
+<li>絵のとおりに PyCharm.app をアプリケーションフォルダにドラッグします。</li>
+</ol>
+
+<p><a href="./Python Django入門 (2) Mac編 - Qiita_files/27b0569b-923f-7417-1789-7b32f6c351c1.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (2) Mac編 - Qiita_files/27b0569b-923f-7417-1789-7b32f6c351c1.jpeg" alt="PyCharm.jpg" title="PyCharm.jpg"></a></p>
+
+<p>4.インストールできたら、アプリケーション ＞ PyCharm.app を起動してみましょう。</p>
+
+<p>5.この画面は、初めてPyCharmを使う人は、以前のsettingsはないので、そのままでOKです。</p>
+
+<p><a href="./Python Django入門 (2) Mac編 - Qiita_files/8f71c95b-4319-9196-87ef-e483b80d54b9.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (2) Mac編 - Qiita_files/8f71c95b-4319-9196-87ef-e483b80d54b9.jpeg" alt="Complete_Installation.jpg" title="Complete_Installation.jpg"></a></p>
+
+<p>6.Evaluate for free for 30 days（30日試用）の方を選んで、OKを押します。</p>
+
+<p><a href="./Python Django入門 (2) Mac編 - Qiita_files/9e7821ff-8c05-6763-de06-673053a39501.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (2) Mac編 - Qiita_files/9e7821ff-8c05-6763-de06-673053a39501.jpeg" alt="PyCharm_License_Activation.jpg" title="PyCharm_License_Activation.jpg"></a></p>
+
+<p>7.よく読んで、Acceptを押します。</p>
+
+<p><a href="./Python Django入門 (2) Mac編 - Qiita_files/d5f7d442-ba2f-9674-4361-f56d6bec6340.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (2) Mac編 - Qiita_files/d5f7d442-ba2f-9674-4361-f56d6bec6340.jpeg" alt="License_Agreement_for_PyCharm_5_0_4.jpg" title="License_Agreement_for_PyCharm_5_0_4.jpg"></a></p>
+
+<p>8.テーマだけ変更します。IDE theme: Darcula が黒背景／白文字の方で、俺コード書いてる気分になれる方です。</p>
+
+<p><a href="./Python Django入門 (2) Mac編 - Qiita_files/3a185c63-9251-f6d2-3e3a-b036f096af8a.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (2) Mac編 - Qiita_files/3a185c63-9251-f6d2-3e3a-b036f096af8a.jpeg" alt="PyCharm_Initial_Configuration.jpg" title="PyCharm_Initial_Configuration.jpg"></a></p>
+
+<p>9.起動途中ですが、テーマの設定を変えた場合は、再起動みたいですね。Yesを押します。</p>
+
+<p><a href="./Python Django入門 (2) Mac編 - Qiita_files/528e543c-e279-3ffd-e384-59abb1491b4e.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (2) Mac編 - Qiita_files/528e543c-e279-3ffd-e384-59abb1491b4e.jpeg" alt="This_should_not_be_shown.jpg" title="This_should_not_be_shown.jpg"></a></p>
+
+<p>10.ようこそPyCharmへ</p>
+
+<p><a href="./Python Django入門 (2) Mac編 - Qiita_files/cdf01530-5807-8be7-649f-b9aadfd6402a.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (2) Mac編 - Qiita_files/cdf01530-5807-8be7-649f-b9aadfd6402a.jpeg" alt="Welcome_to_PyCharm.jpg" title="Welcome_to_PyCharm.jpg"></a></p>
+
+<p>ここまで来たら、次に進みましょう。</p>
+
+<p><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d" id="reference-dca99c189737de13b79e">Python Django入門 (3)</a> に続く</p>
+
+<h2>
+<span id="ide-統合開発環境のインストール旧版" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#ide-%E7%B5%B1%E5%90%88%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%97%A7%E7%89%88"><i class="fa fa-link"></i></a>IDE 統合開発環境のインストール（旧版）</h2>
+
+<p>一応、残しておきますが、PyCharm入れた人は、以下をすべて読み飛ばしてください。</p>
+
+<h3>
+<span id="eclipse-のインストール" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#eclipse-%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"><i class="fa fa-link"></i></a>eclipse のインストール</h3>
+
+<ol>
+<li><p>Eclipse IDE for Java EE Developers, 257 MB - Mac OS X 64 Bit<br>
+をダウンロード</p></li>
+<li><p>eclipse-jee-luna-R-macosx-cocoa-x86_64.tar.gz を解凍</p></li>
+<li><p>eclipseフォルダをアプリケーションの下へ移動</p></li>
+</ol>
+
+<h3>
+<span id="日本語化" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%8C%96"><i class="fa fa-link"></i></a>日本語化</h3>
+
+<ol>
+<li><p><a href="http://mergedoc.sourceforge.jp/" class="autolink" rel="nofollow noopener" target="_blank">http://mergedoc.sourceforge.jp/</a> から Pleiades 本体 最新版 を落とす</p></li>
+<li><p>pleiades.zip を解凍</p></li>
+<li><p>fueaturs, pligins の下のものをeclipseの該当箇所にコピー</p></li>
+<li><p>Finder で アプリケーション/eclipse/Eclipse.app をcontrol＋クリックし、「パッケージの内容を表示」を選ぶ</p></li>
+<li>
+<p>Eclipse.app/Contents/MacOS/eclipse.ini に以下の記述を追加</p>
+
+<p>-javaagent:../../../plugins/jp.sourceforge.mergedoc.pleiades/pleiades.jar</p>
+</li>
+</ol>
+
+<p>プラグインは、以下の矢印のリンクからダウンロードします。</p>
+
+<p><a href="./Python Django入門 (2) Mac編 - Qiita_files/8c00eddd-d2e9-3d74-f64c-717534e78af2.jpeg" target="_blank" rel="nofollow noopener"><img src="./Python Django入門 (2) Mac編 - Qiita_files/8c00eddd-d2e9-3d74-f64c-717534e78af2.jpeg" alt="Pleiades_-_Eclipse_プラグイン日本語化プラグイン___MergeDoc_Project.jpg" title="Pleiades_-_Eclipse_プラグイン日本語化プラグイン___MergeDoc_Project.jpg"></a></p>
+
+<h3>
+<span id="eclipseの起動" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#eclipse%E3%81%AE%E8%B5%B7%E5%8B%95"><i class="fa fa-link"></i></a>eclipseの起動</h3>
+
+<ol>
+<li>Finder で アプリケーション/eclipse/Eclipse.app を起動します。</li>
+<li>ワークスペースの規定値は ~/Documents/workspace ですが、~/Documents/workspace_env1 とします。</li>
+</ol>
+
+<h2>
+<span id="aptana-studio-3" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#aptana-studio-3"><i class="fa fa-link"></i></a>Aptana Studio 3</h2>
+
+<p>eclipseのPython開発用プラグインとして、Aptana Studio 3 の中に PyDev というものが含まれています。</p>
+
+<p><a href="http://www.aptana.com/products/studio3/download" rel="nofollow noopener" target="_blank">Download Aptana Studio 3</a></p>
+
+<ul>
+<li>Eclipse Plug-in Version の方をクリックし、DOWNLOADボタンを押す</li>
+<li>
+<a href="http://download.aptana.com/studio3/plugin/install" rel="nofollow noopener" target="_blank">http://download.aptana.com/studio3/plugin/install</a> のURLをコピー</li>
+<li>eclipseに戻って、ヘルプ &gt; 新規ソフトウェアのインストール...</li>
+<li>追加... ボタンを押す
+
+<ul>
+<li>名前: Aptana Studio 3</li>
+<li>ロケーション: <a href="http://download.aptana.com/studio3/plugin/install" class="autolink" rel="nofollow noopener" target="_blank">http://download.aptana.com/studio3/plugin/install</a>
+</li>
+<li>OKボタンを押す</li>
+</ul>
+</li>
+</ul>
+
+<h3>
+<span id="eclipse設定" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#eclipse%E8%A8%AD%E5%AE%9A"><i class="fa fa-link"></i></a>eclipse設定</h3>
+
+<p>仮想環境 env1 で固定されているPython3を指定します。</p>
+
+<ul>
+<li>ウィンドウ &gt; 設定</li>
+<li>PyDev &gt; インタープリター - Python で 「新規...」ボタン
+
+<ul>
+<li>インタープリター名: Python3</li>
+<li>インタープリター実行可能ファイル: /Users/xxxx/.virtualenvs/env1/bin/python</li>
+</ul>
+</li>
+<li>/usr/local/Cellar/python3/3.5.1/Frameworks/Python.framework/Versions/3.5/lib/python3.5 もチェックして OK を押す</li>
+</ul>
+
+<h3>
+<span id="その他の設定" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#%E3%81%9D%E3%81%AE%E4%BB%96%E3%81%AE%E8%A8%AD%E5%AE%9A"><i class="fa fa-link"></i></a>その他の設定</h3>
+
+<ul>
+<li>一般 &gt; ワークスペース &gt; テキスト・ファイルのエンコード
+
+<ul>
+<li>その他: UTF-8</li>
+</ul>
+</li>
+<li>Aptana Studio &gt; テーマ
+
+<ul>
+<li>Aptana Studio 2.x にする</li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<span id="django-adminpy-startproject-mysite-で作ったプロジェクトを登録する" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#django-adminpy-startproject-mysite-%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E7%99%BB%E9%8C%B2%E3%81%99%E3%82%8B"><i class="fa fa-link"></i></a>django-admin.py startproject mysite で作ったプロジェクトを登録する</h2>
+
+<ul>
+<li>ファイル &gt; インポート...</li>
+<li>一般 &gt; 新規プロジェクトとして既存のフォルダーを使用
+
+<ul>
+<li>次へ</li>
+</ul>
+</li>
+<li>Promote to Project
+
+<ul>
+<li>フォルダーの選択: ~/Documents/workspace_env1/mysite</li>
+<li>プロジェクト名: mysite  (自動的に出ます)</li>
+<li>プロジェクト・タイプ: チェックをすべて外す</li>
+<li>完了ボタンを押す</li>
+</ul>
+</li>
+</ul>
+
+<p>パースペクティブが JAVA EE になっていたら、PyDev に切り替えます。</p>
+
+<h2>
+<span id="eclipseでデバッグ実行する" class="fragment"></span><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#eclipse%E3%81%A7%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B"><i class="fa fa-link"></i></a>eclipseでデバッグ実行する</h2>
+
+<ul>
+<li>実行 &gt; デバッグの構成...</li>
+<li>PyDev Django を選択して、「新規」ボタンを押す</li>
+<li>名前: mysite</li>
+<li>メイン タブ
+
+<ul>
+<li>プロジェクト: 「参照...」を押して mysite を選ぶ</li>
+<li>メイン・モジュール: 「参照...」を押して manage.py を選ぶ</li>
+</ul>
+</li>
+<li>引数 タブ
+
+<ul>
+<li>プログラムの引数: runserver --noreload</li>
+<li>noreloadを付けると、コードを直してリロードが聞かなくなりますが、こうした方がいいです。</li>
+<li>コードを変更したら、デバッグ実行し直すようにして下さい。</li>
+</ul>
+</li>
+<li>「適用」ボタンを押す</li>
+<li>「デバッグ」ボタンを押す</li>
+</ul>
+
+<blockquote>
+<p>［参考］</p>
+
+<p>実行 &gt; デバッグの構成... &gt; メインタブ &gt; プロジェクト &gt; 参照... で、どうしてもプロジェクトが出てこないという方、</p>
+
+<p>「新規プロジェクトとして既存のフォルダを利用」してインポートしても、Djangoプロジェクトとして認識されない場合があるようです。</p>
+
+<p>その場合、おまじないとして、プロジェクトを右クリックし、</p>
+
+<blockquote>
+<p>Django &gt; Run Django Tests (manage.py test)</p>
+</blockquote>
+
+<p>を実行すると認識されるという報告がありました。</p>
+
+<p>何でしょう？</p>
+</blockquote>
+
+<p>以下のメッセージが出れば OK です。</p>
+
+<div class="code-frame" data-lang="bash"><div class="highlight"><pre>Django version 1.9.2, using settings <span class="s1">'mysite.settings'</span>
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+</pre></div></div>
+
+<p>Javaの開発などと同様に、ブレークポイントの設定や、変数の確認ができます。</p>
+
+<p><a href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d">Python Django入門 (3)</a> に続く</p>
+<div class="hidden"><form class="js-task-list-update" action="http://qiita.com/kaki_k/items/e824cfcf089e75d43551" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="EBpoAMxWHpMbA57wpUGIKicqYSV+LRLNNQi6oOWNdGnBCZY9SyClpmrejparyyyyQkc2Qg4JNXRabO9CU2qvkQ=="><input type="hidden" name="updated_at_confirmation_in_unixtime" id="updated_at_confirmation_in_unixtime" value="1480598599" class="js-task-list-updated-at"><textarea name="raw_body" id="raw_body" class="js-task-list-field">
+MacでのPython、Djangoの開発環境構築について説明します。
+
+## Xcode、Command Line Tools
+
+Mac OS X 10.11 (El Catitan) で開発する上では、iPhoneアプリの開発予定がなくても
+Xcode および Command Line Tools を入れておいた方がいいでしょう。
+
+Xcode は App Storeのアイコンから。  
+Command Line Tools は
+
+```bash
+$ xcode-select --install
+```
+
+にてインストールします。
+
+## Python3のインストール
+
+Python2はMac OS Xに入っていますが、これから新規に学習するのであれば、Python3を学習した方がいいでしょう。
+
+### HomeBrewのインストール
+
+[HomeBrew](http://brew.sh/) はMacのパッケージ管理ツールです。
+
+既に導入済みの人は読み飛ばして下さい。
+MacPorts派の方は、以降のPython3導入を自力でお願いします。
+
+インストールは公式サイトのとおり、ターミナルを開いて、以下のコマンドを実行します。
+
+```bash
+$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+### Python3のインストール
+
+HomeBrewを最新にアップデートし、
+python3 の情報を見る
+
+```bash
+$ brew update
+$ brew info python3
+python3: stable 3.5.1 (bottled), HEAD
+```
+
+Python 3.5 が入るようです。インストールします。
+
+```bash
+$ brew install python3
+```
+
+Python 2 と 3 は両立できます。バージョンを見てみます。
+
+```bash
+$ python -V
+Python 2.7.10
+
+$ python3 -V
+Python 3.5.1
+```
+
+## virtualenv、virtualenvwrapperのインストール
+
+[virtualenv](https://pypi.python.org/pypi/virtualenv) は Python の仮想環境を作るツールです。
+プロジェクトごとに、
+
+* Pythonのバージョン
+* 使用する Pythonパッケージ、およびそのバージョン
+
+を固定した仮想環境を構築します。
+
+[virtualenvwrapper](https://pypi.python.org/pypi/virtualenvwrapper) は、virtualenvによる仮想環境の作成、削除をもう少し楽にするラッパーです。
+
+Python3 の標準で [venv](http://docs.python.jp/3/library/venv.html) という仮想環境を作るコマンドもありますが、こちらの方を使います。
+
+### python2側で pipを入れる
+
+    $ sudo easy_install pip
+
+### Python2側で virtualenv、virtualenvwrapper を入れる
+
+    $ sudo pip install virtualenv virtualenvwrapper --ignore-installed six
+
+&gt; Python2、Python3に両対応した virtualenv virtualenvwrapperが入ります。
+
+### virtualenv virtualenvwrapperのセットアップ手順
+
+１．仮想環境のディレクトリを作ります
+
+    $ cd ~
+    $ mkdir ~/.virtualenvs
+
+２． テキストエディタなどで、.bashrc ファイルを作成します。
+
+```bash:.bashrc
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+```
+
+* 自分のホーム ディレクトリで、そのまま作業します。
+* viが使える人は、viでやりましょう。
+* 普通のテキストエディタでも、なんとか「.bashrc」の新規保存はできます。
+
+３． テキストエディタなどで、.bash_profile の最後の行に、以下の行を追記します。
+
+```bash:.bash_profile
+    :
+    :
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+```
+
+* 普通のテキストエディタでは、ドットで始まる隠しファイルの「.bash_profile」を開くことは至難の業のようです。（出てこない）
+* viができる人に手伝ってもらって下さい。またはviを覚えましょう。
+
+４． ターミナルが開きっぱなしであれば、編集した .bash_profile を取り込みます。
+
+```bash
+$ source .bash_profile
+```
+
+## 仮想環境の構築
+
+env1 という名前の仮想環境を作る
+
+```bash
+$ mkvirtualenv --no-site-package --python /usr/local/bin/python3 env1
+```
+
+--no-site-packageは、ベースとなるpythonのsite-packageを受け継がないようにする指定です
+-p か --python オプションで使用するインタプリタを指定することができるので、python3 を指定します。
+
+## 仮想環境に移動する
+
+mkvirtualenv で仮想環境を作った直後は、コマンドプロンプトが以下のようになっています。
+
+```bash
+(env1) $
+```
+
+(env1) と出ていれば仮想環境にいます。
+ターミナルを終了して、開き直した場合などは、以下のコマンドで仮想環境 env1 に移動できます。
+
+```bash
+$ workon env1
+```
+
+### その他、仮想環境を扱うコマンド
+
+env1 はこの後に使うので、以下のコマンドは叩かないで、知識として覚えておいて下さい。
+
+現在の仮想環境の一覧を見る
+
+    $ workon
+    env1
+
+env1に切り替える
+
+    $ workon env1
+
+仮想環境を無効にする(グローバル環境に戻る)
+
+    $ deactivate
+
+不要な仮想環境を削除する(deactivateしてからです。pipで仮想環境に入れたパッケージごと削除されます。)
+
+    $ deactivate
+    $ rmvirtualenv env1
+
+## Djangoをインストールする
+
+DjangoもPythonモジュールの一つです。
+仮想環境 env1 の中にインストールします。
+
+今回は、この講座のためにDjangoのバージョンを明記してインストールします。
+
+```bash
+$ workon env1
+$ pip install django==1.9.2
+Downloading/unpacking django
+  Downloading Django-1.9.2-py2.py3-none-any.whl (6.6MB): 6.6MB downloaded
+Installing collected packages: django
+Successfully installed django
+Cleaning up...
+```
+
+### バージョンを確認する
+
+仮想環境にインストールされたパッケージを確認します。
+
+```bash
+$ pip freeze -l
+Django==1.9.2
+```
+
+## IDE 統合開発環境のインストール
+
+Djangoのコードを書くにあたって、どのようなテキストエディタを使ってもかまいませんが、IDEとして[PyCharm Professional](https://www.jetbrains.com/pycharm/)を導入することをお薦めします。
+
+&gt; 以前は [eclipse](https://www.eclipse.org/downloads/) ＋  [Pleiades](http://mergedoc.sourceforge.jp/)による日本語化 ＋ [Aptana Studio 3](http://www.aptana.com/products/studio3/download)のPyDev の導入を説明していたのですが、最近は使わなくなってしまったため、PyCharmの説明に取り替えます。
+
+### PyCharmの特徴
+
+* Pythonエンジニアは、ほぼこれを使っていると言っても過言ではありません。
+* ２種類ありまして、
+	- Professional版
+		+ Djangoのプロジェクトを開くことができ、こちらの方を使います。
+		+ 有償ですが 30日の試用ができます。
+		+ この講座も 30日あれば終わるのではないでしょうか。
+		+ 気に入った場合は、購入しましょう。
+	- Community版
+		+ 無償ですが、Djangoプロジェクトを開くことはできません。
+		+ どうしても無償の方がよくて、単にPythonのエディタとして使いたいだけであれば、こちらでもよいかもしれません。
+* UIは英語です。eclipseの時のように日本語化することは考えません。特に問題ないと思いましょう。
+* 黒背景に白文字のテーマが目に優しくて、かっこいいです。いかにも俺コード書いてるという気分になります。UIサンプルは[こちら](https://www.jetbrains.com/pycharm/)をご覧ください。
+
+### PyCharm Professional のインストール
+
+1. [Download PyCharm](https://www.jetbrains.com/pycharm/download/)のページから、Professionalの方をダウンロードします。
+2. ダウンロードした .dmgファイルを開きます。
+3. 絵のとおりに PyCharm.app をアプリケーションフォルダにドラッグします。
+
+![PyCharm.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/27b0569b-923f-7417-1789-7b32f6c351c1.jpeg "PyCharm.jpg")
+
+4.インストールできたら、アプリケーション ＞ PyCharm.app を起動してみましょう。
+
+5.この画面は、初めてPyCharmを使う人は、以前のsettingsはないので、そのままでOKです。
+
+![Complete_Installation.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/8f71c95b-4319-9196-87ef-e483b80d54b9.jpeg "Complete_Installation.jpg")
+
+6.Evaluate for free for 30 days（30日試用）の方を選んで、OKを押します。
+
+![PyCharm_License_Activation.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/9e7821ff-8c05-6763-de06-673053a39501.jpeg "PyCharm_License_Activation.jpg")
+
+7.よく読んで、Acceptを押します。
+
+![License_Agreement_for_PyCharm_5_0_4.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/d5f7d442-ba2f-9674-4361-f56d6bec6340.jpeg "License_Agreement_for_PyCharm_5_0_4.jpg")
+
+8.テーマだけ変更します。IDE theme: Darcula が黒背景／白文字の方で、俺コード書いてる気分になれる方です。
+
+![PyCharm_Initial_Configuration.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/3a185c63-9251-f6d2-3e3a-b036f096af8a.jpeg "PyCharm_Initial_Configuration.jpg")
+
+9.起動途中ですが、テーマの設定を変えた場合は、再起動みたいですね。Yesを押します。
+
+![This_should_not_be_shown.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/528e543c-e279-3ffd-e384-59abb1491b4e.jpeg "This_should_not_be_shown.jpg")
+
+10.ようこそPyCharmへ
+
+![Welcome_to_PyCharm.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/cdf01530-5807-8be7-649f-b9aadfd6402a.jpeg "Welcome_to_PyCharm.jpg")
+
+ここまで来たら、次に進みましょう。
+
+[Python Django入門 (3)](http://qiita.com/kaki_k/items/7b178ad39394a031b50d) に続く
+
+
+
+## IDE 統合開発環境のインストール（旧版）
+
+一応、残しておきますが、PyCharm入れた人は、以下をすべて読み飛ばしてください。
+
+### eclipse のインストール
+
+1. Eclipse IDE for Java EE Developers, 257 MB - Mac OS X 64 Bit
+をダウンロード
+
+2. eclipse-jee-luna-R-macosx-cocoa-x86_64.tar.gz を解凍
+
+3. eclipseフォルダをアプリケーションの下へ移動
+
+### 日本語化
+
+1. http://mergedoc.sourceforge.jp/ から Pleiades 本体 最新版 を落とす
+
+2. pleiades.zip を解凍
+
+3. fueaturs, pligins の下のものをeclipseの該当箇所にコピー
+
+4. Finder で アプリケーション/eclipse/Eclipse.app をcontrol＋クリックし、「パッケージの内容を表示」を選ぶ
+
+5. Eclipse.app/Contents/MacOS/eclipse.ini に以下の記述を追加
+
+    -javaagent:../../../plugins/jp.sourceforge.mergedoc.pleiades/pleiades.jar
+
+プラグインは、以下の矢印のリンクからダウンロードします。
+
+![Pleiades_-_Eclipse_プラグイン日本語化プラグイン___MergeDoc_Project.jpg](https://qiita-image-store.s3.amazonaws.com/0/48136/8c00eddd-d2e9-3d74-f64c-717534e78af2.jpeg "Pleiades_-_Eclipse_プラグイン日本語化プラグイン___MergeDoc_Project.jpg")
+
+### eclipseの起動
+
+1. Finder で アプリケーション/eclipse/Eclipse.app を起動します。
+2. ワークスペースの規定値は ~/Documents/workspace ですが、~/Documents/workspace_env1 とします。
+
+## Aptana Studio 3
+
+eclipseのPython開発用プラグインとして、Aptana Studio 3 の中に PyDev というものが含まれています。
+
+[Download Aptana Studio 3](http://www.aptana.com/products/studio3/download)
+
+* Eclipse Plug-in Version の方をクリックし、DOWNLOADボタンを押す
+* [http://download.aptana.com/studio3/plugin/install](http://download.aptana.com/studio3/plugin/install) のURLをコピー
+* eclipseに戻って、ヘルプ &gt; 新規ソフトウェアのインストール...
+* 追加... ボタンを押す
+    - 名前: Aptana Studio 3
+    - ロケーション: http://download.aptana.com/studio3/plugin/install
+    - OKボタンを押す
+
+### eclipse設定
+
+仮想環境 env1 で固定されているPython3を指定します。
+
+* ウィンドウ &gt; 設定
+* PyDev &gt; インタープリター - Python で 「新規...」ボタン
+    - インタープリター名: Python3
+    - インタープリター実行可能ファイル: /Users/xxxx/.virtualenvs/env1/bin/python
+* /usr/local/Cellar/python3/3.5.1/Frameworks/Python.framework/Versions/3.5/lib/python3.5 もチェックして OK を押す
+
+### その他の設定
+
+* 一般 &gt; ワークスペース &gt; テキスト・ファイルのエンコード
+    - その他: UTF-8
+* Aptana Studio &gt; テーマ
+    - Aptana Studio 2.x にする
+
+## django-admin.py startproject mysite で作ったプロジェクトを登録する
+
+* ファイル &gt; インポート...
+* 一般 &gt; 新規プロジェクトとして既存のフォルダーを使用
+    - 次へ
+* Promote to Project
+    - フォルダーの選択: ~/Documents/workspace_env1/mysite
+    - プロジェクト名: mysite  (自動的に出ます)
+    - プロジェクト・タイプ: チェックをすべて外す
+    - 完了ボタンを押す
+
+パースペクティブが JAVA EE になっていたら、PyDev に切り替えます。
+
+## eclipseでデバッグ実行する
+
+* 実行 &gt; デバッグの構成...
+* PyDev Django を選択して、「新規」ボタンを押す
+* 名前: mysite
+* メイン タブ
+    - プロジェクト: 「参照...」を押して mysite を選ぶ
+    - メイン・モジュール: 「参照...」を押して manage.py を選ぶ
+* 引数 タブ
+    - プログラムの引数: runserver --noreload
+    - noreloadを付けると、コードを直してリロードが聞かなくなりますが、こうした方がいいです。
+    - コードを変更したら、デバッグ実行し直すようにして下さい。
+* 「適用」ボタンを押す
+* 「デバッグ」ボタンを押す
+
+&gt; ［参考］
+&gt;
+&gt; 実行 &gt; デバッグの構成... &gt; メインタブ &gt; プロジェクト &gt; 参照... で、どうしてもプロジェクトが出てこないという方、
+&gt;
+&gt; 「新規プロジェクトとして既存のフォルダを利用」してインポートしても、Djangoプロジェクトとして認識されない場合があるようです。
+&gt;
+&gt; その場合、おまじないとして、プロジェクトを右クリックし、
+&gt; &gt; Django &gt; Run Django Tests (manage.py test)
+&gt;
+&gt; を実行すると認識されるという報告がありました。
+&gt; 
+&gt; 何でしょう？
+
+以下のメッセージが出れば OK です。
+
+```bash
+Django version 1.9.2, using settings 'mysite.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+```
+
+Javaの開発などと同様に、ブレークポイントの設定や、変数の確認ができます。
+
+[Python Django入門 (3)](http://qiita.com/kaki_k/items/7b178ad39394a031b50d) に続く
+</textarea><input type="submit" name="commit" value="Save changes" data-disable-with="Save changes"></form></div></section></div><div class="col-sm-3"><div id="div-gpt-ad-1493084685571-0" style="height:250px; width:300px; margin-bottom: 20px;" data-google-query-id="CIGv2snZstQCFZR2vAod1aACoA"><div id="google_ads_iframe_/383564218/qiita.com_items-show_sidebar-top_0__container__" style="border: 0pt none; display: inline-block; width: 300px; height: 250px;"><iframe frameborder="0" src="./Python Django入門 (2) Mac編 - Qiita_files/container.html" id="google_ads_iframe_/383564218/qiita.com_items-show_sidebar-top_0" title="3rd party ad content" name="1-0-9;6050;&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;&lt;body&gt;&lt;script src=&quot;https://tpc.googlesyndication.com/safeframe/1-0-9/js/ext.js&quot;&gt;&lt;/script&gt;&lt;script&gt;(function(){var g=this,l=function(a,b){var c=a.split(&quot;.&quot;),d=g;c[0]in d||!d.execScript||d.execScript(&quot;var &quot;+c[0]);for(var e;c.length&amp;&amp;(e=c.shift());)c.length||void 0===b?d=d[e]?d[e]:d[e]={}:d[e]=b},m=function(a,b,c){return a.call.apply(a.bind,arguments)},n=function(a,b,c){if(!a)throw Error();if(2&lt;arguments.length){var d=Array.prototype.slice.call(arguments,2);return function(){var c=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(c,d);return a.apply(b,c)}}return function(){return a.apply(b,arguments)}},p=function(a,b,c){p=Function.prototype.bind&amp;&amp;-1!=Function.prototype.bind.toString().indexOf(&quot;native code&quot;)?m:n;return p.apply(null,arguments)},q=Date.now||function(){return+new Date};var r=document,s=window;var t=function(a,b){for(var c in a)Object.prototype.hasOwnProperty.call(a,c)&amp;&amp;b.call(null,a[c],c,a)},w=function(a,b){a.google_image_requests||(a.google_image_requests=[]);var c=a.document.createElement(&quot;img&quot;);c.src=b;a.google_image_requests.push(c)};var x=function(a){return{visible:1,hidden:2,prerender:3,preview:4}[a.webkitVisibilityState||a.mozVisibilityState||a.visibilityState||&quot;&quot;]||0},y=function(a){var b;a.mozVisibilityState?b=&quot;mozvisibilitychange&quot;:a.webkitVisibilityState?b=&quot;webkitvisibilitychange&quot;:a.visibilityState&amp;&amp;(b=&quot;visibilitychange&quot;);return b};var C=function(){this.g=r;this.k=s;this.j=!1;this.i=null;this.h=[];this.o={};if(z)this.i=q();else if(3==x(this.g)){this.i=q();var a=p(this.q,this);A&amp;&amp;(a=A(&quot;di::vch&quot;,a));this.p=a;var b=this.g,c=y(this.g);b.addEventListener?b.addEventListener(c,a,!1):b.attachEvent&amp;&amp;b.attachEvent(&quot;on&quot;+c,a)}else B(this)},A;C.m=function(){return C.n?C.n:C.n=new C};var D=/^([^:]+:\/\/[^/]+)/m,G=/^\d*,(.+)$/m,z=!1,B=function(a){if(!a.j){a.j=!0;for(var b=0;b&lt;a.h.length;++b)a.l.apply(a,a.h[b]);a.h=[]}};C.prototype.s=function(a,b){var c=b.target.u();(c=G.exec(c))&amp;&amp;(this.o[a]=c[1])};C.prototype.l=function(a,b){this.k.rvdt=this.i?q()-this.i:0;var c;if(c=this.t)t:{try{var d=D.exec(this.k.location.href),e=D.exec(a);if(d&amp;&amp;e&amp;&amp;d[1]==e[1]&amp;&amp;b){var f=p(this.s,this,b);this.t(a,f);c=!0;break t}}catch(u){}c=!1}c||w(this.k,a)};C.prototype.q=function(){if(3!=x(this.g)){B(this);var a=this.g,b=y(this.g),c=this.p;a.removeEventListener?a.removeEventListener(b,c,!1):a.detachEvent&amp;&amp;a.detachEvent(&quot;on&quot;+b,c)}};var H=/^true$/.test(&quot;&quot;)?!0:!1;var I={},J=function(a){var b=a.toString();a.name&amp;&amp;-1==b.indexOf(a.name)&amp;&amp;(b+=&quot;: &quot;+a.name);a.message&amp;&amp;-1==b.indexOf(a.message)&amp;&amp;(b+=&quot;: &quot;+a.message);if(a.stack){a=a.stack;var c=b;try{-1==a.indexOf(c)&amp;&amp;(a=c+&quot;\n&quot;+a);for(var d;a!=d;)d=a,a=a.replace(/((https?:\/..*\/)[^\/:]*:\d+(?:.|\n)*)\2/,&quot;$1&quot;);b=a.replace(/\n */g,&quot;\n&quot;)}catch(e){b=c}}return b},M=function(a,b,c,d){var e=K,f,u=!0;try{f=b()}catch(h){try{var N=J(h);b=&quot;&quot;;h.fileName&amp;&amp;(b=h.fileName);var E=-1;h.lineNumber&amp;&amp;(E=h.lineNumber);var v;t:{try{v=c?c():&quot;&quot;;break t}catch(S){}v=&quot;&quot;}u=e(a,N,b,E,v)}catch(k){try{var O=J(k);a=&quot;&quot;;k.fileName&amp;&amp;(a=k.fileName);c=-1;k.lineNumber&amp;&amp;(c=k.lineNumber);K(&quot;pAR&quot;,O,a,c,void 0,void 0)}catch(F){L({context:&quot;mRE&quot;,msg:F.toString()+&quot;\n&quot;+(F.stack||&quot;&quot;)},void 0)}}if(!u)throw h;}finally{if(d)try{d()}catch(T){}}return f},K=function(a,b,c,d,e,f){a={context:a,msg:b.substring(0,512),eid:e&amp;&amp;e.substring(0,40),file:c,line:d.toString(),url:r.URL.substring(0,512),ref:r.referrer.substring(0,512)};P(a);L(a,f);return!0},L=function(a,b){try{if(Math.random()&lt;(b||.01)){var c=&quot;/pagead/gen_204?id=jserror&quot;+Q(a),d=&quot;http&quot;+(&quot;https:&quot;==s.location.protocol?&quot;s&quot;:&quot;&quot;)+&quot;://pagead2.googlesyndication.com&quot;+c,d=d.substring(0,2E3);w(s,d)}}catch(e){}},P=function(a){var b=a||{};t(I,function(a,d){b[d]=s[a]})},R=function(a,b,c,d,e){return function(){var f=arguments;return M(a,function(){return b.apply(c,f)},d,e)}},Q=function(a){var b=&quot;&quot;;t(a,function(a,d){if(0===a||a)b+=&quot;&amp;&quot;+d+&quot;=&quot;+(&quot;function&quot;==typeof encodeURIComponent?encodeURIComponent(a):escape(a))});return b};A=function(a,b,c,d){return R(a,b,void 0,c,d)};z=H;l(&quot;vu&quot;,R(&quot;vu&quot;,function(a,b){var c=a.replace(&quot;&amp;amp;&quot;,&quot;&amp;&quot;),d=/(google|doubleclick).*\/pagead\/adview/.test(c),e=C.m();if(d){d=&quot;&amp;vis=&quot;+x(e.g);b&amp;&amp;(d+=&quot;&amp;ve=1&quot;);var f=c.indexOf(&quot;&amp;adurl&quot;),c=-1==f?c+d:c.substring(0,f)+d+c.substring(f)}e.j?e.l(c,b):e.h.push([c,b])}));l(&quot;vv&quot;,R(&quot;vv&quot;,function(){z&amp;&amp;B(C.m())}));})();&lt;/script&gt;&lt;script&gt;vu(&quot;https://securepubads.g.doubleclick.net/pcs/view?xai\x3dAKAOjsvJqY-mO50vZ7McbNNYbW8XBaz2A-8Np_TUyEyHt-Kd8pXo05-_6kfwqyW2hYeMqSmWABYMxLDxbeGpGhvw8A6982RZ3rtpvw4wpGHT1jqAgABXVYWjASGoR5t9V2mQ_n6wZ0s_6OTvOI2NXF3tlFsJ6EHmU4UqnIotfzDizAxdtohhTLWr1tZXO1qORqn-F_rXaVCTVHPivcHglKa9ZuK9OP24BsQOIGifu1DVZnKJ5piAsu1KBnlfCCERYjB-1R6rvkXI7cC_eckY\x26sig\x3dCg0ArKJSzEVASI_f85THEAE\x26urlfix\x3d1\x26adurl\x3d&quot;)&lt;/script&gt;&lt;script type=&quot;text/javascript&quot; src=&quot;//static.criteo.net/js/ld/publishertag.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+Criteo.DisplayAd({
+    &quot;zoneid&quot;: 760412,
+    &quot;async&quot;: false});
+&lt;/script&gt;&lt;script src=&quot;https://tpc.googlesyndication.com/pagead/js/r20170605/r20110914/activeview/osd_listener.js&quot;&gt;&lt;/script&gt;&lt;script type=&quot;text/javascript&quot;&gt;osdlfm(-1,&#39;&#39;,&#39;B471OVpg7WYGsAZTt8QXVwYqACgAAAAAQATgByAEJwAIC4AIA4AQBoAYW0ggFCIAhEAE&#39;,&#39;&#39;,4272615912,true,&#39;ud\x3d1\x26la\x3d0\x26alp\x3dxai\x26alh\x3d1855512580\x26&#39;,3,&#39;CAASEuRokZAl8jhuPgzMpQpbLmRNOQ&#39;,&#39;//pagead2.googlesyndication.com/activeview?avi\x3dB471OVpg7WYGsAZTt8QXVwYqACgAAAAAQATgByAEJwAIC4AIA4AQBoAYW0ggFCIAhEAE\x26cid\x3dCAASEuRokZAl8jhuPgzMpQpbLmRNOQ&#39;);&lt;/script&gt;&lt;script&gt;if (window.top &amp;&amp; window.top.postMessage) {window.top.postMessage(&#39;{&quot;googMsgType&quot;:&quot;adpnt&quot;}&#39;,&#39;*&#39;);}&lt;/script&gt;&lt;div style=&quot;position:absolute;top:0;left:0;max-width:100%;max-height:100%;width:300px;height:250px;pointer-events:none;image-rendering:pixelated;z-index:2147483647;background-image:url(&#39;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAWBAMAAACrl3iAAAAABlBMVEUAAAD+AciWmZzWAAAAAnRSTlMAApidrBQAAAB8SURBVBjTbVGBDcAgDMIP+P/abUWoNWtM00bGAIH/Wir4aANYtwT5jd4Kof6CvAlHdfaW+2I80Zu7pnBbCfwHKTmKPHSXds2IJGtwmz71nZw2oUwyNsQI4xXLkGH5QzeSjcivBLeWJLhTGbqVh5AzwRheuLnbaL9lJ7PwAHWyBeKT9c5TAAAAAElFTkSuQmCC&#39;);&quot;&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+{&quot;uid&quot;:1,&quot;hostPeerName&quot;:&quot;http://qiita.com&quot;,&quot;initialGeometry&quot;:&quot;{\&quot;windowCoords_t\&quot;:0,\&quot;windowCoords_r\&quot;:1130,\&quot;windowCoords_b\&quot;:878,\&quot;windowCoords_l\&quot;:0,\&quot;frameCoords_t\&quot;:266,\&quot;frameCoords_r\&quot;:1112.5,\&quot;frameCoords_b\&quot;:516,\&quot;frameCoords_l\&quot;:812.5,\&quot;styleZIndex\&quot;:\&quot;auto\&quot;,\&quot;allowedExpansion_t\&quot;:266,\&quot;allowedExpansion_r\&quot;:0,\&quot;allowedExpansion_b\&quot;:212,\&quot;allowedExpansion_l\&quot;:812.5,\&quot;xInView\&quot;:0.975,\&quot;yInView\&quot;:1}&quot;,&quot;permissions&quot;:&quot;{\&quot;expandByOverlay\&quot;:true,\&quot;expandByPush\&quot;:false,\&quot;readCookie\&quot;:false,\&quot;writeCookie\&quot;:false}&quot;,&quot;metadata&quot;:&quot;{\&quot;shared\&quot;:{\&quot;sf_ver\&quot;:\&quot;1-0-9\&quot;,\&quot;ck_on\&quot;:1,\&quot;flash_ver\&quot;:\&quot;25.0.0\&quot;}}&quot;,&quot;reportCreativeGeometry&quot;:false,&quot;isDifferentSourceWindow&quot;:false}" scrolling="no" marginwidth="0" marginheight="0" width="300" height="250" data-is-safeframe="true" style="border: 0px; vertical-align: bottom;"></iframe></div></div><div class="socialButtons"><div class="socialButtons_twitter"><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./Python Django入門 (2) Mac編 - Qiita_files/tweet_button.7bf2b0e802ada47dae9548b7a1739fed.en.html" style="position: static; visibility: visible; width: 60px; height: 20px;" data-url="http://qiita.com/kaki_k/items/e824cfcf089e75d43551"></iframe></div><div class="socialButtons_hatebu"><iframe class="hatena-bookmark-button-frame" title="はてブに追加" frameborder="0" scrolling="no" width="47" height="20" src="javascript:false" style="width: 47px; height: 20px;" src="./Python Django入門 (2) Mac編 - Qiita_files/saved_resource.html"></iframe><script async="async" charset="utf-8" src="./Python Django入門 (2) Mac編 - Qiita_files/bookmark_button.js" type="text/javascript"></script></div><div class="socialButtons_googlePlus"><div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1497077844439" name="I0_1497077844439" src="./Python Django入門 (2) Mac編 - Qiita_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div></div><div class="socialButtons_facebook"><div class="fb-like fb_iframe_widget" data-action="like" data-href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551" data-layout="button_count" data-share="false" data-show-faces="false" fb-xfbml-state="parsed" fb-iframe-plugin-query="action=like&amp;app_id=222621691108322&amp;container_width=0&amp;href=http%3A%2F%2Fqiita.com%2Fkaki_k%2Fitems%2Fe824cfcf089e75d43551&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=false&amp;show_faces=false"><span style="vertical-align: top; width: 0px; height: 0px; overflow: hidden;"><iframe name="f58bc80986fbb" width="1000px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./Python Django入門 (2) Mac編 - Qiita_files/like.html" style="border: none; visibility: hidden;"></iframe></span></div></div><div class="socialButtons_pocket"><div class="pocket-btn"><iframe width="135" height="22" id="pocket-button-0" frameborder="0" allowtransparency="true" scrolling="NO" src="./Python Django入門 (2) Mac編 - Qiita_files/button.html"></iframe></div></div></div><section class="itemsShowAuthorInfo" itemprop="author" itemscope="" itemtype="http://schema.org/Person"><a href="http://qiita.com/kaki_k"><img alt="" class="itemsShowAuthorInfo_userIcon" itemprop="image" src="./Python Django入門 (2) Mac編 - Qiita_files/1473691243"></a><div class="itemsShowAuthorInfo_profileStats"><strong class="itemsShowAuthorInfo_userName" itemprop="name"><a itemprop="url" href="http://qiita.com/kaki_k">kaki_k</a></strong><div class="itemsShowAuthorInfo_contribution"><span class="itemsShowAuthorInfo_count">2097</span><span class="itemsShowAuthorInfo_unit">Contribution</span></div><script type="application/json" id="js-react-on-rails-context">null</script>
+<script type="application/json" class="js-react-on-rails-component">{"component_name":"UserFollowButton","props":{"initial_followed_by":false,"position":"author-info","size":"btn-xs","url_name":"kaki_k"},"trace":false,"dom_id":"UserFollowButton-react-component-3671d758-273a-4780-86de-31cd35c2577c"}</script>
+    <div id="UserFollowButton-react-component-3671d758-273a-4780-86de-31cd35c2577c"><span data-reactroot="" class="userFollowButton"><button class="btn btn-default btn-block userFollowButton_inner btn-xs"><i class="i fa fa-user-plus"></i><!-- react-text: 4 -->フォロー<!-- /react-text --></button></span></div>
+    
+</div><section class="itemsShowAuthorPopularItems"><h5 class="itemsShowAuthorPopularItems_sectionTitle">人気の投稿</h5><ul class="itemsShowAuthorPopularItems_posts list-unstyled"><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54">Python Django入門 (1)</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551">Python Django入門 (2) Mac編</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/7b178ad39394a031b50d">Python Django入門 (3)</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/6e17597804437ef170ae">Python Django入門 (4)</a></li><li itemscope="" itemtype="http://schema.org/Article"> <a itemprop="url" track="click" data-label="AuthorPopularItemsAtSidebar" href="http://qiita.com/kaki_k/items/b76acaeab8a9d935c35c">Python Django入門 (6)</a></li></ul></section></section><div class="scroll-chaser"><div class="ad_frame_right_banner_1"><div class="bigmining_zone_16"><a href="http://dg-ads-adserver.bigmining.com/www/delivery/ck.php?oaparams=2__bannerid=476__zoneid=16__source=_cat%28Python%29_cat%28Django%29__OXLCA=1__cb=ed5ff62b4b__oadest=http%3A%2F%2Fwww.find-job.net%2Fjob%2Fpickup.pl%3Futm_source%3Dads%26utm_medium%3Dqiita" target="_blank"><img src="./Python Django入門 (2) Mac編 - Qiita_files/002____.png" width="300" height="250" alt="" title="" border="0"></a><div id="beacon_ed5ff62b4b" style="position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="./Python Django入門 (2) Mac編 - Qiita_files/lg.php" width="0" height="0" alt="" style="width: 0px; height: 0px;"></div>
+</div></div><script async="" charset="UTF-8" defer="" src="./Python Django入門 (2) Mac編 - Qiita_files/adjs_set_pro.js" type="text/javascript"></script></div><script type="application/json" class="js-react-on-rails-component">{"component_name":"Toc","props":{"body":"\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#xcodecommand-line-tools\"\u003eXcode、Command Line Tools\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#python3%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB\"\u003ePython3のインストール\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#homebrew%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB\"\u003eHomeBrewのインストール\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#python3%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB-1\"\u003ePython3のインストール\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#virtualenvvirtualenvwrapper%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB\"\u003evirtualenv、virtualenvwrapperのインストール\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#python2%E5%81%B4%E3%81%A7-pip%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B\"\u003epython2側で pipを入れる\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#python2%E5%81%B4%E3%81%A7-virtualenvvirtualenvwrapper-%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B\"\u003ePython2側で virtualenv、virtualenvwrapper を入れる\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#virtualenv-virtualenvwrapper%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86\"\u003evirtualenv virtualenvwrapperのセットアップ手順\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E4%BB%AE%E6%83%B3%E7%92%B0%E5%A2%83%E3%81%AE%E6%A7%8B%E7%AF%89\"\u003e仮想環境の構築\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E4%BB%AE%E6%83%B3%E7%92%B0%E5%A2%83%E3%81%AB%E7%A7%BB%E5%8B%95%E3%81%99%E3%82%8B\"\u003e仮想環境に移動する\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%81%9D%E3%81%AE%E4%BB%96%E4%BB%AE%E6%83%B3%E7%92%B0%E5%A2%83%E3%82%92%E6%89%B1%E3%81%86%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89\"\u003eその他、仮想環境を扱うコマンド\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#django%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B\"\u003eDjangoをインストールする\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B\"\u003eバージョンを確認する\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#ide-%E7%B5%B1%E5%90%88%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB\"\u003eIDE 統合開発環境のインストール\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#pycharm%E3%81%AE%E7%89%B9%E5%BE%B4\"\u003ePyCharmの特徴\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#pycharm-professional-%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB\"\u003ePyCharm Professional のインストール\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#ide-%E7%B5%B1%E5%90%88%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%97%A7%E7%89%88\"\u003eIDE 統合開発環境のインストール（旧版）\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#eclipse-%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB\"\u003eeclipse のインストール\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%8C%96\"\u003e日本語化\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#eclipse%E3%81%AE%E8%B5%B7%E5%8B%95\"\u003eeclipseの起動\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#aptana-studio-3\"\u003eAptana Studio 3\u003c/a\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003ca href=\"#eclipse%E8%A8%AD%E5%AE%9A\"\u003eeclipse設定\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#%E3%81%9D%E3%81%AE%E4%BB%96%E3%81%AE%E8%A8%AD%E5%AE%9A\"\u003eその他の設定\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#django-adminpy-startproject-mysite-%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E7%99%BB%E9%8C%B2%E3%81%99%E3%82%8B\"\u003edjango-admin.py startproject mysite で作ったプロジェクトを登録する\u003c/a\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003ca href=\"#eclipse%E3%81%A7%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B\"\u003eeclipseでデバッグ実行する\u003c/a\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n","wrapper":"#article-body-wrapper"},"trace":false,"dom_id":"Toc-react-component-46e33c8d-1a30-46be-b731-cc991e21e603"}</script>
+    <div id="Toc-react-component-46e33c8d-1a30-46be-b731-cc991e21e603"><div style="position: relative; top: 0px; height: 0px;"></div><div data-reactroot="" class="tocTree" style="width: 230px; position: fixed; top: 0px;"><div class="tocTree_contents nav" style="max-height: 723px;"><ul>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#xcodecommand-line-tools">Xcode、Command Line Tools</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#python3%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">Python3のインストール</a>
+<ul>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#homebrew%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">HomeBrewのインストール</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#python3%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB-1">Python3のインストール</a>
+</li>
+</ul>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#virtualenvvirtualenvwrapper%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">virtualenv、virtualenvwrapperのインストール</a>
+<ul>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#python2%E5%81%B4%E3%81%A7-pip%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B">python2側で pipを入れる</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#python2%E5%81%B4%E3%81%A7-virtualenvvirtualenvwrapper-%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B">Python2側で virtualenv、virtualenvwrapper を入れる</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#virtualenv-virtualenvwrapper%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86">virtualenv virtualenvwrapperのセットアップ手順</a>
+</li>
+</ul>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#%E4%BB%AE%E6%83%B3%E7%92%B0%E5%A2%83%E3%81%AE%E6%A7%8B%E7%AF%89">仮想環境の構築</a>
+</li>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#%E4%BB%AE%E6%83%B3%E7%92%B0%E5%A2%83%E3%81%AB%E7%A7%BB%E5%8B%95%E3%81%99%E3%82%8B">仮想環境に移動する</a>
+<ul>
+<li class="">
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#%E3%81%9D%E3%81%AE%E4%BB%96%E4%BB%AE%E6%83%B3%E7%92%B0%E5%A2%83%E3%82%92%E6%89%B1%E3%81%86%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89">その他、仮想環境を扱うコマンド</a>
+</li>
+</ul>
+</li>
+<li class="active">
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#django%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B">Djangoをインストールする</a>
+<ul>
+<li>
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%92%E7%A2%BA%E8%AA%8D%E3%81%99%E3%82%8B">バージョンを確認する</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#ide-%E7%B5%B1%E5%90%88%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">IDE 統合開発環境のインストール</a>
+<ul>
+<li>
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#pycharm%E3%81%AE%E7%89%B9%E5%BE%B4">PyCharmの特徴</a>
+</li>
+<li>
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#pycharm-professional-%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">PyCharm Professional のインストール</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#ide-%E7%B5%B1%E5%90%88%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E6%97%A7%E7%89%88">IDE 統合開発環境のインストール（旧版）</a>
+<ul>
+<li>
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#eclipse-%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">eclipse のインストール</a>
+</li>
+<li>
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%8C%96">日本語化</a>
+</li>
+<li>
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#eclipse%E3%81%AE%E8%B5%B7%E5%8B%95">eclipseの起動</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#aptana-studio-3">Aptana Studio 3</a>
+<ul>
+<li>
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#eclipse%E8%A8%AD%E5%AE%9A">eclipse設定</a>
+</li>
+<li>
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#%E3%81%9D%E3%81%AE%E4%BB%96%E3%81%AE%E8%A8%AD%E5%AE%9A">その他の設定</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#django-adminpy-startproject-mysite-%E3%81%A7%E4%BD%9C%E3%81%A3%E3%81%9F%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E7%99%BB%E9%8C%B2%E3%81%99%E3%82%8B">django-admin.py startproject mysite で作ったプロジェクトを登録する</a>
+</li>
+<li>
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#eclipse%E3%81%A7%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B">eclipseでデバッグ実行する</a>
+</li>
+</ul>
+</div></div></div>
+    
+</div></div><div class="row"><div class="col-sm-9"><div style="text-align: center;"><div style="display:inline-block;margin:10px;"><div id="div-gpt-ad-1489567219879-0" style="height:280px; width:336px;" data-google-query-id="CJLo2snZstQCFVeWvAodsuQFwQ"><div id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-left_0__container__" style="border: 0pt none; display: inline-block; width: 336px; height: 280px;"><iframe frameborder="0" src="./Python Django入門 (2) Mac編 - Qiita_files/container(1).html" id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-left_0" title="3rd party ad content" name="1-0-9;6045;&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;&lt;body&gt;&lt;script src=&quot;https://tpc.googlesyndication.com/safeframe/1-0-9/js/ext.js&quot;&gt;&lt;/script&gt;&lt;script&gt;(function(){var g=this,l=function(a,b){var c=a.split(&quot;.&quot;),d=g;c[0]in d||!d.execScript||d.execScript(&quot;var &quot;+c[0]);for(var e;c.length&amp;&amp;(e=c.shift());)c.length||void 0===b?d=d[e]?d[e]:d[e]={}:d[e]=b},m=function(a,b,c){return a.call.apply(a.bind,arguments)},n=function(a,b,c){if(!a)throw Error();if(2&lt;arguments.length){var d=Array.prototype.slice.call(arguments,2);return function(){var c=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(c,d);return a.apply(b,c)}}return function(){return a.apply(b,arguments)}},p=function(a,b,c){p=Function.prototype.bind&amp;&amp;-1!=Function.prototype.bind.toString().indexOf(&quot;native code&quot;)?m:n;return p.apply(null,arguments)},q=Date.now||function(){return+new Date};var r=document,s=window;var t=function(a,b){for(var c in a)Object.prototype.hasOwnProperty.call(a,c)&amp;&amp;b.call(null,a[c],c,a)},w=function(a,b){a.google_image_requests||(a.google_image_requests=[]);var c=a.document.createElement(&quot;img&quot;);c.src=b;a.google_image_requests.push(c)};var x=function(a){return{visible:1,hidden:2,prerender:3,preview:4}[a.webkitVisibilityState||a.mozVisibilityState||a.visibilityState||&quot;&quot;]||0},y=function(a){var b;a.mozVisibilityState?b=&quot;mozvisibilitychange&quot;:a.webkitVisibilityState?b=&quot;webkitvisibilitychange&quot;:a.visibilityState&amp;&amp;(b=&quot;visibilitychange&quot;);return b};var C=function(){this.g=r;this.k=s;this.j=!1;this.i=null;this.h=[];this.o={};if(z)this.i=q();else if(3==x(this.g)){this.i=q();var a=p(this.q,this);A&amp;&amp;(a=A(&quot;di::vch&quot;,a));this.p=a;var b=this.g,c=y(this.g);b.addEventListener?b.addEventListener(c,a,!1):b.attachEvent&amp;&amp;b.attachEvent(&quot;on&quot;+c,a)}else B(this)},A;C.m=function(){return C.n?C.n:C.n=new C};var D=/^([^:]+:\/\/[^/]+)/m,G=/^\d*,(.+)$/m,z=!1,B=function(a){if(!a.j){a.j=!0;for(var b=0;b&lt;a.h.length;++b)a.l.apply(a,a.h[b]);a.h=[]}};C.prototype.s=function(a,b){var c=b.target.u();(c=G.exec(c))&amp;&amp;(this.o[a]=c[1])};C.prototype.l=function(a,b){this.k.rvdt=this.i?q()-this.i:0;var c;if(c=this.t)t:{try{var d=D.exec(this.k.location.href),e=D.exec(a);if(d&amp;&amp;e&amp;&amp;d[1]==e[1]&amp;&amp;b){var f=p(this.s,this,b);this.t(a,f);c=!0;break t}}catch(u){}c=!1}c||w(this.k,a)};C.prototype.q=function(){if(3!=x(this.g)){B(this);var a=this.g,b=y(this.g),c=this.p;a.removeEventListener?a.removeEventListener(b,c,!1):a.detachEvent&amp;&amp;a.detachEvent(&quot;on&quot;+b,c)}};var H=/^true$/.test(&quot;&quot;)?!0:!1;var I={},J=function(a){var b=a.toString();a.name&amp;&amp;-1==b.indexOf(a.name)&amp;&amp;(b+=&quot;: &quot;+a.name);a.message&amp;&amp;-1==b.indexOf(a.message)&amp;&amp;(b+=&quot;: &quot;+a.message);if(a.stack){a=a.stack;var c=b;try{-1==a.indexOf(c)&amp;&amp;(a=c+&quot;\n&quot;+a);for(var d;a!=d;)d=a,a=a.replace(/((https?:\/..*\/)[^\/:]*:\d+(?:.|\n)*)\2/,&quot;$1&quot;);b=a.replace(/\n */g,&quot;\n&quot;)}catch(e){b=c}}return b},M=function(a,b,c,d){var e=K,f,u=!0;try{f=b()}catch(h){try{var N=J(h);b=&quot;&quot;;h.fileName&amp;&amp;(b=h.fileName);var E=-1;h.lineNumber&amp;&amp;(E=h.lineNumber);var v;t:{try{v=c?c():&quot;&quot;;break t}catch(S){}v=&quot;&quot;}u=e(a,N,b,E,v)}catch(k){try{var O=J(k);a=&quot;&quot;;k.fileName&amp;&amp;(a=k.fileName);c=-1;k.lineNumber&amp;&amp;(c=k.lineNumber);K(&quot;pAR&quot;,O,a,c,void 0,void 0)}catch(F){L({context:&quot;mRE&quot;,msg:F.toString()+&quot;\n&quot;+(F.stack||&quot;&quot;)},void 0)}}if(!u)throw h;}finally{if(d)try{d()}catch(T){}}return f},K=function(a,b,c,d,e,f){a={context:a,msg:b.substring(0,512),eid:e&amp;&amp;e.substring(0,40),file:c,line:d.toString(),url:r.URL.substring(0,512),ref:r.referrer.substring(0,512)};P(a);L(a,f);return!0},L=function(a,b){try{if(Math.random()&lt;(b||.01)){var c=&quot;/pagead/gen_204?id=jserror&quot;+Q(a),d=&quot;http&quot;+(&quot;https:&quot;==s.location.protocol?&quot;s&quot;:&quot;&quot;)+&quot;://pagead2.googlesyndication.com&quot;+c,d=d.substring(0,2E3);w(s,d)}}catch(e){}},P=function(a){var b=a||{};t(I,function(a,d){b[d]=s[a]})},R=function(a,b,c,d,e){return function(){var f=arguments;return M(a,function(){return b.apply(c,f)},d,e)}},Q=function(a){var b=&quot;&quot;;t(a,function(a,d){if(0===a||a)b+=&quot;&amp;&quot;+d+&quot;=&quot;+(&quot;function&quot;==typeof encodeURIComponent?encodeURIComponent(a):escape(a))});return b};A=function(a,b,c,d){return R(a,b,void 0,c,d)};z=H;l(&quot;vu&quot;,R(&quot;vu&quot;,function(a,b){var c=a.replace(&quot;&amp;amp;&quot;,&quot;&amp;&quot;),d=/(google|doubleclick).*\/pagead\/adview/.test(c),e=C.m();if(d){d=&quot;&amp;vis=&quot;+x(e.g);b&amp;&amp;(d+=&quot;&amp;ve=1&quot;);var f=c.indexOf(&quot;&amp;adurl&quot;),c=-1==f?c+d:c.substring(0,f)+d+c.substring(f)}e.j?e.l(c,b):e.h.push([c,b])}));l(&quot;vv&quot;,R(&quot;vv&quot;,function(){z&amp;&amp;B(C.m())}));})();&lt;/script&gt;&lt;script&gt;vu(&quot;https://securepubads.g.doubleclick.net/pcs/view?xai\x3dAKAOjsu27SVuRg0OmTetpBlJm4RqNBkxMEeIOFWKLK-QX-8NpVrK_4CulRu960bT5rSFe8kwZM8ABlOPWjlTb9bRenialfYiDrM78AHuK0eRmYse5G52g3mbRLKa3UoC8RBP95ghsugRA1wKz1EXqxofOqSZJBz2rVV3WrBvw7mflk3UjjY2zNyXaMh0y5Z_wAFiT9Af_yzYM9RKWKZ4QC4ySVc4W1KOE-fwnE_P_gtvnz45raQOglgPpnBp-Ap2C4JcfVpJBPQmCiEUlEmBXcEJeQ\x26sig\x3dCg0ArKJSzEqM3rl8XquNEAE\x26urlfix\x3d1\x26adurl\x3d&quot;)&lt;/script&gt;&lt;script type=&quot;text/javascript&quot; src=&quot;//static.criteo.net/js/ld/publishertag.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+Criteo.DisplayAd({
+    &quot;zoneid&quot;: 721422,
+    &quot;async&quot;: false});
+&lt;/script&gt;&lt;script src=&quot;https://tpc.googlesyndication.com/pagead/js/r20170605/r20110914/activeview/osd_listener.js&quot;&gt;&lt;/script&gt;&lt;script type=&quot;text/javascript&quot;&gt;osdlfm(-1,&#39;&#39;,&#39;BG9QBVpg7WZLlAdes8gWyyZeIDAAAAAAQATgByAEJwAIC4AIA4AQBoAYW0ggFCIAhEAE&#39;,&#39;&#39;,2228430027,true,&#39;la\x3d0\x26alp\x3dxai\x26alh\x3d1414121844\x26&#39;,3,&#39;CAASEuRoXKwyhwexg1q3E9fSGcCPlQ&#39;,&#39;//pagead2.googlesyndication.com/activeview?avi\x3dBG9QBVpg7WZLlAdes8gWyyZeIDAAAAAAQATgByAEJwAIC4AIA4AQBoAYW0ggFCIAhEAE\x26cid\x3dCAASEuRoXKwyhwexg1q3E9fSGcCPlQ&#39;);&lt;/script&gt;&lt;script&gt;if (window.top &amp;&amp; window.top.postMessage) {window.top.postMessage(&#39;{&quot;googMsgType&quot;:&quot;adpnt&quot;}&#39;,&#39;*&#39;);}&lt;/script&gt;&lt;div style=&quot;position:absolute;top:0;left:0;max-width:100%;max-height:100%;width:336px;height:280px;pointer-events:none;image-rendering:pixelated;z-index:2147483647;background-image:url(&#39;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAWBAMAAACrl3iAAAAABlBMVEUAAAD+AciWmZzWAAAAAnRSTlMAApidrBQAAAB8SURBVBjTbZABDsAwCALxB/z/tYuK1DYzzRbTkyLAf0UX8pwOYN3ml6S75BIs2F3eNMU+6kyH/7i1sbXD3MyUExf5+IZIOS/tenoGPGcWLTkbXBCn9YaSRpjWCBUMyeX09ry3hJLZmZVy7/Ik6BeeBI+J0easyytB2W38A+WXBTztsfzYAAAAAElFTkSuQmCC&#39;);&quot;&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+{&quot;uid&quot;:2,&quot;hostPeerName&quot;:&quot;http://qiita.com&quot;,&quot;initialGeometry&quot;:&quot;{\&quot;windowCoords_t\&quot;:0,\&quot;windowCoords_r\&quot;:1130,\&quot;windowCoords_b\&quot;:878,\&quot;windowCoords_l\&quot;:0,\&quot;frameCoords_t\&quot;:12724.984375,\&quot;frameCoords_r\&quot;:417.5,\&quot;frameCoords_b\&quot;:13004.984375,\&quot;frameCoords_l\&quot;:81.5,\&quot;styleZIndex\&quot;:\&quot;auto\&quot;,\&quot;allowedExpansion_t\&quot;:0,\&quot;allowedExpansion_r\&quot;:0,\&quot;allowedExpansion_b\&quot;:0,\&quot;allowedExpansion_l\&quot;:0,\&quot;xInView\&quot;:0,\&quot;yInView\&quot;:0}&quot;,&quot;permissions&quot;:&quot;{\&quot;expandByOverlay\&quot;:true,\&quot;expandByPush\&quot;:false,\&quot;readCookie\&quot;:false,\&quot;writeCookie\&quot;:false}&quot;,&quot;metadata&quot;:&quot;{\&quot;shared\&quot;:{\&quot;sf_ver\&quot;:\&quot;1-0-9\&quot;,\&quot;ck_on\&quot;:1,\&quot;flash_ver\&quot;:\&quot;25.0.0\&quot;}}&quot;,&quot;reportCreativeGeometry&quot;:false,&quot;isDifferentSourceWindow&quot;:false}" scrolling="no" marginwidth="0" marginheight="0" width="336" height="280" data-is-safeframe="true" style="border: 0px; vertical-align: bottom;"></iframe></div></div></div><div style="display:inline-block;margin:10px;"><div id="div-gpt-ad-1489568123856-0" style="height:280px; width:336px;" data-google-query-id="CJPo2snZstQCFVeWvAodsuQFwQ"><div id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-right_0__container__" style="border: 0pt none; display: inline-block; width: 336px; height: 280px;"><iframe frameborder="0" src="./Python Django入門 (2) Mac編 - Qiita_files/container(2).html" id="google_ads_iframe_/383564218/qiita.com_items-show_under-article-right_0" title="3rd party ad content" name="1-0-9;6053;&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;&lt;body&gt;&lt;script src=&quot;https://tpc.googlesyndication.com/safeframe/1-0-9/js/ext.js&quot;&gt;&lt;/script&gt;&lt;script&gt;(function(){var g=this,l=function(a,b){var c=a.split(&quot;.&quot;),d=g;c[0]in d||!d.execScript||d.execScript(&quot;var &quot;+c[0]);for(var e;c.length&amp;&amp;(e=c.shift());)c.length||void 0===b?d=d[e]?d[e]:d[e]={}:d[e]=b},m=function(a,b,c){return a.call.apply(a.bind,arguments)},n=function(a,b,c){if(!a)throw Error();if(2&lt;arguments.length){var d=Array.prototype.slice.call(arguments,2);return function(){var c=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(c,d);return a.apply(b,c)}}return function(){return a.apply(b,arguments)}},p=function(a,b,c){p=Function.prototype.bind&amp;&amp;-1!=Function.prototype.bind.toString().indexOf(&quot;native code&quot;)?m:n;return p.apply(null,arguments)},q=Date.now||function(){return+new Date};var r=document,s=window;var t=function(a,b){for(var c in a)Object.prototype.hasOwnProperty.call(a,c)&amp;&amp;b.call(null,a[c],c,a)},w=function(a,b){a.google_image_requests||(a.google_image_requests=[]);var c=a.document.createElement(&quot;img&quot;);c.src=b;a.google_image_requests.push(c)};var x=function(a){return{visible:1,hidden:2,prerender:3,preview:4}[a.webkitVisibilityState||a.mozVisibilityState||a.visibilityState||&quot;&quot;]||0},y=function(a){var b;a.mozVisibilityState?b=&quot;mozvisibilitychange&quot;:a.webkitVisibilityState?b=&quot;webkitvisibilitychange&quot;:a.visibilityState&amp;&amp;(b=&quot;visibilitychange&quot;);return b};var C=function(){this.g=r;this.k=s;this.j=!1;this.i=null;this.h=[];this.o={};if(z)this.i=q();else if(3==x(this.g)){this.i=q();var a=p(this.q,this);A&amp;&amp;(a=A(&quot;di::vch&quot;,a));this.p=a;var b=this.g,c=y(this.g);b.addEventListener?b.addEventListener(c,a,!1):b.attachEvent&amp;&amp;b.attachEvent(&quot;on&quot;+c,a)}else B(this)},A;C.m=function(){return C.n?C.n:C.n=new C};var D=/^([^:]+:\/\/[^/]+)/m,G=/^\d*,(.+)$/m,z=!1,B=function(a){if(!a.j){a.j=!0;for(var b=0;b&lt;a.h.length;++b)a.l.apply(a,a.h[b]);a.h=[]}};C.prototype.s=function(a,b){var c=b.target.u();(c=G.exec(c))&amp;&amp;(this.o[a]=c[1])};C.prototype.l=function(a,b){this.k.rvdt=this.i?q()-this.i:0;var c;if(c=this.t)t:{try{var d=D.exec(this.k.location.href),e=D.exec(a);if(d&amp;&amp;e&amp;&amp;d[1]==e[1]&amp;&amp;b){var f=p(this.s,this,b);this.t(a,f);c=!0;break t}}catch(u){}c=!1}c||w(this.k,a)};C.prototype.q=function(){if(3!=x(this.g)){B(this);var a=this.g,b=y(this.g),c=this.p;a.removeEventListener?a.removeEventListener(b,c,!1):a.detachEvent&amp;&amp;a.detachEvent(&quot;on&quot;+b,c)}};var H=/^true$/.test(&quot;&quot;)?!0:!1;var I={},J=function(a){var b=a.toString();a.name&amp;&amp;-1==b.indexOf(a.name)&amp;&amp;(b+=&quot;: &quot;+a.name);a.message&amp;&amp;-1==b.indexOf(a.message)&amp;&amp;(b+=&quot;: &quot;+a.message);if(a.stack){a=a.stack;var c=b;try{-1==a.indexOf(c)&amp;&amp;(a=c+&quot;\n&quot;+a);for(var d;a!=d;)d=a,a=a.replace(/((https?:\/..*\/)[^\/:]*:\d+(?:.|\n)*)\2/,&quot;$1&quot;);b=a.replace(/\n */g,&quot;\n&quot;)}catch(e){b=c}}return b},M=function(a,b,c,d){var e=K,f,u=!0;try{f=b()}catch(h){try{var N=J(h);b=&quot;&quot;;h.fileName&amp;&amp;(b=h.fileName);var E=-1;h.lineNumber&amp;&amp;(E=h.lineNumber);var v;t:{try{v=c?c():&quot;&quot;;break t}catch(S){}v=&quot;&quot;}u=e(a,N,b,E,v)}catch(k){try{var O=J(k);a=&quot;&quot;;k.fileName&amp;&amp;(a=k.fileName);c=-1;k.lineNumber&amp;&amp;(c=k.lineNumber);K(&quot;pAR&quot;,O,a,c,void 0,void 0)}catch(F){L({context:&quot;mRE&quot;,msg:F.toString()+&quot;\n&quot;+(F.stack||&quot;&quot;)},void 0)}}if(!u)throw h;}finally{if(d)try{d()}catch(T){}}return f},K=function(a,b,c,d,e,f){a={context:a,msg:b.substring(0,512),eid:e&amp;&amp;e.substring(0,40),file:c,line:d.toString(),url:r.URL.substring(0,512),ref:r.referrer.substring(0,512)};P(a);L(a,f);return!0},L=function(a,b){try{if(Math.random()&lt;(b||.01)){var c=&quot;/pagead/gen_204?id=jserror&quot;+Q(a),d=&quot;http&quot;+(&quot;https:&quot;==s.location.protocol?&quot;s&quot;:&quot;&quot;)+&quot;://pagead2.googlesyndication.com&quot;+c,d=d.substring(0,2E3);w(s,d)}}catch(e){}},P=function(a){var b=a||{};t(I,function(a,d){b[d]=s[a]})},R=function(a,b,c,d,e){return function(){var f=arguments;return M(a,function(){return b.apply(c,f)},d,e)}},Q=function(a){var b=&quot;&quot;;t(a,function(a,d){if(0===a||a)b+=&quot;&amp;&quot;+d+&quot;=&quot;+(&quot;function&quot;==typeof encodeURIComponent?encodeURIComponent(a):escape(a))});return b};A=function(a,b,c,d){return R(a,b,void 0,c,d)};z=H;l(&quot;vu&quot;,R(&quot;vu&quot;,function(a,b){var c=a.replace(&quot;&amp;amp;&quot;,&quot;&amp;&quot;),d=/(google|doubleclick).*\/pagead\/adview/.test(c),e=C.m();if(d){d=&quot;&amp;vis=&quot;+x(e.g);b&amp;&amp;(d+=&quot;&amp;ve=1&quot;);var f=c.indexOf(&quot;&amp;adurl&quot;),c=-1==f?c+d:c.substring(0,f)+d+c.substring(f)}e.j?e.l(c,b):e.h.push([c,b])}));l(&quot;vv&quot;,R(&quot;vv&quot;,function(){z&amp;&amp;B(C.m())}));})();&lt;/script&gt;&lt;script&gt;vu(&quot;https://securepubads.g.doubleclick.net/pcs/view?xai\x3dAKAOjsv7SBvToTIMz6Mv9UWAUS6onL_XfbBqLsJoigrIFYa5QArQT8vuDKUhTXIT_5d2CeXVzpzdqCBaAlF8qaMx1nFSUMmroUgBTLY1mLMmB-37CGN7XelLpypKdHQc1naS0tqfhSdnTkmrpiK0Fq90HQ_J_gzsnaRy0Y50YVPFLNJCYSnMKQLRnqM9XKeNXKWykuDkkdge8iHoCAu7AmpnVMV414g19vd2-j4pbdbyXzOZ2UK2Tk-qb05UKCvoAIYox5NW_ZuUM1g-o_qkS8eOXfw\x26sig\x3dCg0ArKJSzDr1QnRjAHIvEAE\x26urlfix\x3d1\x26adurl\x3d&quot;)&lt;/script&gt;&lt;script type=&quot;text/javascript&quot; src=&quot;//static.criteo.net/js/ld/publishertag.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+Criteo.DisplayAd({
+    &quot;zoneid&quot;: 721435,
+    &quot;async&quot;: false});
+&lt;/script&gt;&lt;script src=&quot;https://tpc.googlesyndication.com/pagead/js/r20170605/r20110914/activeview/osd_listener.js&quot;&gt;&lt;/script&gt;&lt;script type=&quot;text/javascript&quot;&gt;osdlfm(-1,&#39;&#39;,&#39;BIZvzVpg7WZPlAdes8gWyyZeIDAAAAAAQATgByAEJwAIC4AIA4AQBoAYW0ggFCIAhEAE&#39;,&#39;&#39;,1264841035,true,&#39;la\x3d0\x26alp\x3dxai\x26alh\x3d876996320\x26&#39;,3,&#39;CAASEuRooYD7kovY2evUhUdb9AWPNw&#39;,&#39;//pagead2.googlesyndication.com/activeview?avi\x3dBIZvzVpg7WZPlAdes8gWyyZeIDAAAAAAQATgByAEJwAIC4AIA4AQBoAYW0ggFCIAhEAE\x26cid\x3dCAASEuRooYD7kovY2evUhUdb9AWPNw&#39;);&lt;/script&gt;&lt;script&gt;if (window.top &amp;&amp; window.top.postMessage) {window.top.postMessage(&#39;{&quot;googMsgType&quot;:&quot;adpnt&quot;}&#39;,&#39;*&#39;);}&lt;/script&gt;&lt;div style=&quot;position:absolute;top:0;left:0;max-width:100%;max-height:100%;width:336px;height:280px;pointer-events:none;image-rendering:pixelated;z-index:2147483647;background-image:url(&#39;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAWBAMAAACrl3iAAAAABlBMVEUAAAD+AciWmZzWAAAAAnRSTlMAApidrBQAAACBSURBVBjTbZEBDoAwCAPLD/r/1ypQoCaSbEpWyo0B/xEd7w/CMrBOCZKWRSpK2AXKpMsd+tLVWqdeb5q3esc4i+SiWYwbs6kIMk/XdcZWLcUaN2eLragnMaZZgvhwFD1abdyhHgG7JaYFaVMQfEh8EywoavB2uTGHe9N4jOSe6V0PdhQFz1CacIQAAAAASUVORK5CYII=&#39;);&quot;&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+{&quot;uid&quot;:3,&quot;hostPeerName&quot;:&quot;http://qiita.com&quot;,&quot;initialGeometry&quot;:&quot;{\&quot;windowCoords_t\&quot;:0,\&quot;windowCoords_r\&quot;:1130,\&quot;windowCoords_b\&quot;:878,\&quot;windowCoords_l\&quot;:0,\&quot;frameCoords_t\&quot;:12724.984375,\&quot;frameCoords_r\&quot;:773.5,\&quot;frameCoords_b\&quot;:13004.984375,\&quot;frameCoords_l\&quot;:437.5,\&quot;styleZIndex\&quot;:\&quot;auto\&quot;,\&quot;allowedExpansion_t\&quot;:0,\&quot;allowedExpansion_r\&quot;:0,\&quot;allowedExpansion_b\&quot;:0,\&quot;allowedExpansion_l\&quot;:0,\&quot;xInView\&quot;:0,\&quot;yInView\&quot;:0}&quot;,&quot;permissions&quot;:&quot;{\&quot;expandByOverlay\&quot;:true,\&quot;expandByPush\&quot;:false,\&quot;readCookie\&quot;:false,\&quot;writeCookie\&quot;:false}&quot;,&quot;metadata&quot;:&quot;{\&quot;shared\&quot;:{\&quot;sf_ver\&quot;:\&quot;1-0-9\&quot;,\&quot;ck_on\&quot;:1,\&quot;flash_ver\&quot;:\&quot;25.0.0\&quot;}}&quot;,&quot;reportCreativeGeometry&quot;:false,&quot;isDifferentSourceWindow&quot;:false}" scrolling="no" marginwidth="0" marginheight="0" width="336" height="280" data-is-safeframe="true" style="border: 0px; vertical-align: bottom;"></iframe></div></div></div></div><div class="ArticleFooter__menu"><div class="s-flex-align-center"><div class="js-likebutton" data-props="{&quot;like_status&quot;:false,&quot;like_count&quot;:278,&quot;show_count&quot;:true,&quot;uuid&quot;:&quot;e824cfcf089e75d43551&quot;,&quot;likable_type&quot;:&quot;Article&quot;,&quot;position&quot;:&quot;article-footer&quot;}"><div data-reactroot="" class="LikeButton"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">278</div></div></div><div class="ArticleFooter__userList"><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="akmiyoshi"><a itemprop="url" href="http://qiita.com/akmiyoshi"><img alt="akmiyoshi" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1473685997"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="sys_cat"><a itemprop="url" href="http://qiita.com/sys_cat"><img alt="sys_cat" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1473683977"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="HeartOfGlass"><a itemprop="url" href="http://qiita.com/HeartOfGlass"><img alt="HeartOfGlass" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/d869df8a37c9d03e098d54cbeeafc2a9"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="snoopython"><a itemprop="url" href="http://qiita.com/snoopython"><img alt="snoopython" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1473898779"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="kasumani"><a itemprop="url" href="http://qiita.com/kasumani"><img alt="kasumani" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1473683087"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="task_woof"><a itemprop="url" href="http://qiita.com/task_woof"><img alt="task_woof" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1473685166"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="opponitur"><a itemprop="url" href="http://qiita.com/opponitur"><img alt="opponitur" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1473690970"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="yukio"><a itemprop="url" href="http://qiita.com/yukio"><img alt="yukio" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1473691098"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="__you__"><a itemprop="url" href="http://qiita.com/__you__"><img alt="__you__" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/1473681854"></a></div></div><div class="ArticleFooter__user"><div class="js-hovercard" data-hovercard-target-name="iskw"><a itemprop="url" href="http://qiita.com/iskw"><img alt="iskw" class="thumb thumb--xs" src="./Python Django入門 (2) Mac編 - Qiita_files/7a4cde7e4eaa1d48fd39cc0ae3538d10"></a></div></div><div class="ArticleFooter__user"><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551/likers"><span class="fa fa-ellipsis-h"></span></a></div></div></div><div class="u-flex u-align-center"><div class="ArticleFooter__stock"><div class="js-stockbutton" data-position="footer_menu" data-props="{&quot;stock_status&quot;:false}"><div data-reactroot="" class="StockButton"><button><div class="StockButton__stock"><div class="fa-stack"><span class="fa fa-folder-open fa-stack-1x unstock"></span></div><!-- react-text: 6 -->&nbsp;<!-- /react-text --><span class="StockButton__label">ストック</span></div></button></div></div></div><div class="ArticleFooter__editRequest"><a class="u-link-no-underline" data-toggle="tooltip" title="" href="http://qiita.com/drafts/e824cfcf089e75d43551/edit" data-original-title="投稿者に記事をより良くするための提案ができます 💪"><span class="fa fa-send-o fa-lg"></span> <span>編集リクエスト</span></a></div><div class="dropdown ArticleFooter__dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#"><span class="fa fa-ellipsis-h"></span></a><ul class="dropdown-menu dropdown-menu-right"><li><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551.md"><span class="fa fa-fw fa-file-text-o"></span> Markdownで本文を見る</a></li><li><a data-target=".js-report-form" data-toggle="modal" href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#"><i class="fa fa-fw fa-flag"></i> 問題がある投稿を報告する</a></li></ul></div></div></div><ul class="references js-referencesView"><li class="references_header"><i class="fa fa-fw fa-link"></i> この記事は以下の記事からリンクされています</li><li class="references_reference js-reference"><a href="http://qiita.com/kaki_k/items/511611cadac1d0c69c54#_reference-57f99f75de3592591f68"><img alt="" width="18" height="18" src="./Python Django入門 (2) Mac編 - Qiita_files/1473691243">Python Django入門 (1)</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2014-07-26T15:21:04+00:00">3年弱前</time></li><li class="references_reference js-reference"><a href="http://qiita.com/Novless/items/1f2aeb508f9b95b9e2c0#_reference-cbc81340206a4e669e0b"><img alt="" width="18" height="18" src="./Python Django入門 (2) Mac編 - Qiita_files/1473685395">Macでpyenv-virtualenvを使用したDjango開発環境の構築</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2015-06-18T04:18:36+00:00">2年弱前</time></li><li class="references_reference js-reference"><a href="http://qiita.com/NariseT/items/ba723e86524da9a28b6e#_reference-5db68c33d2d76282504d"><img alt="" width="18" height="18" src="./Python Django入門 (2) Mac編 - Qiita_files/1488108927">Mac Book Air (MBA) の初期設定メモ書き</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2015-10-17T08:29:35+00:00">1年以上前</time></li><li class="references_reference js-reference"><a href="http://qiita.com/gelehrte/items/857536509471b6b2d4a4#_reference-3438367acc118dcc7d23"><img alt="" width="18" height="18" src="./Python Django入門 (2) Mac編 - Qiita_files/1737323">Mac + Windows + VisualStudio CodeでPythonの開発環境を整える（Mac版）</a><span>からリンク</span><time class="references_datetime js-dateTimeView" datetime="2017-01-09T05:57:54+00:00">5ヶ月前</time></li></ul><div class="itemsShowBody_articleColumnFooter"><div class="socialButtons"><div class="socialButtons_twitter"><iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./Python Django入門 (2) Mac編 - Qiita_files/tweet_button.7bf2b0e802ada47dae9548b7a1739fed.en(1).html" style="position: static; visibility: visible; width: 60px; height: 20px;" data-url="http://qiita.com/kaki_k/items/e824cfcf089e75d43551"></iframe></div><div class="socialButtons_hatebu"><iframe class="hatena-bookmark-button-frame" title="はてブに追加" frameborder="0" scrolling="no" width="47" height="20" src="javascript:false" style="width: 47px; height: 20px;" src="./Python Django入門 (2) Mac編 - Qiita_files/saved_resource(1).html"></iframe><script async="async" charset="utf-8" src="./Python Django入門 (2) Mac編 - Qiita_files/bookmark_button.js" type="text/javascript"></script></div><div class="socialButtons_googlePlus"><div id="___plusone_1" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I1_1497077844445" name="I1_1497077844445" src="./Python Django入門 (2) Mac編 - Qiita_files/fastbutton(1).html" data-gapiattached="true" title="+1"></iframe></div></div><div class="socialButtons_facebook"><div class="fb-like fb_iframe_widget" data-action="like" data-href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551" data-layout="button_count" data-share="false" data-show-faces="false" fb-xfbml-state="parsed" fb-iframe-plugin-query="action=like&amp;app_id=222621691108322&amp;container_width=0&amp;href=http%3A%2F%2Fqiita.com%2Fkaki_k%2Fitems%2Fe824cfcf089e75d43551&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=false&amp;show_faces=false"><span style="vertical-align: top; width: 0px; height: 0px; overflow: hidden;"><iframe name="f8b6fa129ad4c8" width="1000px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./Python Django入門 (2) Mac編 - Qiita_files/like(1).html" style="border: none; visibility: hidden;"></iframe></span></div></div><div class="socialButtons_pocket"><div class="pocket-btn"><iframe width="135" height="22" id="pocket-button-1" frameborder="0" allowtransparency="true" scrolling="NO" src="./Python Django入門 (2) Mac編 - Qiita_files/button(1).html"></iframe></div></div></div></div><div class="itemsShowComment_wrapper" id="comments"><script type="application/json" class="js-react-on-rails-component">{"component_name":"PublicCommentListContainer","props":{"currentUser":null,"initialComments":[{"banned":false,"body":"\u003cp\u003e質問なんですが、\u003cbr\u003e\n「noreloadを付けると、コードを直してリロードが聞かなくなりますが、こうした方がいいです。」\u003cbr\u003e\nこれはどうしてなんでしょうか。\u003cbr\u003e\nnoreloadつけない方がサーバーを起動しなおす必要がなく便利そうに感じたのですが。。。\u003c/p\u003e\n","created_at":"2015-01-16T17:38:01+09:00","expanded_references":"","id":147333,"is_team":false,"item_id":99729,"item_type":"PublicDomainArticle","item_uuid":"e824cfcf089e75d43551","likable":false,"liked":false,"public_likes_count":0,"raw_body":"質問なんですが、\n「noreloadを付けると、コードを直してリロードが聞かなくなりますが、こうした方がいいです。」\nこれはどうしてなんでしょうか。\nnoreloadつけない方がサーバーを起動しなおす必要がなく便利そうに感じたのですが。。。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-f3cb848fe06b2ac7f0ef","user":{"contribution":3,"created_at":"2012-12-12T08:30:20+09:00","id":12936,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/12936/profile-images/1473682603","suspended":false,"url_name":"koty"},"uuid":"f3cb848fe06b2ac7f0ef","via_email":false},{"banned":false,"body":"\u003cp\u003e最近のAptana Studioではどうかわかりませんが、デバッグのブレークポイントで止まらないことがあったからです。\u003c/p\u003e\n\n\u003cp\u003erunserver             …  デバッグで止まらない\u003cbr\u003e\nrunserver --noreload  …  デバッグで止まる\u003c/p\u003e\n","created_at":"2015-01-16T18:10:36+09:00","expanded_references":"","id":147386,"is_team":false,"item_id":99729,"item_type":"PublicDomainArticle","item_uuid":"e824cfcf089e75d43551","likable":false,"liked":false,"public_likes_count":0,"raw_body":"最近のAptana Studioではどうかわかりませんが、デバッグのブレークポイントで止まらないことがあったからです。\n\nrunserver             …  デバッグで止まらない\nrunserver --noreload  …  デバッグで止まる\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-ca487aa632aafe11d3b4","user":{"contribution":2097,"created_at":"2014-07-05T22:42:17+09:00","id":48136,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/48136/profile-images/1473691243","suspended":false,"url_name":"kaki_k"},"uuid":"ca487aa632aafe11d3b4","via_email":false},{"banned":false,"body":"\u003cp\u003e早々の回答ありがとうございます。自分の環境でどうなるかやってみます。\u003c/p\u003e\n","created_at":"2015-01-16T19:39:19+09:00","expanded_references":"","id":147493,"is_team":false,"item_id":99729,"item_type":"PublicDomainArticle","item_uuid":"e824cfcf089e75d43551","likable":false,"liked":false,"public_likes_count":0,"raw_body":"早々の回答ありがとうございます。自分の環境でどうなるかやってみます。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-176b1f6a67d37e6378d6","user":{"contribution":3,"created_at":"2012-12-12T08:30:20+09:00","id":12936,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/12936/profile-images/1473682603","suspended":false,"url_name":"koty"},"uuid":"176b1f6a67d37e6378d6","via_email":false},{"banned":false,"body":"\u003cp\u003eintellijで --noreload なしでやってますが今のところ問題なしです。eclipseは分かりません。。。\u003c/p\u003e\n","created_at":"2015-02-10T15:04:00+09:00","expanded_references":"","id":166370,"is_team":false,"item_id":99729,"item_type":"PublicDomainArticle","item_uuid":"e824cfcf089e75d43551","likable":false,"liked":false,"public_likes_count":0,"raw_body":"intellijで --noreload なしでやってますが今のところ問題なしです。eclipseは分かりません。。。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-acd5e94c49412b245c39","user":{"contribution":3,"created_at":"2012-12-12T08:30:20+09:00","id":12936,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/12936/profile-images/1473682603","suspended":false,"url_name":"koty"},"uuid":"acd5e94c49412b245c39","via_email":false},{"banned":false,"body":"\u003cp\u003e初歩的な質問かもしれませんが、失礼致します。\u003c/p\u003e\n\n\u003cblockquote\u003e\n\u003cp\u003e$ mkvirtualenv --no-site-package --python /usr/local/bin/python3 env1\u003c/p\u003e\n\u003c/blockquote\u003e\n\n\u003cp\u003eのところで躓いてしまっているのですが, \u003ccode\u003emkvirtualenv\u003c/code\u003e コマンドが見つからないとなってしまいますが、なにが原因などは思い当たりますでしょうか??\u003c/p\u003e\n","created_at":"2016-02-06T19:35:28+09:00","expanded_references":"","id":454034,"is_team":false,"item_id":99729,"item_type":"PublicDomainArticle","item_uuid":"e824cfcf089e75d43551","likable":false,"liked":false,"public_likes_count":1,"raw_body":"初歩的な質問かもしれませんが、失礼致します。\n\u003e $ mkvirtualenv --no-site-package --python /usr/local/bin/python3 env1\n\nのところで躓いてしまっているのですが, `mkvirtualenv` コマンドが見つからないとなってしまいますが、なにが原因などは思い当たりますでしょうか??\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-a177ae85a88311759643","user":{"contribution":0,"created_at":"2015-04-23T19:36:43+09:00","id":76604,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/76604/profile-images/1473700546","suspended":false,"url_name":"chicn"},"uuid":"a177ae85a88311759643","via_email":false},{"banned":false,"body":"\u003cp\u003emkvirtualenvがPATHに入っていないように見受けられるので、\u003c/p\u003e\n\n\u003cp\u003e\u003ca href=\"http://qiita.com/kaki_k/items/e824cfcf089e75d43551#virtualenv-virtualenvwrapper%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86\" class=\"autolink\"\u003ehttp://qiita.com/kaki_k/items/e824cfcf089e75d43551#virtualenv-virtualenvwrapper%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86\u003c/a\u003e の、\u003c/p\u003e\n\n\u003cp\u003e「２． テキストエディタなどで、.bashrc ファイルを作成します。」\u003c/p\u003e\n\n\u003cp\u003eの部分が正しくできていないんじゃないでしょうか。\u003c/p\u003e\n","created_at":"2016-02-08T13:45:44+09:00","expanded_references":"","id":454707,"is_team":false,"item_id":99729,"item_type":"PublicDomainArticle","item_uuid":"e824cfcf089e75d43551","likable":false,"liked":false,"public_likes_count":1,"raw_body":"mkvirtualenvがPATHに入っていないように見受けられるので、\n\nhttp://qiita.com/kaki_k/items/e824cfcf089e75d43551#virtualenv-virtualenvwrapper%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86 の、\n\n「２． テキストエディタなどで、.bashrc ファイルを作成します。」\n\nの部分が正しくできていないんじゃないでしょうか。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-551377dcd67a790ea7a9","user":{"contribution":3,"created_at":"2012-12-12T08:30:20+09:00","id":12936,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/12936/profile-images/1473682603","suspended":false,"url_name":"koty"},"uuid":"551377dcd67a790ea7a9","via_email":false},{"banned":false,"body":"\u003cp\u003e\u003ca href=\"/koty\" class=\"user-mention js-hovercard\" title=\"koty\" data-hovercard-target-type=\"user\" data-hovercard-target-name=\"koty\"\u003e@koty\u003c/a\u003e さん\u003cbr\u003e\nドットファイルがごちゃごちゃしていたので、整理したらしっかりパスが通りました！\u003cbr\u003e\nありがとうございました！\u003c/p\u003e\n","created_at":"2016-02-13T17:20:23+09:00","expanded_references":"","id":459700,"is_team":false,"item_id":99729,"item_type":"PublicDomainArticle","item_uuid":"e824cfcf089e75d43551","likable":false,"liked":false,"public_likes_count":1,"raw_body":"@koty さん\nドットファイルがごちゃごちゃしていたので、整理したらしっかりパスが通りました！\nありがとうございました！\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-38a78719affde7dea42f","user":{"contribution":0,"created_at":"2015-04-23T19:36:43+09:00","id":76604,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/76604/profile-images/1473700546","suspended":false,"url_name":"chicn"},"uuid":"38a78719affde7dea42f","via_email":false},{"banned":false,"body":"\u003cp\u003e初歩的な質問ですが失礼いたします。\u003c/p\u003e\n\n\u003cblockquote\u003e\n\u003cp\u003e$ source .bash_profile\u003c/p\u003e\n\u003c/blockquote\u003e\n\n\u003cp\u003eを実行すると、\u003cbr\u003e\n\u003ccode\u003e-bash: /usr/local/bin/virtualenvwrapper.sh: No such file or directory\u003c/code\u003e\u003cbr\u003e\nとなってしまいます。\u003c/p\u003e\n\n\u003cp\u003e何度やり直しても解決できず、何卒ご教授願いします。。\u003c/p\u003e\n","created_at":"2016-12-28T00:49:29+09:00","expanded_references":"","id":708129,"is_team":false,"item_id":99729,"item_type":"PublicDomainArticle","item_uuid":"e824cfcf089e75d43551","likable":false,"liked":false,"public_likes_count":0,"raw_body":"初歩的な質問ですが失礼いたします。\n\u003e$ source .bash_profile\n\nを実行すると、\n```-bash: /usr/local/bin/virtualenvwrapper.sh: No such file or directory```\nとなってしまいます。\n\n何度やり直しても解決できず、何卒ご教授願いします。。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-08f047a7987b7de5a57e","user":{"contribution":0,"created_at":"2016-10-28T16:34:27+09:00","id":146625,"is_admin":false,"profile_image_url":"https://pbs.twimg.com/profile_images/736130361910951936/Fv0O1ZIi_normal.jpg","suspended":false,"url_name":"zaq1tomo"},"uuid":"08f047a7987b7de5a57e","via_email":false},{"banned":false,"body":"\u003cp\u003e環境はmacですよね？\u003c/p\u003e\n\n\u003cp\u003e/usr/local/bin/virtualenvwrapper.sh が存在します？ no such file　と言われているからおそらく無いのでしょうね。\u003c/p\u003e\n\n\u003cp\u003e以下の項で説明されている、\u003cbr\u003e\n\u003ca href=\"http://qiita.com/kaki_k/items/e824cfcf089e75d43551#python2%E5%81%B4%E3%81%A7-virtualenvvirtualenvwrapper-%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B\" class=\"autolink\"\u003ehttp://qiita.com/kaki_k/items/e824cfcf089e75d43551#python2%E5%81%B4%E3%81%A7-virtualenvvirtualenvwrapper-%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B\u003c/a\u003e\u003c/p\u003e\n\n\u003cp\u003e\u003ccode\u003e$ sudo pip install virtualenv virtualenvwrapper --ignore-installed six\u003c/code\u003e\u003c/p\u003e\n\n\u003cp\u003eというコマンドは実行したでしょうか。このコマンドで当該ファイルもインストールされると思うのですが。\u003c/p\u003e\n","created_at":"2016-12-28T09:17:28+09:00","expanded_references":"","id":708195,"is_team":false,"item_id":99729,"item_type":"PublicDomainArticle","item_uuid":"e824cfcf089e75d43551","likable":false,"liked":false,"public_likes_count":1,"raw_body":"環境はmacですよね？\n\n/usr/local/bin/virtualenvwrapper.sh が存在します？ no such file　と言われているからおそらく無いのでしょうね。\n\n以下の項で説明されている、\nhttp://qiita.com/kaki_k/items/e824cfcf089e75d43551#python2%E5%81%B4%E3%81%A7-virtualenvvirtualenvwrapper-%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B\n\n\n`$ sudo pip install virtualenv virtualenvwrapper --ignore-installed six`\n\nというコマンドは実行したでしょうか。このコマンドで当該ファイルもインストールされると思うのですが。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-cc5ef1e9412cfd65c1d4","user":{"contribution":3,"created_at":"2012-12-12T08:30:20+09:00","id":12936,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/12936/profile-images/1473682603","suspended":false,"url_name":"koty"},"uuid":"cc5ef1e9412cfd65c1d4","via_email":false},{"banned":false,"body":"\u003cp\u003e素早ご返答ありがとうございます！\u003cbr\u003e\nはい。そのコマンドを実行して\u003c/p\u003e\n\n\u003cdiv class=\"code-frame\" data-lang=\"text\"\u003e\u003cdiv class=\"highlight\"\u003e\u003cpre\u003e\nSuccessfully installed pbr-1.10.0 six-1.10.0 stevedore-1.19.1 virtualenv-15.1.0 virtualenv-clone-0.2.6 virtualenvwrapper-4.7.2\n\u003c/pre\u003e\u003c/div\u003e\u003c/div\u003e\n\n\u003cp\u003eと返ってきたのでインストールできているかと思います。\u003c/p\u003e\n","created_at":"2016-12-28T11:04:50+09:00","expanded_references":"","id":708321,"is_team":false,"item_id":99729,"item_type":"PublicDomainArticle","item_uuid":"e824cfcf089e75d43551","likable":false,"liked":false,"public_likes_count":0,"raw_body":"素早ご返答ありがとうございます！\nはい。そのコマンドを実行して\n\n```\nSuccessfully installed pbr-1.10.0 six-1.10.0 stevedore-1.19.1 virtualenv-15.1.0 virtualenv-clone-0.2.6 virtualenvwrapper-4.7.2\n```\nと返ってきたのでインストールできているかと思います。\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-f086bd9b5620ec179c1f","user":{"contribution":0,"created_at":"2016-10-28T16:34:27+09:00","id":146625,"is_admin":false,"profile_image_url":"https://pbs.twimg.com/profile_images/736130361910951936/Fv0O1ZIi_normal.jpg","suspended":false,"url_name":"zaq1tomo"},"uuid":"f086bd9b5620ec179c1f","via_email":false},{"banned":false,"body":"\u003cp\u003e\u003ca href=\"/zaq1tomo\" class=\"user-mention js-hovercard\" title=\"zaq1tomo\" data-hovercard-target-type=\"user\" data-hovercard-target-name=\"zaq1tomo\"\u003e@zaq1tomo\u003c/a\u003e うーん。。エラーメッセージ通り、 \u003ccode\u003e/usr/local/bin/virtualenvwrapper.sh\u003c/code\u003e は存在しないんですよね。\u003c/p\u003e\n\n\u003cp\u003efind / -name virtualenvwrapper.sh で当該シェルスクリプトを検索できますが、見つかりますか？\u003c/p\u003e\n","created_at":"2017-01-04T09:58:12+09:00","expanded_references":"","id":709433,"is_team":false,"item_id":99729,"item_type":"PublicDomainArticle","item_uuid":"e824cfcf089e75d43551","likable":false,"liked":false,"public_likes_count":0,"raw_body":"@zaq1tomo うーん。。エラーメッセージ通り、 `/usr/local/bin/virtualenvwrapper.sh` は存在しないんですよね。\n\nfind / -name virtualenvwrapper.sh で当該シェルスクリプトを検索できますが、見つかりますか？\n","reaction_types":[{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f44d.png","name":"+1"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f64f.png","name":"pray"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f389.png","name":"tada"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f647.png","name":"bow"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f631.png","name":"scream"},{"image_url":"https://cdn.qiita.com/emoji/twemoji/unicode/1f440.png","name":"eyes"}],"reactions":[],"team":null,"team_membership":null,"updatable":false,"url":"http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-ff6a754c2fe419889b7e","user":{"contribution":3,"created_at":"2012-12-12T08:30:20+09:00","id":12936,"is_admin":false,"profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/12936/profile-images/1473682603","suspended":false,"url_name":"koty"},"uuid":"ff6a754c2fe419889b7e","via_email":false}],"monthly_public_image_uploadable_size_limit":null,"total_uploaded_public_image_size_in_current_month":null,"item":{"id":99729,"uuid":"e824cfcf089e75d43551","suspended":false,"secret":false},"owner":{"url_name":"kaki_k"},"is_team":false,"is_project":false,"logged_in":false,"polling":false,"mention_candidates":[{"id":48136,"url_name":"kaki_k","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/48136/profile-images/1473691243"},{"id":12936,"url_name":"koty","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/12936/profile-images/1473682603"},{"id":76604,"url_name":"chicn","profile_image_url":"https://qiita-image-store.s3.amazonaws.com/0/76604/profile-images/1473700546"},{"id":146625,"url_name":"zaq1tomo","profile_image_url":"https://pbs.twimg.com/profile_images/736130361910951936/Fv0O1ZIi_normal.jpg"}]},"trace":false,"dom_id":"PublicCommentListContainer-react-component-ac14f241-9b2e-4833-8659-1f55a5367008"}</script>
+    <div id="PublicCommentListContainer-react-component-ac14f241-9b2e-4833-8659-1f55a5367008"><div data-reactroot="" class="commentList"><noscript></noscript><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/koty"><span title="koty" itemprop="url" href="/koty"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (2) Mac編 - Qiita_files/1473682603"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/koty">koty</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">3</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-f3cb848fe06b2ac7f0ef"><time datetime="2015-01-16T17:38:01+09:00" itemprop="commentTime">2015-01-16 17:38</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>質問なんですが、<br>
+「noreloadを付けると、コードを直してリロードが聞かなくなりますが、こうした方がいいです。」<br>
+これはどうしてなんでしょうか。<br>
+noreloadつけない方がサーバーを起動しなおす必要がなく便利そうに感じたのですが。。。</p>
+</div><!-- react-text: 26 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/kaki_k"><span title="kaki_k" itemprop="url" href="/kaki_k"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (2) Mac編 - Qiita_files/1473691243"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/kaki_k">kaki_k</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">2097</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-ca487aa632aafe11d3b4"><time datetime="2015-01-16T18:10:36+09:00" itemprop="commentTime">2015-01-16 18:10</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>最近のAptana Studioではどうかわかりませんが、デバッグのブレークポイントで止まらないことがあったからです。</p>
+
+<p>runserver             …  デバッグで止まらない<br>
+runserver --noreload  …  デバッグで止まる</p>
+</div><!-- react-text: 50 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/koty"><span title="koty" itemprop="url" href="/koty"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (2) Mac編 - Qiita_files/1473682603"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/koty">koty</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">3</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-176b1f6a67d37e6378d6"><time datetime="2015-01-16T19:39:19+09:00" itemprop="commentTime">2015-01-16 19:39</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>早々の回答ありがとうございます。自分の環境でどうなるかやってみます。</p>
+</div><!-- react-text: 74 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/koty"><span title="koty" itemprop="url" href="/koty"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (2) Mac編 - Qiita_files/1473682603"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/koty">koty</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">3</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-acd5e94c49412b245c39"><time datetime="2015-02-10T15:04:00+09:00" itemprop="commentTime">2015-02-10 15:04</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>intellijで --noreload なしでやってますが今のところ問題なしです。eclipseは分かりません。。。</p>
+</div><!-- react-text: 98 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/chicn"><span title="chicn" itemprop="url" href="/chicn"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (2) Mac編 - Qiita_files/1473700546"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/chicn">chicn</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">0</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-a177ae85a88311759643"><time datetime="2016-02-06T19:35:28+09:00" itemprop="commentTime">2016-02-06 19:35</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">1</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>初歩的な質問かもしれませんが、失礼致します。</p>
+
+<blockquote>
+<p>$ mkvirtualenv --no-site-package --python /usr/local/bin/python3 env1</p>
+</blockquote>
+
+<p>のところで躓いてしまっているのですが, <code>mkvirtualenv</code> コマンドが見つからないとなってしまいますが、なにが原因などは思い当たりますでしょうか??</p>
+</div><!-- react-text: 122 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/koty"><span title="koty" itemprop="url" href="/koty"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (2) Mac編 - Qiita_files/1473682603"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/koty">koty</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">3</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-551377dcd67a790ea7a9"><time datetime="2016-02-08T13:45:44+09:00" itemprop="commentTime">2016-02-08 13:45</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">1</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>mkvirtualenvがPATHに入っていないように見受けられるので、</p>
+
+<p><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#virtualenv-virtualenvwrapper%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86" class="autolink">http://qiita.com/kaki_k/items/e824cfcf089e75d43551#virtualenv-virtualenvwrapper%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86</a> の、</p>
+
+<p>「２． テキストエディタなどで、.bashrc ファイルを作成します。」</p>
+
+<p>の部分が正しくできていないんじゃないでしょうか。</p>
+</div><!-- react-text: 146 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/chicn"><span title="chicn" itemprop="url" href="/chicn"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (2) Mac編 - Qiita_files/1473700546"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/chicn">chicn</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">0</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-38a78719affde7dea42f"><time datetime="2016-02-13T17:20:23+09:00" itemprop="commentTime">2016-02-13 17:20</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">1</div></div></div></div><div class="comment_content"><div class="markdownContent"><p><a href="http://qiita.com/koty" class="user-mention js-hovercard" title="koty" data-hovercard-target-type="user" data-hovercard-target-name="koty">@koty</a> さん<br>
+ドットファイルがごちゃごちゃしていたので、整理したらしっかりパスが通りました！<br>
+ありがとうございました！</p>
+</div><!-- react-text: 170 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/zaq1tomo"><span title="zaq1tomo" itemprop="url" href="/zaq1tomo"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (2) Mac編 - Qiita_files/Fv0O1ZIi_normal.jpg"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/zaq1tomo">zaq1tomo</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">0</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-08f047a7987b7de5a57e"><time datetime="2016-12-28T00:49:29+09:00" itemprop="commentTime">2016-12-28 00:49</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>初歩的な質問ですが失礼いたします。</p>
+
+<blockquote>
+<p>$ source .bash_profile</p>
+</blockquote>
+
+<p>を実行すると、<br>
+<code>-bash: /usr/local/bin/virtualenvwrapper.sh: No such file or directory</code><br>
+となってしまいます。</p>
+
+<p>何度やり直しても解決できず、何卒ご教授願いします。。</p>
+</div><!-- react-text: 194 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/koty"><span title="koty" itemprop="url" href="/koty"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (2) Mac編 - Qiita_files/1473682603"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/koty">koty</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">3</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-cc5ef1e9412cfd65c1d4"><time datetime="2016-12-28T09:17:28+09:00" itemprop="commentTime">2016-12-28 09:17</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">1</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>環境はmacですよね？</p>
+
+<p>/usr/local/bin/virtualenvwrapper.sh が存在します？ no such file　と言われているからおそらく無いのでしょうね。</p>
+
+<p>以下の項で説明されている、<br>
+<a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#python2%E5%81%B4%E3%81%A7-virtualenvvirtualenvwrapper-%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B" class="autolink">http://qiita.com/kaki_k/items/e824cfcf089e75d43551#python2%E5%81%B4%E3%81%A7-virtualenvvirtualenvwrapper-%E3%82%92%E5%85%A5%E3%82%8C%E3%82%8B</a></p>
+
+<p><code>$ sudo pip install virtualenv virtualenvwrapper --ignore-installed six</code></p>
+
+<p>というコマンドは実行したでしょうか。このコマンドで当該ファイルもインストールされると思うのですが。</p>
+</div><!-- react-text: 218 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/zaq1tomo"><span title="zaq1tomo" itemprop="url" href="/zaq1tomo"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (2) Mac編 - Qiita_files/Fv0O1ZIi_normal.jpg"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/zaq1tomo">zaq1tomo</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">0</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-f086bd9b5620ec179c1f"><time datetime="2016-12-28T11:04:50+09:00" itemprop="commentTime">2016-12-28 11:04</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p>素早ご返答ありがとうございます！<br>
+はい。そのコマンドを実行して</p>
+
+<div class="code-frame" data-lang="text"><div class="highlight"><pre>Successfully installed pbr-1.10.0 six-1.10.0 stevedore-1.19.1 virtualenv-15.1.0 virtualenv-clone-0.2.6 virtualenvwrapper-4.7.2
+</pre></div></div>
+
+<p>と返ってきたのでインストールできているかと思います。</p>
+</div><!-- react-text: 242 --><!-- /react-text --></div></div><div class="comment"><div class="commentHeader"><div class="commentHeader_creator"><a href="http://qiita.com/koty"><span title="koty" itemprop="url" href="/koty"><img alt="" class="commentHeader_creatorIcon" itemprop="image" width="36" height="36" src="./Python Django入門 (2) Mac編 - Qiita_files/1473682603"></span></a><div class="commentHeader_creatorInfo"><div class="commentHeader_publicUrlName"><a href="http://qiita.com/koty">koty</a></div><div class="commentHeader_contribution"><span class="commentHeader_contribution_count">3</span><span class="commentHeader_contribution_unit">contribution</span></div></div></div><div class="commentHeader_metadata pull-right"><div class="text-right"><a href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551#comment-ff6a754c2fe419889b7e"><time datetime="2017-01-04T09:58:12+09:00" itemprop="commentTime">2017-01-04 09:58</time></a></div><div class="LikeButton LikeButton--small"><button class="p-button"><span class="fa fa-fw fa-thumbs-up"></span><span>いいね</span></button><div class="LikeButton__balloon">0</div></div></div></div><div class="comment_content"><div class="markdownContent"><p><a href="http://qiita.com/zaq1tomo" class="user-mention js-hovercard" title="zaq1tomo" data-hovercard-target-type="user" data-hovercard-target-name="zaq1tomo">@zaq1tomo</a> うーん。。エラーメッセージ通り、 <code>/usr/local/bin/virtualenvwrapper.sh</code> は存在しないんですよね。</p>
+
+<p>find / -name virtualenvwrapper.sh で当該シェルスクリプトを検索できますが、見つかりますか？</p>
+</div><!-- react-text: 266 --><!-- /react-text --></div></div></div></div>
+    
+</div></div></div></div></article><div class="js-report-form modal fade reportForm"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button name="button" type="submit" class="close" data-dismiss="modal">×</button><h4 class="modal-title">問題がある投稿を報告する</h4></div><div class="modal-body"><form action="http://qiita.com/reports" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="EBpoAMxWHpMbA57wpUGIKicqYSV+LRLNNQi6oOWNdGnBCZY9SyClpmrejparyyyyQkc2Qg4JNXRabO9CU2qvkQ=="><input type="hidden" name="redirect_path" id="redirect_path" value="/kaki_k/items/e824cfcf089e75d43551"><input type="hidden" name="item_uuid" id="item_uuid" value="e824cfcf089e75d43551"><p>この投稿にどのような問題がありますか？</p><br><div class="form-group"><ul class="list-unstyled"><li><label><input type="radio" name="report_type" id="report_type_spam" value="spam" required="required"> スパムです </label></li><li><label><input type="radio" name="report_type" id="report_type_harassment" value="harassment" required="required"> 攻撃的または迷惑な内容を含んでいます </label></li><li><label><input type="radio" name="report_type" id="report_type_inappropriate_content" value="inappropriate_content" required="required"> 不適切な内容を含んでいます </label></li></ul></div><div class="reportForm_submitButtonContainer"><button name="button" type="submit" class="btn btn-primary reportForm_submitButton"><i class="fa fa-send"></i> 送信</button></div></form></div></div></div></div><script id="js-item" type="application/json">{ "url": "http://qiita.com/kaki_k/items/e824cfcf089e75d43551", "id": 99729, "uuid": "e824cfcf089e75d43551" }</script><script class="js-user" type="application/json">{&quot;id&quot;:48136,&quot;url_name&quot;:&quot;kaki_k&quot;,&quot;profile_image_url&quot;:&quot;https://qiita-image-store.s3.amazonaws.com/0/48136/profile-images/1473691243&quot;}</script><script language="JavaScript" src="./Python Django入門 (2) Mac編 - Qiita_files/qiita_bigmining.js" type="text/javascript"></script></div><script src="./Python Django入門 (2) Mac編 - Qiita_files/adrequest.js"></script><footer class="footer"><div class="footer_inner"><div class="footer_container"><ul class="footer_links-left"><li class="footer_link"><a class="footer_copyright" href="http://increments.co.jp/">© 2011-2017 Increments Inc.</a></li><li class="footer_link"><a href="http://qiita.com/terms">利用規約</a></li><li class="footer_link"><a href="http://qiita.com/privacy">プライバシー</a></li><li class="footer_link"><a href="http://help.qiita.com/">ヘルプ</a></li><li class="footer_link"><a href="https://increments.zendesk.com/anonymous_requests/new">お問い合わせ</a></li></ul><ul class="footer_links-right"><li class="footer_link"><a href="http://qiita.com/about">Qiitaとは</a></li><li class="footer_link"><a href="http://qiita.com/users">ユーザー</a></li><li class="footer_link"><a href="http://qiita.com/tags">タグ</a></li><li class="footer_link"><a href="http://blog.qiita.com/">ブログ</a></li><li class="footer_link"><a href="http://qiita.com/api/v2/docs">API</a></li><li class="footer_link"><a href="https://teams.qiita.com/">Team</a></li><li class="footer_link"><a href="http://kobito.qiita.com/">Kobito</a></li><li class="footer_link"><a class="js-public-form-feedback-link" data-target=".js-feedback-form" data-toggle="modal" href="http://qiita.com/kaki_k/items/e824cfcf089e75d43551"><i class="fa fa-heart"></i> ご意見 <i class="fa fa-caret-down"></i></a></li></ul></div></div></footer><div class="js-feedback-form modal fade feedbackForm"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button name="button" type="submit" class="close" data-dismiss="modal">×</button><h4 class="modal-title">ご意見</h4></div><div class="modal-body"><form class="js-feedback-form-form" action="http://qiita.com/feedbacks" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="EBpoAMxWHpMbA57wpUGIKicqYSV+LRLNNQi6oOWNdGnBCZY9SyClpmrejparyyyyQkc2Qg4JNXRabO9CU2qvkQ=="><input type="hidden" name="redirect_path" id="redirect_path" value="/kaki_k/items/e824cfcf089e75d43551"><div class="form-group"><textarea name="feedback[message]" id="feedback_message" class="form-control js-feedback-form-text-area" placeholder="Qiitaについてのご意見をお聞かせください。" required="required" rows="5"></textarea></div><div class="feedbackForm_submitButtonContainer"><button name="button" type="submit" class="btn btn-primary feedbackForm_submitButton"><i class="fa fa-send"></i> 送信</button><p class="feedbackForm_note">いただいたご意見への返信は行っておりません。<br>返信の必要な内容については、<a href="https://increments.zendesk.com/anonymous_requests/new">こちら</a> からお問い合わせください。</p></div><div style="position:fixed;top:-99999px;opacity:0.0001;"><input name="feedback[name]" type="text"></div></form></div></div></div></div><script>// if (window.mixpanel instanceof Element) {
+//   window.mixpanel = [];
+// }
+// (function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+// for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);</script><script src="./Python Django入門 (2) Mac編 - Qiita_files/public-ea9634d328dd01703100922f07784313.min.js"></script><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Python Django入門 (2) Mac編 - Qiita_files/0F7S7QWJ0Ac.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Python Django入門 (2) Mac編 - Qiita_files/0F7S7QWJ0Ac(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="f134fd022dd598" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" src="./Python Django入門 (2) Mac編 - Qiita_files/ping.html" style="display: none;"></iframe></div></div></div><script>
+  (function () {
+    var script = document.getElementsByTagName('script')[0];
+    var load = function (src, id) {
+      var el = document.createElement('script');
+      el.async = true;
+      el.src = src;
+      el.id = id;
+      script.parentNode.insertBefore(el, script);
+    };
+      // Optimizely
+      load('//cdn.optimizely.com/js/52738645.js', 'optimizely-jssdk');
+      // Google Analytics
+      window._gaq = window._gaq || [];
+      var isCareer = location.hostname.split('.')[0] == 'career';
+      if (isCareer) {
+        window._gaq.push(['_setAccount', 'UA-24675221-11']);
+        window._gaq.push(['_setDomainName', 'qiita.com']);
+      } else {
+        window._gaq.push(['_setAccount', 'UA-24675221-1']);
+      }
+      window._gaq.push(['_setCustomVar', 1, 'logged_in', 'false', 2]);
+      window._gaq.push(['_trackPageview']);
+      var src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      load(src, 'google-analytics-jssdk');
+    // Google Analytics - Universal Analytics
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-24675221-12', {
+          
+        });
+        ga('set', 'dimension1', 'false');
+        ga('set', 'dimension3', 'false');
+      ga('require', 'displayfeatures');
+      ga('set', 'forceSSL', true);
+      ga('send', 'pageview');
+    // Google Tag Manager
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-TBQWPN');
+  })();
+</script>
+<div class="ReactModalPortal"><div data-reactroot=""></div></div><script type="text/javascript" id="">var googletag=googletag||{};googletag.cmd=googletag.cmd||[];googletag.cmd.push(function(){googletag.defineSlot("/383564218/qiita.com_items-show_under-article-left",[336,280],"div-gpt-ad-1489567219879-0").addService(googletag.pubads());googletag.pubads().enableSingleRequest();googletag.pubads().collapseEmptyDivs();googletag.enableServices()});
+googletag.cmd.push(function(){googletag.defineSlot("/383564218/qiita.com_items-show_under-article-right",[336,280],"div-gpt-ad-1489568123856-0").addService(googletag.pubads());googletag.pubads().enableSingleRequest();googletag.pubads().collapseEmptyDivs();googletag.enableServices()});
+$(function(){var a=$("\x3cdiv\x3e").css("text-align","center").append("\x3cdiv style\x3d'display:inline-block;margin:10px;'\x3e\x3cdiv id\x3d'div-gpt-ad-1489567219879-0' style\x3d'height:280px; width:336px;'\x3e\x3c/div\x3e\x3c/div\x3e").append("\x3cdiv style\x3d'display:inline-block;margin:10px;'\x3e\x3cdiv id\x3d'div-gpt-ad-1489568123856-0' style\x3d'height:280px; width:336px;'\x3e\x3c/div\x3e\x3c/div\x3e");$(".ArticleFooter__menu").before(a);googletag.cmd.push(function(){googletag.display("div-gpt-ad-1489567219879-0")});
+googletag.cmd.push(function(){googletag.display("div-gpt-ad-1489568123856-0")})});</script>
+<script type="text/javascript" id="">var googletag=googletag||{};googletag.cmd=googletag.cmd||[];googletag.cmd.push(function(){googletag.defineSlot("/383564218/qiita.com_items-show_sidebar-top",[300,250],"div-gpt-ad-1493084685571-0").addService(googletag.pubads());googletag.pubads().enableSingleRequest();googletag.pubads().collapseEmptyDivs();googletag.enableServices()});</script>
+
+
+<script type="text/javascript" id="">$("#article-body-wrapper \x3e .col-sm-3").prepend("\x3cdiv id\x3d'div-gpt-ad-1493084685571-0' style\x3d'height:250px; width:300px; margin-bottom: 20px;'\x3e");googletag.cmd.push(function(){googletag.display("div-gpt-ad-1493084685571-0")});</script><script type="text/javascript" id="" src="./Python Django入門 (2) Mac編 - Qiita_files/gpt.js"></script><img src="./Python Django入門 (2) Mac編 - Qiita_files/adevent" width="0" height="0" style="display: none;"><iframe name="oauth2relay1418308014" id="oauth2relay1418308014" src="./Python Django入門 (2) Mac編 - Qiita_files/postmessageRelay.html" tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe" src="./Python Django入門 (2) Mac編 - Qiita_files/saved_resource(2).html"></iframe><img src="./Python Django入門 (2) Mac編 - Qiita_files/dmp" width="1" height="1" border="0" style="display: none;"><img src="./Python Django入門 (2) Mac編 - Qiita_files/pixel" width="1" height="1" border="0" style="display: none;"><img src="./Python Django入門 (2) Mac編 - Qiita_files/adsct" width="1" height="1" border="0" style="display: none;"><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-58Z82M');</script><iframe id="google_osd_static_frame_518008566037" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./Python Django入門 (2) Mac編 - Qiita_files/saved_resource(3).html"></iframe></body></html>

@@ -1,0 +1,1 @@
+BigGlobalLib.proxy_callback('');
