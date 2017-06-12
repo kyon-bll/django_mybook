@@ -3,6 +3,13 @@
 \#*
 \.#*
 
+# Django
+db.sqlite3
+
+###################
+# python
+###################
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
