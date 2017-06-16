@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cms'
+    'bootstrapform'  # django-bootstrap-form
 ]
 
 MIDDLEWARE_CLASSES = [
