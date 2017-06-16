@@ -13,7 +13,8 @@ class Book(models.Model):
 
 class Impression(models.Model):
     """感想"""
-    book = models.ForeignKey(Book, verbose_name='書籍', related_name='impressions')
+    book = models.ForeignKey(Book, verbose_name='書籍',
+                             related_name='impressions')
     comment = models.TextField('コメント', blank=True)
 
     def __str__(self):
