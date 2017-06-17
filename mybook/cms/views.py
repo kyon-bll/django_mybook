@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+# from django.http import HttpResponse
 
 from cms.models import Book
 from cms.forms import BookForm
+
+from django.views.generic.list import ListView
 
 
 def book_list(request):
@@ -40,3 +42,18 @@ def book_del(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
     book.delete()
     return redirect('cms:book_list')
+
+
+class ImpressionList(ListView):
+    """感想の一覧"""
+    context_object_name = 'impressions'
+    template_name = 'cms/impression_list.html'
+    paginate_by = 2             # 1ページは最大2件でページング
+
+    def get(self, request, *args, **kwargs):
+        book = get_object_or_404(Book, pk=kwargs['book_id'])  # 親書籍
+        impressions = book.impressions.all().order_by('id')   # 書籍の感想
+        self.object_list = impressions
+
+        context = self.get_context_data(object_list=self.object_list, book=book)
+        return self.render_to_response(context)
