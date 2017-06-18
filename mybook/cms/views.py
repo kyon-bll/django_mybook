@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 
-from cms.models import Book
-from cms.forms import BookForm
+from cms.models import Book, Impression
+from cms.forms import BookForm, ImpressionForm
 
 from django.views.generic.list import ListView
 
@@ -61,7 +61,25 @@ class ImpressionList(ListView):
 
 def impression_edit(request, book_id=None, impression_id=None):
     """感想の編集・追加"""
-    return HttpResponse('書籍の編集・追加')
+    # return HttpResponse('書籍の編集・追加')
+    book = get_object_or_404(Book, pk=book_id)  # 親のBook
+    if impression_id:                           # 編集
+        impression = get_object_or_404(Impression, pk=impression_id)
+    else:                                       # 追加
+        impression = Impression()
+
+    if request.method == 'POST':
+        form = ImpressionForm(request.POST, instance=impression)
+        if form.is_valid():
+            impression = form.save(commit=False)
+            impression.save()
+            return redirect('cms:impression', book_id=book_id)
+    else:
+        form = ImpressionForm(instance=impression)
+
+    return render(request,
+                  'cms/impression_edit.html',
+                  dict(form=form, book_id=book_id, impression_id=impression_id))
 
 
 def impression_del(request, book_id=None, impression_id=None):
