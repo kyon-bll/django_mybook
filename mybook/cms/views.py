@@ -72,8 +72,9 @@ def impression_edit(request, book_id=None, impression_id=None):
         form = ImpressionForm(request.POST, instance=impression)
         if form.is_valid():
             impression = form.save(commit=False)
+            impression.book = book
             impression.save()
-            return redirect('cms:impression', book_id=book_id)
+            return redirect('cms:impression_list', book_id=book_id)
     else:
         form = ImpressionForm(instance=impression)
 
