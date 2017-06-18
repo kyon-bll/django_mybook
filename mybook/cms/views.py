@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-# from django.http import HttpResponse
+from django.http import HttpResponse
 
 from cms.models import Book
 from cms.forms import BookForm
@@ -57,3 +57,13 @@ class ImpressionList(ListView):
 
         context = self.get_context_data(object_list=self.object_list, book=book)
         return self.render_to_response(context)
+
+
+def impression_edit(request, book_id=None, impression_id=None):
+    """感想の編集・追加"""
+    return HttpResponse('書籍の編集・追加')
+
+
+def impression_del(request, book_id=None, impression_id=None):
+    """感想の削除"""
+    return HttpResponse('書籍の削除')    
