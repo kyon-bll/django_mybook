@@ -65,5 +65,5 @@ def impression_edit(request, book_id=None, impression_id=None):
 
 
 def impression_del(request, book_id=None, impression_id=None):
-    """感想の削除"""
-    return HttpResponse('書籍の削除')    
+    """感想削除"""
+    return HttpResponse('書籍の削除')
