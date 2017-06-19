@@ -85,4 +85,7 @@ def impression_edit(request, book_id=None, impression_id=None):
 
 def impression_del(request, book_id=None, impression_id=None):
     """感想削除"""
-    return HttpResponse('書籍の削除')
+    # return HttpResponse('書籍の削除')
+    impression = get_object_or_404(Impression, pk=impression_id)
+    impression.delete()
+    return redirect('cms:impression_list', book_id=book_id)
